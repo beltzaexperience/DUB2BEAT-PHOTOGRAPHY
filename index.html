@@ -360,7 +360,11 @@ html, body {
 
 <div class="gap"></div>
 <div class="wing"><div class="wing-inner">
-  <div class="wing-label">TEMAS</div>
+  <div class="wing-sidebar">
+    <div class="ws-head">TEMAS</div>
+    <div class="ws-item ws-linked" onclick="openAlbum()">FOTOGRAFÍA CALLEJERA <span class="ws-dot">·</span></div>
+    <div class="ws-item">AUTORRETRATOS</div>
+  </div>
 </div></div>
 <div class="gap"></div>
 <div class="center">
@@ -410,8 +414,8 @@ html, body {
         </div>
 
         <div class="cover-footer">
-          <div style="flex:1;"></div>
           <div class="cover-sig">Luis Beltza</div>
+          <div class="cover-sig" style="font-family:'Special Elite',monospace; font-size:clamp(.65rem,1.9vw,.95rem); color:#8b1a1a; letter-spacing:.15em; align-self:flex-end; cursor:pointer;" onclick="openAlbum()">DUB²BEAT · PÁG. 1 <span style="font-size:1.4em;">▸</span></div>
         </div>
 
       </div>
@@ -425,9 +429,468 @@ html, body {
 </div>
 <div class="gap"></div>
 <div class="wing"><div class="wing-inner">
-  <div class="wing-label">ÍNDICE</div>
+  <div class="wing-sidebar">
+    <div class="ws-head">ÍNDICE</div>
+    <div class="ws-item ws-linked" onclick="openAlbum()">ZOO HUMANO <span class="ws-dot">·</span></div>
+    <div class="ws-item ws-linked" onclick="openAlbum()">ANTROPOLOGÍA SOCIAL <span class="ws-dot">·</span></div>
+  </div>
 </div></div>
 <div class="gap"></div>
+
+
+
+<!-- ══════════════════════════════════════════
+     ÁLBUM DUB² BEAT
+══════════════════════════════════════════ -->
+<style>
+/* OVERLAY */
+.album-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: #0a0806;
+}
+.album-overlay.open { display: flex; flex-direction: column; }
+
+/* MISMA ESTRUCTURA TRÍPTICO */
+.alb-scene {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.alb-wing {
+  flex: 1;
+  align-self: stretch;
+  background: url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg') center/cover;
+  box-shadow: 4px 6px 28px rgba(0,0,0,.65);
+  margin: .8rem 0;
+}
+.alb-gap { width: 10px; flex-shrink: 0; }
+
+/* SPREAD */
+.alb-book {
+  width: 100%; height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* PÁGINA — ocupa la mitad */
+.spread {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .05s;
+}
+.spread.active { opacity: 1; pointer-events: all; }
+
+.page {
+  flex: 1;
+  position: relative;
+  background: url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg') center/cover;
+  overflow: hidden;
+}
+.page::before {
+  content:''; position:absolute; inset:0;
+  background: rgba(230,220,205,.42); z-index:0;
+}
+.page-inner {
+  position: relative; z-index: 1;
+  height: 100%;
+  padding: clamp(.8rem,3%,1.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  overflow: hidden;
+}
+
+/* SEPARADOR CENTRAL */
+.page-sep {
+  width: 6px; flex-shrink: 0;
+  background: linear-gradient(90deg, #1a120c, #2e1f14 40%, #120d08);
+  box-shadow: 2px 0 8px rgba(0,0,0,.4);
+}
+
+/* FOTO MONTADA */
+.mount {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: .45rem .45rem 1.6rem;
+  box-shadow: 2px 3px 10px rgba(42,32,24,.28);
+  max-width: 100%;
+  max-height: 88%;
+  overflow: hidden;
+}
+.mount img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex: 1;
+  min-height: 0;
+  filter: contrast(1.04) brightness(.95);
+}
+.mount-cap {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(.7rem,1.8vw,1rem);
+  color: #444;
+  padding: .25rem .1rem .05rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* CELLO */
+.cello {
+  position: absolute;
+  top: -7px; left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: clamp(30px,6%,48px);
+  height: 14px;
+  background: rgba(255,240,170,.52);
+  border: 1px solid rgba(210,185,110,.35);
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  z-index: 10;
+}
+.mount:nth-child(odd)  { transform: rotate(-1.2deg); }
+.mount:nth-child(even) { transform: rotate(.7deg); }
+
+/* TEXTOS */
+.pg-title {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(1rem,2.8vw,1.5rem);
+  letter-spacing: .06em;
+  color: #8b1a1a;
+  line-height: 1.2;
+}
+.pg-text {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.72rem,1.8vw,1rem);
+  color: rgba(42,32,24,.75);
+  line-height: 1.65;
+  letter-spacing: .02em;
+}
+.pg-num {
+  margin-top: auto;
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.4rem,1vw,.55rem);
+  letter-spacing: .2em;
+  color: rgba(42,32,24,.3);
+  text-align: center;
+}
+
+/* ANIMACIÓN PASO PÁGINA */
+@keyframes slideIn  { from { transform: translateX( 60px); opacity:0; } to { transform: translateX(0); opacity:1; } }
+@keyframes slideOut { from { transform: translateX(0); opacity:1; } to { transform: translateX(-60px); opacity:0; } }
+@keyframes slideInR { from { transform: translateX(-60px); opacity:0; } to { transform: translateX(0); opacity:1; } }
+.spread.entering { animation: slideIn  .35s cubic-bezier(.4,0,.2,1) forwards; }
+.spread.leaving  { animation: slideOut .35s cubic-bezier(.4,0,.2,1) forwards; }
+.spread.entering-back { animation: slideInR .35s cubic-bezier(.4,0,.2,1) forwards; }
+
+
+
+/* ── WING SIDEBAR ── */
+.wing-sidebar {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: clamp(1.5rem,4%,2.5rem) clamp(.6rem,8%,1.2rem);
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.wing-sidebar::-webkit-scrollbar { display: none; }
+
+.ws-head {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(1.1rem,3.6vw,1.7rem);
+  letter-spacing: .18em;
+  color: #8b1a1a;
+  margin-bottom: .8rem;
+  padding-bottom: .4rem;
+  border-bottom: 1px solid rgba(42,32,24,.2);
+}
+
+.ws-item {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.55rem,1.5vw,.82rem);
+  letter-spacing: .12em;
+  color: rgba(42,32,24,.80);
+  cursor: pointer;
+  padding: .3rem 0;
+  border-bottom: 1px solid rgba(42,32,24,.08);
+  transition: color .2s;
+  line-height: 1.4;
+}
+.ws-item:hover { color: #8b1a1a; }
+.ws-linked { cursor: pointer; }
+.ws-linked:hover .ws-dot { opacity: 1; }
+.ws-dot { color: #8b1a1a; opacity: 0; transition: opacity .2s; font-size: .7em; }
+
+
+/* ── ALBUM DROPDOWNS ── */
+.alb-drop-wrap {
+  position: relative;
+  display: inline-block;
+}
+.alb-drop-trigger {
+  cursor: pointer;
+}
+.alb-drop {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(14,10,8,.97);
+  border: 1px solid rgba(200,146,42,.4);
+  min-width: 200px;
+  z-index: 1001;
+  padding: .3rem 0;
+}
+.alb-drop-wrap.open .alb-drop { display: block; }
+.alb-drop-item {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.55rem,1.4vw,.78rem);
+  letter-spacing: .15em;
+  color: rgba(232,220,200,.75);
+  padding: .45rem 1rem;
+  cursor: pointer;
+  transition: color .15s;
+}
+.alb-drop-item:hover { color: #c8922a; }
+.alb-drop-item.muted { color: rgba(232,220,200,.35); cursor: default; }
+.alb-drop-item.muted:hover { color: rgba(232,220,200,.35); }
+
+/* ── DROPDOWNS ── */
+.dropdown-trigger { position: relative; cursor: pointer; user-select: none; }
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20,14,10,.95);
+  border: 1px solid rgba(139,26,26,.4);
+  min-width: 200px;
+  z-index: 1000;
+  padding: .4rem 0;
+}
+.dropdown.open { display: block; }
+.drop-item {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.55rem,1.4vw,.78rem);
+  letter-spacing: .15em;
+  color: rgba(232,220,200,.7);
+  padding: .45rem 1rem;
+  cursor: pointer;
+  transition: color .15s, background .15s;
+}
+.drop-item:hover { color: #8b1a1a; background: rgba(139,26,26,.08); }
+
+/* TOP BAR ÁLBUM */
+.alb-top {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: .5rem 1.5rem;
+}
+.alb-top a {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.55rem,1.5vw,.8rem);
+  letter-spacing: .2em;
+  color: rgba(255,255,255,.7);
+  text-decoration: none;
+  transition: color .2s;
+}
+.alb-top a:hover { color: #fff; }
+.alb-top-sep { color: rgba(255,255,255,.2); font-size: .5rem; }
+.alb-top-tema { color: rgba(255,255,255,.7); font-family: 'Special Elite', monospace; font-size: clamp(.55rem,1.5vw,.8rem); letter-spacing:.2em; cursor:pointer; }
+
+/* NAV ÁLBUM */
+.alb-nav {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: .5rem 0;
+}
+.alb-btn {
+  background: none; border: none; cursor: pointer;
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.55rem,1.5vw,.8rem);
+  letter-spacing: .2em;
+  color: rgba(255,255,255,.7);
+  transition: color .2s;
+}
+.alb-btn:hover:not(:disabled) { color: #fff; }
+.alb-btn:disabled { opacity: .15; cursor: default; }
+.alb-info {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.45rem,1.2vw,.65rem);
+  letter-spacing: .2em;
+  color: rgba(255,255,255,.5);
+}
+</style>
+
+<!-- OVERLAY -->
+<div class="album-overlay" id="albumOverlay">
+  <div class="alb-top">
+    <span class="alb-drop-wrap">
+      <span class="alb-top-tema alb-drop-trigger">TEMAS ▾</span>
+      <div class="alb-drop">
+        <div class="alb-drop-item">FOTOGRAFÍA CALLEJERA</div>
+        <div class="alb-drop-item muted">AUTORRETRATOS</div>
+      </div>
+    </span>
+    <a href="https://beltzarecords.com" target="_blank">BELTZARECORDS.COM</a>
+    <span class="alb-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/Manifiesto-Beltza/" target="_blank">MANIFIESTO BELTZA</a>
+    <span class="alb-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/magic-bus/" target="_blank">MAGIC BUS</a>
+    <span class="alb-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/UR-SAPIENS/" target="_blank">UR_BOOK</a>
+    <span class="alb-top-sep">·</span>
+    <span class="alb-drop-wrap">
+      <span class="alb-top-tema alb-drop-trigger">ÍNDICE ▾</span>
+      <div class="alb-drop">
+        <div class="alb-drop-item">ZOO HUMANO</div>
+        <div class="alb-drop-item">ANTROPOLOGÍA SOCIAL</div>
+      </div>
+    </span>
+  </div>
+  <div class="alb-scene">
+    <div class="alb-book" id="albBook">
+
+      <!-- SPREAD 1: FUEGO, ADICCIÓN Y MUERTE -->
+      <div class="spread active" id="sp-1">
+        <!-- Página izquierda: foto -->
+        <div class="page">
+          <div class="page-inner" style="align-items:center; justify-content:center;">
+            <div class="mount">
+              <div class="cello"></div>
+              <img src="https://live.staticflickr.com/65535/55212329835_2ef329cde9_b.jpg" alt="Fuego Adicción y Muerte">
+              <div class="mount-cap">Donostia · FUEGO, ADICCIÓN Y MUERTE!!!</div>
+            </div>
+            <div class="pg-num">I</div>
+          </div>
+        </div>
+        <div class="page-sep"></div>
+        <!-- Página derecha: título + texto -->
+        <div class="page">
+          <div class="page-inner">
+            <div class="pg-title">FUEGO, ADICCIÓN Y MUERTE!!!</div>
+            <div class="pg-text">Ya lo he comentado en más de una ocasión, el poder de la fotografía me sienta fatal, me coloca en un plano superior, en un plano de control con el que no me siento identificado. Siempre con la mayor naturalidad y respeto hacia todos los personajes de este Zoo Humano, pero el remordimiento por obturar la vida humana en milésimas de segundo — en este caso 1/120 — me produce una sensación de Killer Fascista.<br><br>La cara B está llena de antropología social o de sociología de lo común, de "sensibilidad artística", de necesidad vital por narrar los acontecimientos que nos rodean, de incidir en nuestras debilidades personales, de escanear mi propia existencia, la fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos. Al final nunca encontramos el meollo del contenido y nos perdemos en la suciedad del protagonismo, el maloliente exhibicionismo personal y en infinitas capas estéticas.</div>
+            <div class="pg-num">II</div>
+          </div>
+        </div>
+      </div><!-- /sp-1 -->
+
+      <!-- SPREAD 2: placeholder — añadir fotos aquí -->
+      <div class="spread" id="sp-2">
+        <div class="page">
+          <div class="page-inner" style="align-items:center;justify-content:center;">
+            <div style="font-family:'Special Elite',monospace;font-size:.6rem;color:rgba(42,32,24,.25);letter-spacing:.2em;">— próxima foto —</div>
+            <div class="pg-num">III</div>
+          </div>
+        </div>
+        <div class="page-sep"></div>
+        <div class="page">
+          <div class="page-inner" style="align-items:center;justify-content:center;">
+            <div style="font-family:'Special Elite',monospace;font-size:.6rem;color:rgba(42,32,24,.25);letter-spacing:.2em;">— próxima foto —</div>
+            <div class="pg-num">IV</div>
+          </div>
+        </div>
+      </div><!-- /sp-2 -->
+
+    </div><!-- /alb-book -->
+  </div><!-- /alb-scene -->
+
+  <div class="alb-nav">
+    <button class="alb-btn" id="btnClose" onclick="closeAlbum()">✕ PORTADA</button>
+    <button class="alb-btn" id="btnPrev" onclick="albumPrev()" disabled>◂ ANTERIOR</button>
+    <span class="alb-info" id="albInfo">PÁG. 1</span>
+    <button class="alb-btn" id="btnNext" onclick="albumNext()">SIGUIENTE ▸</button>
+  </div>
+</div>
+
+<script>
+const TOTAL = 2;
+let cur = 1;
+let busy = false;
+
+function openAlbum() {
+  document.getElementById('albumOverlay').classList.add('open');
+  cur = 1; updateNav();
+}
+function closeAlbum() {
+  document.getElementById('albumOverlay').classList.remove('open');
+}
+
+function albumNext() {
+  if (busy || cur >= TOTAL) return;
+  go(cur + 1, 'forward');
+}
+function albumPrev() {
+  if (busy || cur <= 1) return;
+  go(cur - 1, 'back');
+}
+
+function go(n, dir) {
+  busy = true;
+  const leaving  = document.getElementById('sp-' + cur);
+  const entering = document.getElementById('sp-' + n);
+  leaving.classList.add('leaving');
+  entering.classList.add(dir === 'forward' ? 'entering' : 'entering-back');
+  entering.classList.add('active');
+  setTimeout(() => {
+    leaving.classList.remove('active','leaving');
+    entering.classList.remove('entering','entering-back');
+    cur = n; updateNav(); busy = false;
+  }, 360);
+}
+
+function updateNav() {
+  document.getElementById('btnPrev').disabled = cur <= 1;
+  document.getElementById('btnNext').disabled = cur >= TOTAL;
+  document.getElementById('albInfo').textContent = 'PÁG. ' + cur + ' / ' + TOTAL;
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('albumOverlay').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') albumNext();
+  if (e.key === 'ArrowLeft')  albumPrev();
+  if (e.key === 'Escape')     closeAlbum();
+});
+</script>
+
+
+<script>
+// Album dropdowns
+document.querySelectorAll('.alb-drop-trigger').forEach(trigger => {
+  trigger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const wrap = this.closest('.alb-drop-wrap');
+    const wasOpen = wrap.classList.contains('open');
+    document.querySelectorAll('.alb-drop-wrap.open').forEach(w => w.classList.remove('open'));
+    if (!wasOpen) wrap.classList.add('open');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.alb-drop-wrap.open').forEach(w => w.classList.remove('open'));
+});
+</script>
 
 </body>
 </html>
