@@ -21,6 +21,16 @@ html, body {
   overflow: hidden;
 }
 
+
+.cover-logo {
+  position: absolute;
+  right: clamp(.5rem, 3%, 1.2rem);
+  top: 50%;
+  transform: translateY(-60%);
+  width: clamp(80px, 18%, 160px);
+  opacity: .85;
+}
+
 /* ── MESA / SUPERFICIE ── */
 body::before {
   content: '';
@@ -236,7 +246,7 @@ body::before {
 .cover-sig {
   font-family: 'Caveat', cursive;
   font-size: clamp(.8rem, 3vw, 1.5rem);
-  color: #fff;
+  color: #1F4E9A;
   line-height: 1;
 }
 
@@ -362,8 +372,8 @@ html, body {
 <div class="wing"><div class="wing-inner">
   <div class="wing-sidebar">
     <div class="ws-head">TEMAS</div>
-    <div class="ws-item ws-linked" onclick="openAlbum()">FOTOGRAFÍA CALLEJERA <span class="ws-dot">·</span></div>
     <div class="ws-item">AUTORRETRATOS</div>
+    <div class="ws-item ws-linked" onclick="openAlbum()">FOTOGRAFÍA CALLEJERA <span class="ws-dot">·</span></div>
   </div>
 </div></div>
 <div class="gap"></div>
@@ -399,7 +409,7 @@ html, body {
           </svg>
         </div>
 
-        <div class="cover-center">
+        <div class="cover-center" style="margin-top:-2rem;">
           <div class="cover-title">DUB<span class="sq">²</span><br>BEAT</div>
           <div class="cover-rule"></div>
         <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block;">
@@ -408,18 +418,82 @@ html, body {
             font-size="44"
             fill="rgba(42,32,24,.90)"
             textLength="1000"
-            lengthAdjust="spacingAndGlyphs">"la fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos."</text>
+            lengthAdjust="spacingAndGlyphs">"<tspan fill="#8b1a1a">la fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos.</tspan>"</text>
+        </svg>
+        <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block; margin-top:.25rem;">
+          <text x="0" y="40"
+            font-family="Special Elite, monospace"
+            font-size="44"
+            fill="rgba(42,32,24,.90)"
+            textLength="1000"
+            lengthAdjust="spacingAndGlyphs">"<tspan fill="#8b1a1a">Es sólo fotografía, las posibles interpretaciones son productos de nuestra imaginación.</tspan>"</text>
         </svg>
 
         </div>
 
         <div class="cover-footer">
-          <div class="cover-sig">Luis Beltza</div>
-          <div class="cover-sig" style="font-family:'Special Elite',monospace; font-size:clamp(.65rem,1.9vw,.95rem); color:#8b1a1a; letter-spacing:.15em; align-self:flex-end; cursor:pointer;" onclick="openAlbum()">DUB²BEAT · PÁG. 1 <span style="font-size:1.4em;">▸</span></div>
+          <a href="https://beltzarecords.com" target="_blank" class="cover-sig" style="text-decoration:none; transition:color .2s;" onmouseover="this.style.color='#8b1a1a'" onmouseout="this.style.color='#1F4E9A'">Luis Beltza</a>
+          <div style="display:flex; gap:1.5rem; align-items:flex-end;">
+          <div style="font-family:'Special Elite',monospace; font-size:clamp(.65rem,1.9vw,.95rem); color:#fff; letter-spacing:.15em; cursor:pointer;" onclick="openAlbumSlide()">▶ DIAPOSITIVAS</div>
+          <div style="font-family:'Special Elite',monospace; font-size:clamp(.65rem,1.9vw,.95rem); color:#fff; letter-spacing:.15em; cursor:pointer;" onclick="openAlbum()">DUB²BEAT · PÁG. 1 <span style="font-size:1.4em;">▸</span></div>
+        </div>
         </div>
 
       </div>
-    </div><!-- /cover -->
+    <svg style="position:absolute; right:clamp(3rem,12%,5rem); top:50%; transform:translateY(-65%); width:clamp(140px,28%,280px);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <path id="top" d="M 65,250 A 185,185 0 0,1 435,250"/>
+    <path id="bot" d="M 57,258 A 193,193 0 0,0 443,258"/>
+
+    <!-- Máscara: círculo exterior con huecos para el 35mm -->
+    <mask id="ring-mask">
+      <!-- Todo blanco = visible -->
+      <rect width="500" height="500" fill="white"/>
+      <!-- Huecos 35mm en negro = recorte -->
+      <rect x="4"   y="225" width="44" height="34" rx="4" fill="black"/>
+      <rect x="452" y="225" width="44" height="34" rx="4" fill="black"/>
+    </mask>
+  </defs>
+
+  <!-- ANILLO NEGRO EXTERIOR — con máscara para el 35mm -->
+  <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#ring-mask)"/>
+
+  <!-- BANDA BLANCA -->
+  <circle cx="250" cy="250" r="228" fill="#fff"/>
+
+  <!-- LÍNEA FINA SEPARADORA BANDA -->
+  <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+
+  <!-- CÍRCULO INTERIOR ROJO -->
+  <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
+
+  <!-- 35MM BICOLOR — encima de todo -->
+  <!-- Izquierdo -->
+  <rect x="4"   y="225" width="44" height="34" rx="4" fill="#fff"/>
+  <rect x="22"  y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+  <!-- Derecho -->
+  <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/>
+  <rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+
+  <!-- TEXTO SUPERIOR -->
+  <text font-family="'Special Elite', monospace" font-size="27" fill="#0a0a0a" letter-spacing="4">
+    <textPath href="#top" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan>
+    </textPath>
+  </text>
+
+  <!-- TEXTO INFERIOR -->
+  <text font-family="'Special Elite', monospace" font-size="27" fill="#0a0a0a" letter-spacing="3">
+    <textPath href="#bot" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath>
+  </text>
+
+  <!-- D²B INCLINADO -->
+  <g transform="translate(250,290) rotate(-8)">
+    <text font-family="'Special Elite', monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan>
+    </text>
+  </g>
+
+</svg>
+</div><!-- /cover -->
 
     <!-- CANTOS DE PÁGINAS -->
     <div class="pages-edge"></div>
@@ -431,8 +505,9 @@ html, body {
 <div class="wing"><div class="wing-inner">
   <div class="wing-sidebar">
     <div class="ws-head">ÍNDICE</div>
-    <div class="ws-item ws-linked" onclick="openAlbum()">ZOO HUMANO <span class="ws-dot">·</span></div>
     <div class="ws-item ws-linked" onclick="openAlbum()">ANTROPOLOGÍA SOCIAL <span class="ws-dot">·</span></div>
+    <div class="ws-item ws-linked" onclick="openAlbum()">DONOSTIA <span class="ws-dot">·</span></div>
+    <div class="ws-item ws-linked" onclick="openAlbum()">ZOO HUMANO <span class="ws-dot">·</span></div>
   </div>
 </div></div>
 <div class="gap"></div>
@@ -521,7 +596,7 @@ html, body {
   display: flex;
   flex-direction: column;
   background: #fff;
-  padding: .45rem .45rem 1.6rem;
+  padding: .9rem .9rem 1.6rem;
   box-shadow: 2px 3px 10px rgba(42,32,24,.28);
   max-width: 100%;
   max-height: 88%;
@@ -537,25 +612,56 @@ html, body {
   filter: contrast(1.04) brightness(.95);
 }
 .mount-cap {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(.7rem,1.8vw,1rem);
-  color: #444;
-  padding: .25rem .1rem .05rem;
-  text-align: center;
-  line-height: 1.2;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: .3rem .45rem .05rem;
 }
+.mount-cap-text {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(.65rem,1.6vw,.9rem);
+  color: #1F4E9A;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.mount-cap-text:hover { color: #8b1a1a; text-decoration: none; }
+.mount-cap-sig {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(.65rem,1.6vw,.9rem);
+  color: #1F4E9A;
+  line-height: 1.3;
+  text-align: right;
+  text-decoration: none;
+}
+.mount-cap-sig:hover { color: #8b1a1a; }
 
 /* CELLO */
 .cello {
   position: absolute;
-  top: -7px; left: 50%;
-  transform: translateX(-50%) rotate(-1deg);
-  width: clamp(30px,6%,48px);
-  height: 14px;
-  background: rgba(255,240,170,.52);
+  background: rgba(255,240,170,.55);
   border: 1px solid rgba(210,185,110,.35);
   box-shadow: 0 1px 3px rgba(0,0,0,.1);
   z-index: 10;
+}
+.cello-top {
+  width: clamp(28px,6%,46px); height: 13px;
+  top: -7px; left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+}
+.cello-bottom {
+  width: clamp(28px,6%,46px); height: 13px;
+  bottom: -7px; left: 50%;
+  transform: translateX(-50%) rotate(1deg);
+}
+.cello-left {
+  width: 13px; height: clamp(24px,5%,38px);
+  left: -7px; top: 50%;
+  transform: translateY(-50%) rotate(-1deg);
+}
+.cello-right {
+  width: 13px; height: clamp(24px,5%,38px);
+  right: -7px; top: 50%;
+  transform: translateY(-50%) rotate(1deg);
 }
 .mount:nth-child(odd)  { transform: rotate(-1.2deg); }
 .mount:nth-child(even) { transform: rotate(.7deg); }
@@ -636,6 +742,75 @@ html, body {
 .ws-dot { color: #8b1a1a; opacity: 0; transition: opacity .2s; font-size: .7em; }
 
 
+
+
+.mount-lyric {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(.65rem,1.8vw,.9rem);
+  letter-spacing: .05em;
+  color: #8b1a1a;
+  padding: .05rem .45rem .2rem;
+}
+.pg-lyric {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.72rem,1.8vw,1rem);
+  letter-spacing: .05em;
+  color: #8b1a1a;
+  margin-bottom: .4rem;
+}
+
+.mount-sound {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(.65rem,1.8vw,.9rem);
+  letter-spacing: .05em;
+  padding: .15rem .45rem .1rem;
+}
+.mount-sound a {
+  color: #1F4E9A;
+  text-decoration: none;
+}
+.mount-sound a:hover { color: #c8922a; text-decoration: none; }
+
+.pg-sound {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.72rem,1.8vw,1rem);
+  letter-spacing: .05em;
+  margin-bottom: .2rem;
+  color: rgba(42,32,24,.9);
+}
+.pg-sound-label {
+  color: rgba(42,32,24,.9);
+}
+.pg-sound a {
+  color: #1F4E9A;
+  text-decoration: none;
+}
+.pg-sound a:hover { color: #8b1a1a; }
+
+
+/* ── SLIDESHOW ── */
+.alb-progress {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: #8b1a1a;
+  width: 0%;
+  transition: width linear;
+  z-index: 10;
+}
+
+.alb-btn-pause {
+  background: none; border: none; cursor: pointer;
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.55rem,1.5vw,.8rem);
+  letter-spacing: .2em;
+  color: rgba(255,255,255,.7);
+  transition: color .2s;
+  min-width: 5rem;
+}
+.alb-btn-pause:hover { color: #8b1a1a; }
+.alb-btn-pause.paused { color: #8b1a1a; }
+
 /* ── ALBUM DROPDOWNS ── */
 .alb-drop-wrap {
   position: relative;
@@ -666,7 +841,7 @@ html, body {
   cursor: pointer;
   transition: color .15s;
 }
-.alb-drop-item:hover { color: #c8922a; }
+.alb-drop-item:hover { color: #8b1a1a; }
 .alb-drop-item.muted { color: rgba(232,220,200,.35); cursor: default; }
 .alb-drop-item.muted:hover { color: rgba(232,220,200,.35); }
 
@@ -772,6 +947,7 @@ html, body {
   </div>
   <div class="alb-scene">
     <div class="alb-book" id="albBook">
+      <div class="alb-progress" id="albProgress"></div>
 
       <!-- SPREAD 1: FUEGO, ADICCIÓN Y MUERTE -->
       <div class="spread active" id="sp-1">
@@ -779,46 +955,201 @@ html, body {
         <div class="page">
           <div class="page-inner" style="align-items:center; justify-content:center;">
             <div class="mount">
-              <div class="cello"></div>
+              <div class="cello cello-top"></div>
+              <div class="cello cello-bottom"></div>
+              <div class="cello cello-left"></div>
+              <div class="cello cello-right"></div>
               <img src="https://live.staticflickr.com/65535/55212329835_2ef329cde9_b.jpg" alt="Fuego Adicción y Muerte">
-              <div class="mount-cap">Donostia · FUEGO, ADICCIÓN Y MUERTE!!!</div>
+              <div style="height:.5rem;"></div>
+              <div style="height:.5rem;"></div>
+              <div class="mount-cap"><a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text">Donostia · FUEGO, ADICCIÓN Y MUERTE!!!</a><a href="https://beltzarecords.com" target="_blank" class="mount-cap-sig">Luis Beltza</a></div>
+              <div style="height:.5rem;"></div>
+              <div style="height:.5rem;"></div>
+              <div class="mount-sound"><a href="https://www.youtube.com/watch?v=Bag1gUxuU0g" target="_blank">Foto Sound: Lana Del Rey "Born To Die"</a></div>
+              <div style="height:.5rem;"></div>
+              <div class="mount-lyric">"Sigue haciéndome reir, vamos a drogarnos, nacimos para morir. ¿Es por error o vanidad?"</div>
             </div>
             <div class="pg-num">I</div>
           </div>
         </div>
         <div class="page-sep"></div>
-        <!-- Página derecha: título + texto -->
+                <!-- Página derecha: título + texto -->
         <div class="page">
           <div class="page-inner">
             <div class="pg-title">FUEGO, ADICCIÓN Y MUERTE!!!</div>
-            <div class="pg-text">Ya lo he comentado en más de una ocasión, el poder de la fotografía me sienta fatal, me coloca en un plano superior, en un plano de control con el que no me siento identificado. Siempre con la mayor naturalidad y respeto hacia todos los personajes de este Zoo Humano, pero el remordimiento por obturar la vida humana en milésimas de segundo — en este caso 1/120 — me produce una sensación de Killer Fascista.<br><br>La cara B está llena de antropología social o de sociología de lo común, de "sensibilidad artística", de necesidad vital por narrar los acontecimientos que nos rodean, de incidir en nuestras debilidades personales, de escanear mi propia existencia, la fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos. Al final nunca encontramos el meollo del contenido y nos perdemos en la suciedad del protagonismo, el maloliente exhibicionismo personal y en infinitas capas estéticas.</div>
+            <div class="pg-text">Ya lo he comentado en más de una ocasión, el poder de la fotografía me sienta fatal, me coloca en un plano superior, en un plano de control con el que no me siento identificado. Siempre con la mayor naturalidad y respeto hacia todos los personajes de este <span style="color:#8b1a1a;">Zoo Humano</span>, pero el remordimiento por obturar la vida humana en milésimas de segundo — en este caso 1/120 — me produce una sensación de <strong style="color:#c8922a;">Killer Fascista.</strong><br><br>La cara B está llena de <span style="color:#8b1a1a;">antropología social</span> o de sociología de lo común, de "sensibilidad artística", de necesidad vital por narrar los acontecimientos que nos rodean, de incidir en nuestras debilidades personales, de escanear mi propia existencia, <span style="color:#8b1a1a;">la fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos.</span> Al final nunca encontramos el meollo del contenido y nos perdemos en la suciedad del protagonismo, el maloliente exhibicionismo personal y en infinitas capas estéticas.</div>
+            <svg xmlns="http://www.w3.org/2000/svg" style="width:clamp(140px,28%,280px);display:block;margin-left:auto;margin-right:clamp(2.5rem,11%,4.5rem);margin-top:.5rem;" font-family="'Special Elite', monospace" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <path id="top" d="M 65,250 A 185,185 0 0,1 435,250"/>
+    <path id="bot" d="M 57,258 A 193,193 0 0,0 443,258"/>
+
+    <!-- Máscara: círculo exterior con huecos para el 35mm -->
+    <mask id="ring-mask">
+      <!-- Todo blanco = visible -->
+      <rect width="500" height="500" fill="white"/>
+      <!-- Huecos 35mm en negro = recorte -->
+      <rect x="4"   y="225" width="44" height="34" rx="4" fill="black"/>
+      <rect x="452" y="225" width="44" height="34" rx="4" fill="black"/>
+    </mask>
+  </defs>
+
+  <!-- ANILLO NEGRO EXTERIOR — con máscara para el 35mm -->
+  <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#ring-mask)"/>
+
+  <!-- BANDA BLANCA -->
+  <circle cx="250" cy="250" r="228" fill="#fff"/>
+
+  <!-- LÍNEA FINA SEPARADORA BANDA -->
+  <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+
+  <!-- CÍRCULO INTERIOR ROJO -->
+  <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
+
+  <!-- 35MM BICOLOR — encima de todo -->
+  <!-- Izquierdo -->
+  <rect x="4"   y="225" width="44" height="34" rx="4" fill="#fff"/>
+  <rect x="22"  y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+  <!-- Derecho -->
+  <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/>
+  <rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+
+  <!-- TEXTO SUPERIOR -->
+  <text font-size="27" fill="#0a0a0a" letter-spacing="4">
+    <textPath href="#top" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan>
+    </textPath>
+  </text>
+
+  <!-- TEXTO INFERIOR -->
+  <text font-size="27" fill="#0a0a0a" letter-spacing="3">
+    <textPath href="#bot" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath>
+  </text>
+
+  <!-- D²B INCLINADO -->
+  <g transform="translate(250,290) rotate(-8)">
+    <text text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan>
+    </text>
+  </g>
+
+</svg>
+            <div class="pg-sound"><span class="pg-sound-label">Foto Sound: </span><a href="https://www.youtube.com/watch?v=Bag1gUxuU0g" target="_blank">Lana Del Rey "Born To Die"</a></div>
+            <div class="pg-lyric">"Sigue haciéndome reir, vamos a drogarnos, nacimos para morir. ¿Es por error o vanidad?"</div>
             <div class="pg-num">II</div>
           </div>
         </div>
       </div><!-- /sp-1 -->
 
-      <!-- SPREAD 2: placeholder — añadir fotos aquí -->
+      <!-- SPREAD 2: REAL PUERTO HISPANO AMERICANO DE GIPUZKOA -->
       <div class="spread" id="sp-2">
+        <!-- Página izquierda: foto -->
+        <div class="page">
+          <div class="page-inner" style="align-items:center; justify-content:center;">
+            <div class="mount" style="transform:rotate(.6deg);">
+              <div class="cello cello-top"></div>
+              <div class="cello cello-bottom"></div>
+              <div class="cello cello-left"></div>
+              <div class="cello cello-right"></div>
+              <img src="https://live.staticflickr.com/65535/55212325497_5dd8516848_b.jpg" alt="Real Puerto Hispano Americano de Gipuzkoa">
+              <div style="height:.5rem;"></div>
+              <div style="height:.5rem;"></div>
+              <div class="mount-cap">
+                <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text">Donostia · REAL PUERTO HISPANO AMERICANO DE GIPUZKOA</a>
+                <a href="https://beltzarecords.com" target="_blank" class="mount-cap-sig">Luis Beltza</a>
+              </div>
+              <div style="height:.5rem;"></div>
+              <div style="height:.5rem;"></div>
+              <div class="mount-sound"><a href="https://www.youtube.com/watch?v=mYuwbeQWLnY" target="_blank">Foto Sound: Kenyon Hopkins "Hard Latin"</a></div>
+            </div>
+            <div class="pg-num">III</div>
+          </div>
+        </div>
+        <div class="page-sep"></div>
+        <!-- Página derecha: texto -->
+        <div class="page">
+          <div class="page-inner">
+            <div class="pg-title">REAL PUERTO HISPANO AMERICANO DE GIPUZKOA</div>
+            <div class="pg-text">La fotografía te da la oportunidad de decir cosas sin abrir la boca. Me encanta, claro!!! Pero al final, la fotografía en sí misma, <span style="color:#8b1a1a;">NO ES NADA!!!</span></div>
+            <svg xmlns="http://www.w3.org/2000/svg" style="display:block;width:clamp(140px,28%,280px);height:auto;margin-left:auto;margin-right:clamp(2.5rem,11%,4.5rem);" font-family="'Special Elite', monospace" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <path id="top" d="M 65,250 A 185,185 0 0,1 435,250"/>
+    <path id="bot" d="M 57,258 A 193,193 0 0,0 443,258"/>
+
+    <!-- Máscara: círculo exterior con huecos para el 35mm -->
+    <mask id="ring-mask">
+      <!-- Todo blanco = visible -->
+      <rect width="500" height="500" fill="white"/>
+      <!-- Huecos 35mm en negro = recorte -->
+      <rect x="4"   y="225" width="44" height="34" rx="4" fill="black"/>
+      <rect x="452" y="225" width="44" height="34" rx="4" fill="black"/>
+    </mask>
+  </defs>
+
+  <!-- ANILLO NEGRO EXTERIOR — con máscara para el 35mm -->
+  <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#ring-mask)"/>
+
+  <!-- BANDA BLANCA -->
+  <circle cx="250" cy="250" r="228" fill="#fff"/>
+
+  <!-- LÍNEA FINA SEPARADORA BANDA -->
+  <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+
+  <!-- CÍRCULO INTERIOR ROJO -->
+  <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
+
+  <!-- 35MM BICOLOR — encima de todo -->
+  <!-- Izquierdo -->
+  <rect x="4"   y="225" width="44" height="34" rx="4" fill="#fff"/>
+  <rect x="22"  y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+  <!-- Derecho -->
+  <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/>
+  <rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+
+  <!-- TEXTO SUPERIOR -->
+  <text font-size="27" fill="#0a0a0a" letter-spacing="4">
+    <textPath href="#top" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan>
+    </textPath>
+  </text>
+
+  <!-- TEXTO INFERIOR -->
+  <text font-size="27" fill="#0a0a0a" letter-spacing="3">
+    <textPath href="#bot" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath>
+  </text>
+
+  <!-- D²B INCLINADO -->
+  <g transform="translate(250,290) rotate(-8)">
+    <text text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan>
+    </text>
+  </g>
+
+</svg>
+            <div class="pg-sound" style="margin-top:.5rem;"><span class="pg-sound-label">Foto Sound: </span><a href="https://www.youtube.com/watch?v=mYuwbeQWLnY" target="_blank">Kenyon Hopkins "Hard Latin"</a></div>
+            <div class="pg-num">IV</div>
+          </div>
+        </div>
+      </div><!-- /sp-2 -->
+
+      <!-- SPREAD 3: placeholder -->
+      <div class="spread" id="sp-3">
         <div class="page">
           <div class="page-inner" style="align-items:center;justify-content:center;">
             <div style="font-family:'Special Elite',monospace;font-size:.6rem;color:rgba(42,32,24,.25);letter-spacing:.2em;">— próxima foto —</div>
-            <div class="pg-num">III</div>
+            <div class="pg-num">V</div>
           </div>
         </div>
         <div class="page-sep"></div>
         <div class="page">
           <div class="page-inner" style="align-items:center;justify-content:center;">
             <div style="font-family:'Special Elite',monospace;font-size:.6rem;color:rgba(42,32,24,.25);letter-spacing:.2em;">— próxima foto —</div>
-            <div class="pg-num">IV</div>
+            <div class="pg-num">VI</div>
           </div>
         </div>
-      </div><!-- /sp-2 -->
+      </div><!-- /sp-3 -->
 
     </div><!-- /alb-book -->
   </div><!-- /alb-scene -->
 
   <div class="alb-nav">
     <button class="alb-btn" id="btnClose" onclick="closeAlbum()">✕ PORTADA</button>
+    <button class="alb-btn-pause" id="btnPause" onclick="toggleSlide()">▶ DIAPOSITIVAS</button>
     <button class="alb-btn" id="btnPrev" onclick="albumPrev()" disabled>◂ ANTERIOR</button>
     <span class="alb-info" id="albInfo">PÁG. 1</span>
     <button class="alb-btn" id="btnNext" onclick="albumNext()">SIGUIENTE ▸</button>
@@ -826,7 +1157,7 @@ html, body {
 </div>
 
 <script>
-const TOTAL = 2;
+const TOTAL = 3;
 let cur = 1;
 let busy = false;
 
@@ -865,6 +1196,107 @@ function updateNav() {
   document.getElementById('btnPrev').disabled = cur <= 1;
   document.getElementById('btnNext').disabled = cur >= TOTAL;
   document.getElementById('albInfo').textContent = 'PÁG. ' + cur + ' / ' + TOTAL;
+}
+
+
+// ── SLIDESHOW 13 SEGUNDOS ──
+const SLIDE_MS = 13000;
+let slideTimer = null;
+let paused = false;
+let elapsed = 0;
+let startTime = null;
+
+function startSlideshow() {
+  if (paused) return;
+  startTime = Date.now() - elapsed;
+  animateProgress();
+  slideTimer = setTimeout(() => {
+    elapsed = 0;
+    if (cur < TOTAL) {
+      albumNext();
+      startSlideshow();
+    } else {
+      resetProgress();
+    }
+  }, SLIDE_MS - elapsed);
+}
+
+function animateProgress() {
+  const bar = document.getElementById('albProgress');
+  if (!bar) return;
+  bar.style.transition = 'none';
+  bar.style.width = (elapsed / SLIDE_MS * 100) + '%';
+  requestAnimationFrame(() => {
+    bar.style.transition = 'width ' + ((SLIDE_MS - elapsed) / 1000) + 's linear';
+    bar.style.width = '100%';
+  });
+}
+
+function resetProgress() {
+  const bar = document.getElementById('albProgress');
+  if (bar) { bar.style.transition = 'none'; bar.style.width = '0%'; }
+  elapsed = 0;
+}
+
+function openAlbumSlide() {
+  openAlbum();
+  setTimeout(() => {
+    paused = true;
+    toggleSlide();
+  }, 300);
+}
+
+function toggleSlide() {
+  const btn = document.getElementById('btnPause');
+  if (paused) {
+    paused = false;
+    elapsed = 0;
+    resetProgress();
+    startSlideshow();
+    btn.textContent = '⏸ PAUSA';
+    btn.classList.add('paused');
+  } else {
+    paused = true;
+    elapsed = Date.now() - startTime;
+    clearTimeout(slideTimer);
+    const bar = document.getElementById('albProgress');
+    if (bar) {
+      const w = parseFloat(getComputedStyle(bar).width);
+      const total = parseFloat(getComputedStyle(bar.parentElement).width);
+      bar.style.transition = 'none';
+      bar.style.width = (w / total * 100) + '%';
+    }
+    btn.textContent = '▶ DIAPOSITIVAS';
+    btn.classList.remove('paused');
+  }
+}
+
+// Override openAlbum to start slideshow
+const _openAlbum = openAlbum;
+openAlbum = function() {
+  _openAlbum();
+  paused = true;
+  elapsed = 0;
+  resetProgress();
+}
+
+// Override closeAlbum to stop
+const _closeAlbum = closeAlbum;
+closeAlbum = function() {
+  _closeAlbum();
+  clearTimeout(slideTimer);
+  paused = false;
+  elapsed = 0;
+}
+
+// Override go() to reset timer on manual nav
+const _go = go;
+go = function(n, dir) {
+  clearTimeout(slideTimer);
+  resetProgress();
+  elapsed = 0;
+  _go(n, dir);
+  setTimeout(startSlideshow, 400);
 }
 
 document.addEventListener('keydown', e => {
