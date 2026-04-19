@@ -11,169 +11,70 @@
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  background: #0a0806;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  overflow: hidden;
-}
+html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
 
+.portada { width:100%; height:100%; display:flex; flex-direction:column; }
 
-.cover-logo {
-  position: absolute;
-  right: clamp(.5rem, 3%, 1.2rem);
-  top: 50%;
-  transform: translateY(-60%);
-  width: clamp(80px, 18%, 160px);
-  opacity: .85;
-}
-
-/* ── MESA / SUPERFICIE ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 50% 60%,
-      #2a2018 0%,
-      #140e0a 70%,
-      #0a0806 100%);
-  z-index: 0;
-}
-
-/* ── CONTENEDOR LIBRO ── */
-.book-wrap {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* 3:2 landscape por defecto (desktop) */
-  width:  min(92vw, 92vh * 1.5);
-  height: min(92vh, 92vw / 1.5);
-  max-width: 900px;
-  max-height: 600px;
-}
-
-/* ── SOMBRA DEL LIBRO ── */
-.book-wrap::after {
-  content: '';
-  position: absolute;
-  bottom: -18px;
-  left: 4%;
-  right: 4%;
-  height: 35px;
-  background: radial-gradient(ellipse, rgba(0,0,0,.7) 0%, transparent 70%);
-  filter: blur(10px);
-  z-index: -1;
-}
-
-/* ── EL LIBRO (flex row: spine + cover + pages) ── */
-.book {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  border-radius: 1px 3px 3px 1px;
-  overflow: visible;
-  filter: drop-shadow(6px 8px 28px rgba(0,0,0,.7));
-}
-
-/* ── SPINE ── */
-.spine {
-  width: 8%;
-  min-width: 40px;
-  max-width: 70px;
+/* TOPBAND */
+.p-top {
   flex-shrink: 0;
-  background:
-    linear-gradient(
-      90deg,
-      #1a120c 0%,
-      #2e1f14 30%,
-      #1e1409 70%,
-      #120d08 100%
-    );
-  position: relative;
-  border-radius: 1px 0 0 1px;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: .8rem 1.5rem;
+  background: #0a0806;
 }
+.p-top a { font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); text-decoration:none; transition:color .2s; }
+.p-top a:hover { color:#fff; }
+.p-top-sep { color:rgba(255,255,255,.2); }
+.p-top-tema { font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); cursor:pointer; user-select:none; }
+.p-drop-wrap { position:relative; display:inline-block; }
+.p-drop { display:none; position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%); background:rgba(14,10,8,.97); border:1px solid rgba(200,146,42,.4); min-width:200px; z-index:1001; padding:.3rem 0; }
+.p-drop-wrap.open .p-drop { display:block; }
+.p-drop-item { font-family:'Special Elite',monospace; font-size:clamp(.55rem,1.4vw,.78rem); letter-spacing:.15em; color:rgba(232,220,200,.75); padding:.45rem 1rem; cursor:pointer; }
+.p-drop-item:hover { color:#8b1a1a; }
+.p-drop-item.muted { color:rgba(232,220,200,.35); cursor:default; }
 
-/* Texture overlay en el spine */
-.spine::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg');
-  background-size: cover;
-  opacity: .12;
-  mix-blend-mode: multiply;
-}
+/* ZONA CENTRAL */
+.portada-inner { flex:1; min-height:0; display:flex; flex-direction:row; }
 
-/* Título vertical en el spine */
-.spine-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
-  white-space: nowrap;
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.55rem, 1.8vw, .9rem);
-  letter-spacing: .25em;
-  color: rgba(220,205,185,.95);
-  pointer-events: none;
-}
+/* SPINE */
+.spine { flex-shrink:0; width:8%; min-width:40px; max-width:70px; position:relative; background:linear-gradient(90deg,#1a120c 0%,#2e1f14 30%,#1e1409 70%,#120d08 100%); overflow:hidden; }
+.spine::before { content:''; position:absolute; inset:0; background-image:url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg'); background-size:cover; opacity:.12; mix-blend-mode:multiply; }
+.spine-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-90deg); white-space:nowrap; font-family:'Special Elite',monospace; font-size:clamp(.65rem,2vw,1rem); letter-spacing:.25em; color:rgba(220,205,185,.95); pointer-events:none; }
+.spine-text-r { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(90deg); white-space:nowrap; font-family:'Special Elite',monospace; font-size:clamp(.65rem,2vw,1rem); letter-spacing:.25em; color:rgba(220,205,185,.95); pointer-events:none; }
 
-/* Línea decorativa top/bottom del spine */
-.spine::after {
-  content: '';
-  position: absolute;
-  left: 20%;
-  right: 20%;
-  height: 1px;
-  top: 8%;
-  background: rgba(180,150,100,.2);
-  box-shadow: 0 0 0 0 transparent, 0 calc(84vh) 0 rgba(180,150,100,.2);
-}
-
-/* ── COVER FRONT ── */
-.cover {
+/* DIARIO */
+.portada-diario {
   flex: 1;
+  min-height: 0;
   position: relative;
   background-image: url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg');
   background-size: cover;
   background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: clamp(.8rem,3%,1.4rem);
+  padding-right: clamp(1.5rem,4%,3rem);
   overflow: hidden;
-  border-radius: 0 2px 2px 0;
 }
-
-/* Veladura de papel sobre la textura */
-.cover::before {
+.portada-diario::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(218,205,185,.22);
-  z-index: 1;
-}
-
-/* Vignette interior */
-.cover::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(
-      ellipse at 50% 50%,
-      transparent 45%,
-      rgba(30,20,12,.22) 100%
-    );
-  z-index: 2;
+  background: rgba(230,220,205,.42);
   pointer-events: none;
 }
 
-/* ── CONTENIDO DE LA PORTADA ── */
+/* COLUMNA IZQUIERDA — misma estructura que portada con alas */
+.pd-left {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  right: calc(min(100%, calc((100vh - 10rem) * 0.813)) + clamp(1.5rem,4%,3rem) * 2);
+  z-index: 1;
+}
 .cover-content {
   position: absolute;
   inset: 0;
@@ -181,344 +82,236 @@ body::before {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: clamp(.8rem, 3%, 1.8rem);
+  padding: clamp(.8rem,3%,1.8rem);
+  padding-top: calc(clamp(.8rem,3%,1.4rem) + .9rem);
 }
-
-/* Cabecera */
-.cover-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.cover-label {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(1.1rem, 3.6vw, 1.7rem);
-  letter-spacing: .18em;
-  color: rgba(42,32,24,.6);
-  line-height: 2;
-}
-
-/* Título central */
 .cover-center {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(.3rem, 1.5%, .7rem);
+  gap: clamp(.3rem,1.5%,.7rem);
+  margin-top: -2rem;
 }
-
-.cover-title {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(3.5rem, 14vw, 9rem);
-  line-height: .9;
-  letter-spacing: .04em;
-  color: rgba(30,20,12,.82);
-  text-shadow: 1px 1px 0 rgba(255,255,255,.15);
-}
-
-.cover-title .sq {
-  font-size: .75em;
-  vertical-align: super;
-  color: #8b1a1a;
-}
-
-.cover-rule {
-  width: clamp(2rem, 15%, 4rem);
-  height: 1px;
-  background: rgba(42,32,24,.3);
-}
-
-.cover-subtitle {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.38rem, 1.3vw, .6rem);
-  letter-spacing: .22em;
-  color: rgba(42,32,24,.80);
-  line-height: 1.6;
-}
-
-/* Firma pie */
-.cover-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.cover-sig {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(.8rem, 3vw, 1.5rem);
-  color: #1F4E9A;
-  line-height: 1;
-}
-
-.cover-year {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.38rem, 1.2vw, .55rem);
-  letter-spacing: .25em;
-  color: rgba(42,32,24,.3);
-}
-
-/* ── CANTOS DE PÁGINAS ── */
-.pages-edge {
-  width: 2%;
-  min-width: 8px;
-  max-width: 16px;
-  flex-shrink: 0;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      #e8e0d0 0px,
-      #e8e0d0 1.5px,
-      #d4caba 1.5px,
-      #d4caba 2px
-    );
-  border-radius: 0 2px 2px 0;
-  box-shadow: inset -2px 0 5px rgba(0,0,0,.08);
-  overflow: hidden;
-}
-
-/* ── MOBILE: 2:3 VERTICAL ── */
-@media (orientation: portrait), (max-width: 600px) {
-  .book-wrap {
-    width:  min(92vw, 92vh * 0.667);
-    height: min(92vh, 92vw * 1.5);
-    max-width: 400px;
-    max-height: 600px;
-  }
-}
+.cover-title { font-family:'Special Elite',monospace; font-size:clamp(5rem,18vw,12rem); line-height:.9; letter-spacing:.04em; color:rgba(30,20,12,.82); text-shadow:1px 1px 0 rgba(255,255,255,.15); }
+.cover-title .sq { font-size:.75em; vertical-align:super; color:#8b1a1a; }
+.cover-rule { width:clamp(2rem,15%,4rem); height:1px; background:rgba(42,32,24,.3); }
+.cover-footer { display:flex; justify-content:space-between; align-items:flex-end; }
+.cover-sig { font-family:'Caveat',cursive; font-size:clamp(.8rem,3vw,1.5rem); color:#8b1a1a; line-height:1; text-decoration:none; transition:color .2s; }
+.cover-sig:hover { color:#8b1a1a; }
+.d2b-logo-portada { position:absolute; top:calc(clamp(.8rem,3%,1.4rem) + .9rem); right:clamp(.8rem,3%,1.8rem); width:clamp(160px,42%,300px); height:auto; z-index:5; }
 
 
-/* ── TRIPTYCH ── */
-html, body {
-  width: 100%;
-  height: 100%;
-  background: #0a0806;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  overflow: hidden;
-}
 
-.wing {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.wing-inner {
-  position: relative;
-  width: 100%;
-  height: 90vh;
-  max-height: 620px;
-  background-image: url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg');
-  background-size: cover;
-  background-position: center;
-  box-shadow: 4px 6px 28px rgba(0,0,0,.65);
-}
-
-.wing-label {
+/* LÍNEA ROJA */ — encima del fondo, a la izquierda del polaroid */
+.linea-roja {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  padding: clamp(1.8rem, 6%, 3.2rem) 8%;
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(1.1rem, 3.6vw, 1.7rem);
-  letter-spacing: .18em;
-  color: #8b1a1a;
-  text-align: center;
+  bottom: 0;
+  width: 2px;
+  background: #cc0000;
+  right: calc(min(100%, calc((100vh - 10rem) * 0.813)) + clamp(1.5rem,4%,3rem) * 2);
+  z-index: 10;
 }
 
-.gap {
-  width: 10px;
-  flex-shrink: 0;
-  background: #0a0806;
-}
-
-.center {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Override book-wrap to not have its own sizing fighting the triptych */
-.book-wrap {
+/* POLAROID */
+.mount {
   position: relative;
+  z-index: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  /* 3:2 based on viewport height */
-  height: 90vh;
-  width: calc(90vh * 1.5);
-  max-height: 620px;
-  max-width: 930px;
+  flex-direction: column;
+  background: #fff;
+  padding: .9rem .9rem .9rem;
+  box-shadow: 2px 3px 10px rgba(42,32,24,.28);
+  transform: rotate(-1.2deg);
+  width: min(100%, calc((100vh - 10rem) * 0.813));
+  height: calc(100% - 0.5rem);
+  overflow: hidden;
 }
+.mount-scroll { flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; scrollbar-width:none; -ms-overflow-style:none; }
+.mount-scroll::-webkit-scrollbar { display:none; }
+.mount-scroll img { display:block; width:100%; height:auto; }
+.mount-cap { display:flex; justify-content:space-between; align-items:baseline; padding:.3rem .45rem .05rem; gap:.5rem; }
+.mount-cap-text { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#1F4E9A; line-height:1.3; text-decoration:none; flex:1; }
+.mount-cap-text:hover { color:#8b1a1a; }
+.mount-cap-sig { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#1F4E9A; line-height:1.3; text-align:right; text-decoration:none; white-space:nowrap; }
+.mount-cap-sig:hover { color:#8b1a1a; }
+.mount-entrevista { padding:.1rem .45rem .4rem; }
+.mount-entrevista p { font-family:'Caveat',cursive; font-size:clamp(1rem,2.2vw,1.3rem); color:#1F4E9A; line-height:1.65; letter-spacing:.02em; margin-bottom:.5rem; }
+.mount-entrevista strong { color:#8b1a1a; }
 
-@media (orientation: portrait), (max-width: 600px) {
-  .book-wrap {
-    height: 60vw;
-    width: 90vw;
-    max-width: none;
-  }
+/* CELLO */
+.cello { position:absolute; background:rgba(255,240,170,.55); border:1px solid rgba(210,185,110,.35); box-shadow:0 1px 3px rgba(0,0,0,.1); z-index:10; }
+.cello-top    { width:clamp(28px,6%,46px); height:13px; top:-7px; left:50%; transform:translateX(-50%) rotate(-1deg); }
+.cello-bottom { width:clamp(28px,6%,46px); height:13px; bottom:-7px; left:50%; transform:translateX(-50%) rotate(1deg); }
+.cello-left   { width:13px; height:clamp(24px,5%,38px); left:-7px; top:50%; transform:translateY(-50%) rotate(-1deg); }
+.cello-right  { width:13px; height:clamp(24px,5%,38px); right:-7px; top:50%; transform:translateY(-50%) rotate(1deg); }
+
+/* FOOTER */
+.p-nav { flex-shrink:0; display:flex; justify-content:center; align-items:center; gap:2rem; padding:.5rem 0; background:#0a0806; }
+.p-btn { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; }
+.p-btn:hover { color:#fff; }
+.p-btn-slide { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; min-width:5rem; }
+.p-btn-slide:hover { color:#8b1a1a; }
+
+@media (max-width:700px),(orientation:portrait) {
+  .portada-inner { flex-direction:column; }
+  .spine { width:100%; height:28px; min-width:unset; max-width:unset; }
+  .spine-text { transform:translate(-50%,-50%) rotate(0deg); font-size:.6rem; }
+  .spine-text-r { display:none; }
+  .mount { width:85vw; height:calc(100% - 1rem); transform:none; }
+  .linea-roja { display:none; }
 }
 </style>
 </head>
 <body>
 
-<div class="gap"></div>
-<div class="wing"><div class="wing-inner">
-  <div class="wing-sidebar">
-    <div class="ws-head">TEMAS</div>
-    <div class="ws-item">AUTORRETRATOS</div>
-    <div class="ws-item ws-linked" onclick="openAlbum()">FOTOGRAFÍA CALLEJERA <span class="ws-dot">·</span></div>
-  </div>
-</div></div>
-<div class="gap"></div>
-<div class="center">
-  <div class="book-wrap">
-    <div class="book">
+<div class="portada">
 
-    <!-- SPINE -->
+  <div class="p-top">
+    <div class="p-drop-wrap" id="drop-temas-wrap">
+      <span class="p-top-tema" onclick="pDropToggle('temas')">TEMAS ▾</span>
+      <div class="p-drop" id="drop-temas">
+        <div class="p-drop-item muted">AUTORRETRATOS</div>
+        <div class="p-drop-item">FOTOGRAFÍA CALLEJERA</div>
+      </div>
+    </div>
+    <span class="p-top-sep">·</span>
+    <a href="https://beltzarecords.com" target="_blank">BELTZARECORDS.COM</a>
+    <span class="p-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/Manifiesto-Beltza/" target="_blank">MANIFIESTO BELTZA</a>
+    <span class="p-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/magic-bus/" target="_blank">MAGIC BUS</a>
+    <span class="p-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/UR-SAPIENS/" target="_blank">UR_BOOK</a>
+    <span class="p-top-sep">·</span>
+    <div class="p-drop-wrap" id="drop-indice-wrap">
+      <span class="p-top-tema" onclick="pDropToggle('indice')">ÍNDICE ▾</span>
+      <div class="p-drop" id="drop-indice">
+        <div class="p-drop-item">ANTROPOLOGÍA SOCIAL</div>
+        <div class="p-drop-item">DONOSTIA</div>
+        <div class="p-drop-item">ZOO HUMANO</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="portada-inner">
     <div class="spine">
       <span class="spine-text">DUB<span style="font-size:1.4em;vertical-align:super;color:#c44;">²</span> BEAT · LUIS BELTZA</span>
     </div>
 
-    <!-- COVER -->
-    <div class="cover">
-      <div class="cover-content">
-
-        <div class="cover-header">
-          <svg id="nav-line" width="100%" height="auto" viewBox="0 0 1000 60" preserveAspectRatio="none" style="display:block; overflow:visible;">
-            <style>
-              .nav-link { fill:rgba(42,32,24,.90); text-decoration:none; cursor:pointer; }
-              .nav-link:hover { fill:rgba(120,60,30,1); }
-              .nav-sep { fill:rgba(42,32,24,.50); }
-            </style>
-            <text y="44" font-family="Special Elite, monospace" font-size="48" textLength="1000" lengthAdjust="spacingAndGlyphs">
-              <a href="https://beltzarecords.com" target="_blank"><tspan class="nav-link">BELTZARECORDS.COM</tspan></a>
-              <tspan class="nav-sep"> · </tspan>
-              <a href="https://beltzaexperience.github.io/Manifiesto-Beltza/" target="_blank"><tspan class="nav-link">MANIFIESTO BELTZA</tspan></a>
-              <tspan class="nav-sep"> · </tspan>
-              <a href="https://beltzaexperience.github.io/magic-bus/" target="_blank"><tspan class="nav-link">MAGIC BUS</tspan></a>
-              <tspan class="nav-sep"> · </tspan>
-              <a href="https://beltzaexperience.github.io/UR-SAPIENS/" target="_blank"><tspan class="nav-link">UR_BOOK</tspan></a>
-            </text>
-          </svg>
+    <div class="portada-diario">
+      <!-- COLUMNA IZQUIERDA -->
+      <div class="pd-left">
+        <div class="cover-content">
+          <div class="cover-footer">
+            <div style="display:flex; flex-direction:column; gap:.3rem; width:100%;">
+              <!-- TÍTULO + LOGO en la misma fila -->
+              <div style="display:flex; flex-direction:row; align-items:flex-start; justify-content:space-between; width:100%;">
+                <div>
+                  <div class="cover-title">DUB<span class="sq">²</span><br>BEAT</div>
+                  <div class="cover-rule"></div>
+                </div>
+              <svg class="d2b-logo-portada" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                <defs>
+                  <path id="top-p" d="M 65,250 A 185,185 0 0,1 435,250"/>
+                  <path id="bot-p" d="M 57,258 A 193,193 0 0,0 443,258"/>
+                  <mask id="rmask-p"><rect width="500" height="500" fill="white"/><rect x="4" y="225" width="44" height="34" rx="4" fill="black"/><rect x="452" y="225" width="44" height="34" rx="4" fill="black"/></mask>
+                </defs>
+                <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#rmask-p)"/>
+                <circle cx="250" cy="250" r="228" fill="#fff"/>
+                <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+                <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
+                <rect x="4" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="22" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+                <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+                <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="4"><textPath href="#top-p" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan></textPath></text>
+                <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="3"><textPath href="#bot-p" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath></text>
+                <g transform="translate(250,290) rotate(-8)"><text font-family="'Special Elite',monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan></text></g>
+              </svg>
+              </div>
+              <!-- CITAS -->
+              <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block;">
+                <text x="0" y="40" font-family="Special Elite, monospace" font-size="44" fill="rgba(42,32,24,.90)" textLength="1000" lengthAdjust="spacingAndGlyphs">"<tspan fill="rgba(42,32,24,.90)">La fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos.</tspan>"</text>
+              </svg>
+              <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block;">
+                <text x="0" y="40" font-family="Special Elite, monospace" font-size="44" fill="rgba(42,32,24,.90)" textLength="1000" lengthAdjust="spacingAndGlyphs">"<tspan fill="rgba(42,32,24,.90)">Es sólo fotografía, las posibles interpretaciones son productos de nuestra imaginación.</tspan>"</text>
+              </svg>
+              <!-- FIRMA -->
+              <a href="https://beltzarecords.com" target="_blank" class="cover-sig" style="margin-top:.3rem;" onmouseover="this.style.color='#1F4E9A'" onmouseout="this.style.color='#8b1a1a'">Luis Beltza</a>
+              <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block; margin-top:2.4rem;">
+                <text x="0" y="40" font-family="Special Elite, monospace" font-size="44" fill="rgba(42,32,24,.90)" textLength="1000" lengthAdjust="spacingAndGlyphs"><tspan fill="#8b1a1a">Robert Capa:</tspan> "Si tus fotos no son suficientemente buenas, no estás suficientemente cerca."</text>
+              </svg>
+              <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block; margin-top:.25rem;">
+                <text x="0" y="40" font-family="Special Elite, monospace" font-size="44" fill="rgba(42,32,24,.90)" textLength="1000" lengthAdjust="spacingAndGlyphs"><tspan fill="#8b1a1a">Cartier-Bresson:</tspan> "Tus primeras 10.000 fotografías son las peores."</text>
+              </svg>
+            </div>
+          </div>
         </div>
-
-        <div class="cover-center" style="margin-top:-2rem;">
-          <div class="cover-title">DUB<span class="sq">²</span><br>BEAT</div>
-          <div class="cover-rule"></div>
-        <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block;">
-          <text x="0" y="40"
-            font-family="Special Elite, monospace"
-            font-size="44"
-            fill="rgba(42,32,24,.90)"
-            textLength="1000"
-            lengthAdjust="spacingAndGlyphs">"<tspan fill="#8b1a1a">la fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos.</tspan>"</text>
-        </svg>
-        <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block; margin-top:.25rem;">
-          <text x="0" y="40"
-            font-family="Special Elite, monospace"
-            font-size="44"
-            fill="rgba(42,32,24,.90)"
-            textLength="1000"
-            lengthAdjust="spacingAndGlyphs">"<tspan fill="#8b1a1a">Es sólo fotografía, las posibles interpretaciones son productos de nuestra imaginación.</tspan>"</text>
-        </svg>
-
-        </div>
-
-        <div class="cover-footer">
-          <a href="https://beltzarecords.com" target="_blank" class="cover-sig" style="text-decoration:none; transition:color .2s;" onmouseover="this.style.color='#8b1a1a'" onmouseout="this.style.color='#1F4E9A'">Luis Beltza</a>
-          <div style="display:flex; gap:1.5rem; align-items:flex-end;">
-          <div style="font-family:'Special Elite',monospace; font-size:clamp(.65rem,1.9vw,.95rem); color:#fff; letter-spacing:.15em; cursor:pointer;" onclick="openAlbumSlide()">▶ DIAPOSITIVAS</div>
-          <div style="font-family:'Special Elite',monospace; font-size:clamp(.65rem,1.9vw,.95rem); color:#fff; letter-spacing:.15em; cursor:pointer;" onclick="openAlbum()">DUB²BEAT · PÁG. 1 <span style="font-size:1.4em;">▸</span></div>
-        </div>
-        </div>
-
       </div>
-    <svg style="position:absolute; right:clamp(3rem,12%,5rem); top:50%; transform:translateY(-65%); width:clamp(140px,28%,280px);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
-  <defs>
-    <path id="top" d="M 65,250 A 185,185 0 0,1 435,250"/>
-    <path id="bot" d="M 57,258 A 193,193 0 0,0 443,258"/>
 
-    <!-- Máscara: círculo exterior con huecos para el 35mm -->
-    <mask id="ring-mask">
-      <!-- Todo blanco = visible -->
-      <rect width="500" height="500" fill="white"/>
-      <!-- Huecos 35mm en negro = recorte -->
-      <rect x="4"   y="225" width="44" height="34" rx="4" fill="black"/>
-      <rect x="452" y="225" width="44" height="34" rx="4" fill="black"/>
-    </mask>
-  </defs>
+      <div class="linea-roja"></div>
+      <div class="mount">
+        <div class="cello cello-top"></div>
+        <div class="cello cello-bottom"></div>
+        <div class="cello cello-left"></div>
+        <div class="cello cello-right"></div>
+        <div class="mount-scroll">
+          <img src="https://live.staticflickr.com/65535/55216519012_87a5cd60b6_b.jpg" alt="marvin el marciano [autorretrato]">
+          <div style="height:.4rem;"></div>
+          <div class="mount-cap">
+            <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text">Iparralde · MARVIN EL MARCIANO [AUTORRETRATO]</a>
+            <a href="https://beltzarecords.com" target="_blank" class="mount-cap-sig">Luis Beltza</a>
+          </div>
+          <div class="mount-entrevista">
+            <p><strong>1. ¿Cómo llegaste al mundo de la fotografía?</strong><br>
+Llegué a tomarme la fotografía muy en serio en una evolución natural del fotoperiodismo súper underground que ejercía en la blogosfera. Un día me dije que estaba harto de hacer foto-basura para informar de eventos, fiestas, conciertos, etc. y que quería intentar hacer algo en este mundo tan interesante. Ahora intento decir todo lo que tengo que decir con imágenes.<br><br>
+Había comenzado a retratar las escenas musicales en 2001 que pasaban por Beltza Records con cámaras de usar y tirar, para luego hacer lo que yo denomino "Cuadro discos sorpresas". Para entender esto tendrías que verlos, ¡son una auténtica basura muy interesante!<br><br>
+De todas maneras, a mediados de los años 80 con una Olympus Trip hice tres interrailes por Europa. Las fotos de estos viajes se podrían considerar mi primera relación con la fotografía. Las fotos están en un set de Flickr titulado "Long Time Ago".</p>
+            <p><strong>2. ¿Cuál es tu especialidad?</strong><br>
+Más que especialidad, dejémoslo en lo que me gusta o me interesa. Me interesa el retrato social de las escenas juveniles, la música (conciertos), el paisajismo modificado por el uso de técnicas fotográficas, la street photography, el fotoperiodismo, el interiorismo, la moda (busco modelos cool), la cultura popular contemporánea y el erotismo cañí.</p>
+            <p><strong>3. ¿Color o blanco y negro?</strong><br>
+Uso indistintamente las dos técnicas y me gustan las dos. El blanco y negro tiene una atracción mítica e histórica y el color nos acerca a lo contemporáneo. No me parecen incompatibles como pueden pensar muchos puristas de cualquiera de las dos tendencias.</p>
+            <p><strong>4. ¿Qué es lo que más te gusta de la fotografía?</strong><br>
+Su carácter artístico y de comunicación. Me parece un arte integral y muy popular. A mí personalmente me está dando la posibilidad de expresarme artísticamente mientras informo. He encontrado la herramienta perfecta para mis limitadas posibilidades artísticas. Y su popularidad me parece impresionante: cualquiera, y lo digo totalmente convencido, puede ser fotógrafo. Esto es algo impensable en otras disciplinas.</p>
+            <p><strong>5. ¿Qué equipo tienes?</strong><br>
+Principalmente uso cámaras tradicionales de película de 35mm, desde cámaras de juguete a la Leica M6, pasando por la serie F de Nikon o la Canon A1. Me gustan las cámaras de los años 70 y 80.<br><br>
+Pero también uso formato medio con plastic lens como Holgas o Dianas, y me encantan los resultados con la Kodak Instamatic 224. Uso muchas cámaras compactas: la Olympus XA2, Lomo LCA, Rollei 35 SE, Argus C3, Minox 35 PL (la que estoy usando esta semana) y muchas más. Ante todo siempre he sido un fan y un coleccionista muy loco.<br><br>
+¿Digital? El móvil y una Lumix Panasonic DMC L1 (muy guapa pero con un ISO ridículo). Quiero la Nikon D3.</p>
+            <p><strong>6. Elige a tu fotógrafo favorito</strong><br>
+Uno solo me va a ser imposible, y eso que no conozco a casi nadie. La lista va a ser grande... Stephen Shore, Robert Capa, Yosigo, Lee Friedlander, Diane Arbus, Miguel Trillo, Louis Daguerre, Tempestonatecup, Robert Frank, Garry Winogrand, Guy Bourdin, Oriol Maspons, El Oriol de Lleida, Ouke Lele, Virginia Lekuona, Selector Marx, Javi_co, Aterpeirun, Cartier-Bresson, Araceli G, Chillhiro, Compulsive_Behaviour, Fuxxión, Moebius_Nutty, Ondacaracola, PëKë, Perrete, Cazenave, Oier Kaskezur, Ilan Wolf, Lamia... ¡y muchos más que no conozco y voy a conocer!</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <!-- ANILLO NEGRO EXTERIOR — con máscara para el 35mm -->
-  <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#ring-mask)"/>
-
-  <!-- BANDA BLANCA -->
-  <circle cx="250" cy="250" r="228" fill="#fff"/>
-
-  <!-- LÍNEA FINA SEPARADORA BANDA -->
-  <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
-
-  <!-- CÍRCULO INTERIOR ROJO -->
-  <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
-
-  <!-- 35MM BICOLOR — encima de todo -->
-  <!-- Izquierdo -->
-  <rect x="4"   y="225" width="44" height="34" rx="4" fill="#fff"/>
-  <rect x="22"  y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
-  <!-- Derecho -->
-  <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/>
-  <rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
-
-  <!-- TEXTO SUPERIOR -->
-  <text font-family="'Special Elite', monospace" font-size="27" fill="#0a0a0a" letter-spacing="4">
-    <textPath href="#top" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan>
-    </textPath>
-  </text>
-
-  <!-- TEXTO INFERIOR -->
-  <text font-family="'Special Elite', monospace" font-size="27" fill="#0a0a0a" letter-spacing="3">
-    <textPath href="#bot" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath>
-  </text>
-
-  <!-- D²B INCLINADO -->
-  <g transform="translate(250,290) rotate(-8)">
-    <text font-family="'Special Elite', monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan>
-    </text>
-  </g>
-
-</svg>
-</div><!-- /cover -->
-
-    <!-- CANTOS DE PÁGINAS -->
-    <div class="pages-edge"></div>
-
-  </div><!-- /book -->
+    <div class="spine">
+      <span class="spine-text-r">DUB<span style="font-size:1.4em;vertical-align:super;color:#c44;">²</span> BEAT · LUIS BELTZA</span>
+    </div>
   </div>
+
+  <div class="p-nav">
+    <button class="p-btn-slide">▶ DIAPOSITIVAS</button>
+    <button class="p-btn">DUB²BEAT · PÁG. 1 <span style="font-size:1.3em;">▸</span></button>
+  </div>
+
 </div>
-<div class="gap"></div>
-<div class="wing"><div class="wing-inner">
-  <div class="wing-sidebar">
-    <div class="ws-head">ÍNDICE</div>
-    <div class="ws-item ws-linked" onclick="openAlbum()">ANTROPOLOGÍA SOCIAL <span class="ws-dot">·</span></div>
-    <div class="ws-item ws-linked" onclick="openAlbum()">DONOSTIA <span class="ws-dot">·</span></div>
-    <div class="ws-item ws-linked" onclick="openAlbum()">ZOO HUMANO <span class="ws-dot">·</span></div>
-  </div>
-</div></div>
-<div class="gap"></div>
-
+<script>
+function pDropToggle(which) {
+  const wrap = document.getElementById('drop-' + which + '-wrap');
+  const wasOpen = wrap.classList.contains('open');
+  document.querySelectorAll('.p-drop-wrap.open').forEach(w => w.classList.remove('open'));
+  if (!wasOpen) wrap.classList.add('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.p-drop-wrap'))
+    document.querySelectorAll('.p-drop-wrap.open').forEach(w => w.classList.remove('open'));
+});
+</script>
 
 
 <!-- ══════════════════════════════════════════
-     ÁLBUM DUB² BEAT
+     ÁLBUM
 ══════════════════════════════════════════ -->
 <style>
-/* OVERLAY */
 .album-overlay {
   display: none;
   position: fixed;
@@ -528,7 +321,6 @@ html, body {
 }
 .album-overlay.open { display: flex; flex-direction: column; }
 
-/* MISMA ESTRUCTURA TRÍPTICO */
 .alb-scene {
   flex: 1;
   min-height: 0;
@@ -545,14 +337,12 @@ html, body {
 }
 .alb-gap { width: 10px; flex-shrink: 0; }
 
-/* SPREAD */
 .alb-book {
   width: 100%; height: 100%;
   position: relative;
   overflow: hidden;
 }
 
-/* PÁGINA — ocupa la mitad */
 .spread {
   position: absolute;
   inset: 0;
@@ -573,6 +363,8 @@ html, body {
   content:''; position:absolute; inset:0;
   background: rgba(230,220,205,.42); z-index:0;
 }
+
+/* page-inner base */
 .page-inner {
   position: relative; z-index: 1;
   height: 100%;
@@ -583,14 +375,32 @@ html, body {
   overflow: hidden;
 }
 
-/* SEPARADOR CENTRAL */
+/* Página FOTO: sin scroll, la foto se adapta a la pantalla */
+.page-foto .page-inner {
+  justify-content: center;
+  align-items: center;
+}
+
+/* Página TEXTO: scroll si el contenido lo requiere */
+.page-texto .page-inner {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.page-texto .page-inner::-webkit-scrollbar { display: none; }
+
 .page-sep {
   width: 6px; flex-shrink: 0;
   background: linear-gradient(90deg, #1a120c, #2e1f14 40%, #120d08);
   box-shadow: 2px 0 8px rgba(0,0,0,.4);
 }
 
-/* FOTO MONTADA */
+/* ══ POLAROID — SE ADAPTA A LA PÁGINA DISPONIBLE ══
+   La imagen crece hasta llenar la altura útil de la página.
+   Altura útil = 100vh - barras - padding - pie de foto ≈ 100vh - 11rem.
+   El marco abraza el resultado. El texto no desborda.
+*/
 .mount {
   position: relative;
   display: flex;
@@ -598,40 +408,68 @@ html, body {
   background: #fff;
   padding: .9rem .9rem 1.6rem;
   box-shadow: 2px 3px 10px rgba(42,32,24,.28);
-  max-width: 100%;
-  max-height: 88%;
+  flex-shrink: 1;
   overflow: hidden;
 }
-.mount img {
+
+/* 1:1 cuadrada
+   Lado = altura útil disponible, limitado por el ancho de la página */
+.mount.mount-square {
+  width: min(100%, calc(100vh - 14rem));
+}
+.mount.mount-square img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  flex: 1;
-  min-height: 0;
-  filter: contrast(1.04) brightness(.95);
+  height: auto;
 }
+
+/* 3:2 horizontal
+   Ocupa todo el ancho; altura se calcula sola por proporción */
+.mount.mount-landscape {
+  width: 100%;
+}
+.mount.mount-landscape img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 14rem);
+}
+
+/* 2:3 vertical
+   Ancho = altura útil × 2/3, limitado por la página */
+.mount.mount-portrait {
+  width: min(100%, calc((100vh - 14rem) * 0.667));
+}
+.mount.mount-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .mount-cap {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   padding: .3rem .45rem .05rem;
+  gap: .5rem;
 }
 .mount-cap-text {
   font-family: 'Caveat', cursive;
-  font-size: clamp(.65rem,1.6vw,.9rem);
+  font-size: clamp(.85rem,1.8vw,1.1rem);
   color: #1F4E9A;
   line-height: 1.3;
   text-decoration: none;
+  flex: 1;
 }
-.mount-cap-text:hover { color: #8b1a1a; text-decoration: none; }
+.mount-cap-text:hover { color: #8b1a1a; }
 .mount-cap-sig {
   font-family: 'Caveat', cursive;
-  font-size: clamp(.65rem,1.6vw,.9rem);
+  font-size: clamp(.85rem,1.8vw,1.1rem);
   color: #1F4E9A;
   line-height: 1.3;
   text-align: right;
   text-decoration: none;
+  white-space: nowrap;
 }
 .mount-cap-sig:hover { color: #8b1a1a; }
 
@@ -643,30 +481,29 @@ html, body {
   box-shadow: 0 1px 3px rgba(0,0,0,.1);
   z-index: 10;
 }
-.cello-top {
-  width: clamp(28px,6%,46px); height: 13px;
-  top: -7px; left: 50%;
-  transform: translateX(-50%) rotate(-1deg);
-}
-.cello-bottom {
-  width: clamp(28px,6%,46px); height: 13px;
-  bottom: -7px; left: 50%;
-  transform: translateX(-50%) rotate(1deg);
-}
-.cello-left {
-  width: 13px; height: clamp(24px,5%,38px);
-  left: -7px; top: 50%;
-  transform: translateY(-50%) rotate(-1deg);
-}
-.cello-right {
-  width: 13px; height: clamp(24px,5%,38px);
-  right: -7px; top: 50%;
-  transform: translateY(-50%) rotate(1deg);
-}
+.cello-top    { width: clamp(28px,6%,46px); height: 13px; top: -7px; left: 50%; transform: translateX(-50%) rotate(-1deg); }
+.cello-bottom { width: clamp(28px,6%,46px); height: 13px; bottom: -7px; left: 50%; transform: translateX(-50%) rotate(1deg); }
+.cello-left   { width: 13px; height: clamp(24px,5%,38px); left: -7px; top: 50%; transform: translateY(-50%) rotate(-1deg); }
+.cello-right  { width: 13px; height: clamp(24px,5%,38px); right: -7px; top: 50%; transform: translateY(-50%) rotate(1deg); }
 .mount:nth-child(odd)  { transform: rotate(-1.2deg); }
 .mount:nth-child(even) { transform: rotate(.7deg); }
 
-/* TEXTOS */
+.mount-lyric {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(.85rem,1.8vw,1.1rem);
+  letter-spacing: .05em;
+  color: #8b1a1a;
+  padding: .05rem .45rem .2rem;
+}
+.mount-sound {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(.85rem,1.8vw,1.1rem);
+  letter-spacing: .05em;
+  padding: .15rem .45rem .1rem;
+}
+.mount-sound a { color: #1F4E9A; text-decoration: none; }
+.mount-sound a:hover { color: #c8922a; }
+
 .pg-title {
   font-family: 'Special Elite', monospace;
   font-size: clamp(1rem,2.8vw,1.5rem);
@@ -681,6 +518,22 @@ html, body {
   line-height: 1.65;
   letter-spacing: .02em;
 }
+.pg-lyric {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.72rem,1.8vw,1rem);
+  letter-spacing: .05em;
+  color: #8b1a1a;
+  margin-bottom: .4rem;
+}
+.pg-sound {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.72rem,1.8vw,1rem);
+  letter-spacing: .05em;
+  margin-bottom: .2rem;
+  color: rgba(42,32,24,.9);
+}
+.pg-sound a { color: #1F4E9A; text-decoration: none; }
+.pg-sound a:hover { color: #8b1a1a; }
 .pg-num {
   margin-top: auto;
   font-family: 'Special Elite', monospace;
@@ -690,105 +543,15 @@ html, body {
   text-align: center;
 }
 
-/* ANIMACIÓN PASO PÁGINA */
+/* ANIMACIONES */
 @keyframes slideIn  { from { transform: translateX( 60px); opacity:0; } to { transform: translateX(0); opacity:1; } }
 @keyframes slideOut { from { transform: translateX(0); opacity:1; } to { transform: translateX(-60px); opacity:0; } }
 @keyframes slideInR { from { transform: translateX(-60px); opacity:0; } to { transform: translateX(0); opacity:1; } }
-.spread.entering { animation: slideIn  .35s cubic-bezier(.4,0,.2,1) forwards; }
-.spread.leaving  { animation: slideOut .35s cubic-bezier(.4,0,.2,1) forwards; }
+.spread.entering      { animation: slideIn  .35s cubic-bezier(.4,0,.2,1) forwards; }
+.spread.leaving       { animation: slideOut .35s cubic-bezier(.4,0,.2,1) forwards; }
 .spread.entering-back { animation: slideInR .35s cubic-bezier(.4,0,.2,1) forwards; }
 
-
-
-/* ── WING SIDEBAR ── */
-.wing-sidebar {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: clamp(1.5rem,4%,2.5rem) clamp(.6rem,8%,1.2rem);
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-}
-.wing-sidebar::-webkit-scrollbar { display: none; }
-
-.ws-head {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(1.1rem,3.6vw,1.7rem);
-  letter-spacing: .18em;
-  color: #8b1a1a;
-  margin-bottom: .8rem;
-  padding-bottom: .4rem;
-  border-bottom: 1px solid rgba(42,32,24,.2);
-}
-
-.ws-item {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.55rem,1.5vw,.82rem);
-  letter-spacing: .12em;
-  color: rgba(42,32,24,.80);
-  cursor: pointer;
-  padding: .3rem 0;
-  border-bottom: 1px solid rgba(42,32,24,.08);
-  transition: color .2s;
-  line-height: 1.4;
-}
-.ws-item:hover { color: #8b1a1a; }
-.ws-linked { cursor: pointer; }
-.ws-linked:hover .ws-dot { opacity: 1; }
-.ws-dot { color: #8b1a1a; opacity: 0; transition: opacity .2s; font-size: .7em; }
-
-
-
-
-.mount-lyric {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(.65rem,1.8vw,.9rem);
-  letter-spacing: .05em;
-  color: #8b1a1a;
-  padding: .05rem .45rem .2rem;
-}
-.pg-lyric {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.72rem,1.8vw,1rem);
-  letter-spacing: .05em;
-  color: #8b1a1a;
-  margin-bottom: .4rem;
-}
-
-.mount-sound {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(.65rem,1.8vw,.9rem);
-  letter-spacing: .05em;
-  padding: .15rem .45rem .1rem;
-}
-.mount-sound a {
-  color: #1F4E9A;
-  text-decoration: none;
-}
-.mount-sound a:hover { color: #c8922a; text-decoration: none; }
-
-.pg-sound {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.72rem,1.8vw,1rem);
-  letter-spacing: .05em;
-  margin-bottom: .2rem;
-  color: rgba(42,32,24,.9);
-}
-.pg-sound-label {
-  color: rgba(42,32,24,.9);
-}
-.pg-sound a {
-  color: #1F4E9A;
-  text-decoration: none;
-}
-.pg-sound a:hover { color: #8b1a1a; }
-
-
-/* ── SLIDESHOW ── */
+/* SLIDESHOW */
 .alb-progress {
   position: absolute;
   bottom: 0; left: 0;
@@ -799,26 +562,30 @@ html, body {
   z-index: 10;
 }
 
-.alb-btn-pause {
-  background: none; border: none; cursor: pointer;
+/* TOP BAR */
+.alb-top {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: .8rem 1.5rem;
+}
+.alb-top a {
   font-family: 'Special Elite', monospace;
-  font-size: clamp(.55rem,1.5vw,.8rem);
+  font-size: clamp(.7rem,1.8vw,1rem);
   letter-spacing: .2em;
   color: rgba(255,255,255,.7);
+  text-decoration: none;
   transition: color .2s;
-  min-width: 5rem;
 }
-.alb-btn-pause:hover { color: #8b1a1a; }
-.alb-btn-pause.paused { color: #8b1a1a; }
+.alb-top a:hover { color: #fff; }
+.alb-top-sep { color: rgba(255,255,255,.2); font-size: .5rem; }
+.alb-top-tema { color: rgba(255,255,255,.7); font-family: 'Special Elite', monospace; font-size: clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; cursor:pointer; }
 
-/* ── ALBUM DROPDOWNS ── */
-.alb-drop-wrap {
-  position: relative;
-  display: inline-block;
-}
-.alb-drop-trigger {
-  cursor: pointer;
-}
+/* DROPDOWNS */
+.alb-drop-wrap { position: relative; display: inline-block; }
+.alb-drop-trigger { cursor: pointer; }
 .alb-drop {
   display: none;
   position: absolute;
@@ -845,81 +612,113 @@ html, body {
 .alb-drop-item.muted { color: rgba(232,220,200,.35); cursor: default; }
 .alb-drop-item.muted:hover { color: rgba(232,220,200,.35); }
 
-/* ── DROPDOWNS ── */
-.dropdown-trigger { position: relative; cursor: pointer; user-select: none; }
-.dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(20,14,10,.95);
-  border: 1px solid rgba(139,26,26,.4);
-  min-width: 200px;
-  z-index: 1000;
-  padding: .4rem 0;
-}
-.dropdown.open { display: block; }
-.drop-item {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.55rem,1.4vw,.78rem);
-  letter-spacing: .15em;
-  color: rgba(232,220,200,.7);
-  padding: .45rem 1rem;
-  cursor: pointer;
-  transition: color .15s, background .15s;
-}
-.drop-item:hover { color: #8b1a1a; background: rgba(139,26,26,.08); }
-
-/* TOP BAR ÁLBUM */
-.alb-top {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  padding: .5rem 1.5rem;
-}
-.alb-top a {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.55rem,1.5vw,.8rem);
-  letter-spacing: .2em;
-  color: rgba(255,255,255,.7);
-  text-decoration: none;
-  transition: color .2s;
-}
-.alb-top a:hover { color: #fff; }
-.alb-top-sep { color: rgba(255,255,255,.2); font-size: .5rem; }
-.alb-top-tema { color: rgba(255,255,255,.7); font-family: 'Special Elite', monospace; font-size: clamp(.55rem,1.5vw,.8rem); letter-spacing:.2em; cursor:pointer; }
-
-/* NAV ÁLBUM */
+/* NAV */
 .alb-nav {
   flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  padding: .5rem 0;
+  padding: .8rem 0;
 }
 .alb-btn {
   background: none; border: none; cursor: pointer;
   font-family: 'Special Elite', monospace;
-  font-size: clamp(.55rem,1.5vw,.8rem);
+  font-size: clamp(.7rem,1.8vw,1rem);
   letter-spacing: .2em;
   color: rgba(255,255,255,.7);
   transition: color .2s;
 }
 .alb-btn:hover:not(:disabled) { color: #fff; }
 .alb-btn:disabled { opacity: .15; cursor: default; }
+.alb-btn-pause {
+  background: none; border: none; cursor: pointer;
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(.7rem,1.8vw,1rem);
+  letter-spacing: .2em;
+  color: rgba(255,255,255,.7);
+  transition: color .2s;
+  min-width: 5rem;
+}
+.alb-btn-pause:hover { color: #8b1a1a; }
+.alb-btn-pause.paused { color: #8b1a1a; }
 .alb-info {
   font-family: 'Special Elite', monospace;
   font-size: clamp(.45rem,1.2vw,.65rem);
   letter-spacing: .2em;
   color: rgba(255,255,255,.5);
 }
+
+/* SVG logo helper */
+.d2b-logo {
+  display: block;
+  width: clamp(140px,28%,280px);
+  height: auto;
+  margin-left: auto;
+  margin-right: clamp(2.5rem,11%,4.5rem);
+  margin-top: .5rem;
+}
+
+/* ══ MÓVIL — foto arriba, texto abajo ══ */
+@media (max-width: 700px), (orientation: portrait) {
+
+  .alb-scene {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .spread {
+    flex-direction: column;
+  }
+
+  /* Página foto: ocupa la mitad superior */
+  .page-foto {
+    flex: 0 0 auto;
+  }
+  .page-foto .page-inner {
+    padding: .6rem;
+  }
+
+  /* Separador central desaparece en móvil */
+  .page-sep {
+    width: 100%;
+    height: 4px;
+    flex-shrink: 0;
+  }
+
+  /* Página texto: ocupa la mitad inferior con scroll */
+  .page-texto {
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Foto cuadrada en móvil: ancho completo */
+  .mount.mount-square {
+    width: min(100%, calc(100vw - 14rem));
+  }
+  .mount.mount-square img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Foto horizontal en móvil: ancho completo */
+  .mount.mount-landscape {
+    width: 100%;
+  }
+
+  /* Foto vertical en móvil */
+  .mount.mount-portrait {
+    width: min(100%, calc(50vh * 0.667));
+  }
+
+  /* Texto del pie más pequeño en móvil */
+  .mount-cap-text,
+  .mount-cap-sig,
+  .mount-lyric,
+  .mount-sound { font-size: clamp(.75rem, 3vw, .95rem); }
+}
 </style>
 
-<!-- OVERLAY -->
 <div class="album-overlay" id="albumOverlay">
   <div class="alb-top">
     <span class="alb-drop-wrap">
@@ -945,189 +744,108 @@ html, body {
       </div>
     </span>
   </div>
+
   <div class="alb-scene">
     <div class="alb-book" id="albBook">
       <div class="alb-progress" id="albProgress"></div>
 
-      <!-- SPREAD 1: FUEGO, ADICCIÓN Y MUERTE -->
+      <!-- ═══ SPREAD 1: FUEGO, ADICCIÓN Y MUERTE ═══ -->
       <div class="spread active" id="sp-1">
-        <!-- Página izquierda: foto -->
-        <div class="page">
-          <div class="page-inner" style="align-items:center; justify-content:center;">
-            <div class="mount">
+        <div class="page page-foto">
+          <div class="page-inner">
+            <div class="mount mount-square">
               <div class="cello cello-top"></div>
               <div class="cello cello-bottom"></div>
               <div class="cello cello-left"></div>
               <div class="cello cello-right"></div>
-              <img src="https://live.staticflickr.com/65535/55212329835_2ef329cde9_b.jpg" alt="Fuego Adicción y Muerte">
-              <div style="height:.5rem;"></div>
-              <div style="height:.5rem;"></div>
-              <div class="mount-cap"><a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text">Donostia · FUEGO, ADICCIÓN Y MUERTE!!!</a><a href="https://beltzarecords.com" target="_blank" class="mount-cap-sig">Luis Beltza</a></div>
-              <div style="height:.5rem;"></div>
-              <div style="height:.5rem;"></div>
+              <img src="https://live.staticflickr.com/65535/55214983719_7ee855d36d_b.jpg" alt="Fuego Adicción y Muerte">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap">
+                <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text">Donostia · FUEGO, ADICCIÓN Y MUERTE!!!</a>
+                <a href="https://beltzarecords.com" target="_blank" class="mount-cap-sig">Luis Beltza</a>
+              </div>
               <div class="mount-sound"><a href="https://www.youtube.com/watch?v=Bag1gUxuU0g" target="_blank">Foto Sound: Lana Del Rey "Born To Die"</a></div>
-              <div style="height:.5rem;"></div>
               <div class="mount-lyric">"Sigue haciéndome reir, vamos a drogarnos, nacimos para morir. ¿Es por error o vanidad?"</div>
             </div>
             <div class="pg-num">I</div>
           </div>
         </div>
         <div class="page-sep"></div>
-                <!-- Página derecha: título + texto -->
-        <div class="page">
+        <div class="page page-texto">
           <div class="page-inner">
             <div class="pg-title">FUEGO, ADICCIÓN Y MUERTE!!!</div>
             <div class="pg-text">Ya lo he comentado en más de una ocasión, el poder de la fotografía me sienta fatal, me coloca en un plano superior, en un plano de control con el que no me siento identificado. Siempre con la mayor naturalidad y respeto hacia todos los personajes de este <span style="color:#8b1a1a;">Zoo Humano</span>, pero el remordimiento por obturar la vida humana en milésimas de segundo — en este caso 1/120 — me produce una sensación de <strong style="color:#c8922a;">Killer Fascista.</strong><br><br>La cara B está llena de <span style="color:#8b1a1a;">antropología social</span> o de sociología de lo común, de "sensibilidad artística", de necesidad vital por narrar los acontecimientos que nos rodean, de incidir en nuestras debilidades personales, de escanear mi propia existencia, <span style="color:#8b1a1a;">la fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos.</span> Al final nunca encontramos el meollo del contenido y nos perdemos en la suciedad del protagonismo, el maloliente exhibicionismo personal y en infinitas capas estéticas.</div>
-            <svg xmlns="http://www.w3.org/2000/svg" style="width:clamp(140px,28%,280px);display:block;margin-left:auto;margin-right:clamp(2.5rem,11%,4.5rem);margin-top:.5rem;" font-family="'Special Elite', monospace" viewBox="0 0 500 500" width="500" height="500">
-  <defs>
-    <path id="top" d="M 65,250 A 185,185 0 0,1 435,250"/>
-    <path id="bot" d="M 57,258 A 193,193 0 0,0 443,258"/>
-
-    <!-- Máscara: círculo exterior con huecos para el 35mm -->
-    <mask id="ring-mask">
-      <!-- Todo blanco = visible -->
-      <rect width="500" height="500" fill="white"/>
-      <!-- Huecos 35mm en negro = recorte -->
-      <rect x="4"   y="225" width="44" height="34" rx="4" fill="black"/>
-      <rect x="452" y="225" width="44" height="34" rx="4" fill="black"/>
-    </mask>
-  </defs>
-
-  <!-- ANILLO NEGRO EXTERIOR — con máscara para el 35mm -->
-  <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#ring-mask)"/>
-
-  <!-- BANDA BLANCA -->
-  <circle cx="250" cy="250" r="228" fill="#fff"/>
-
-  <!-- LÍNEA FINA SEPARADORA BANDA -->
-  <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
-
-  <!-- CÍRCULO INTERIOR ROJO -->
-  <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
-
-  <!-- 35MM BICOLOR — encima de todo -->
-  <!-- Izquierdo -->
-  <rect x="4"   y="225" width="44" height="34" rx="4" fill="#fff"/>
-  <rect x="22"  y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
-  <!-- Derecho -->
-  <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/>
-  <rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
-
-  <!-- TEXTO SUPERIOR -->
-  <text font-size="27" fill="#0a0a0a" letter-spacing="4">
-    <textPath href="#top" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan>
-    </textPath>
-  </text>
-
-  <!-- TEXTO INFERIOR -->
-  <text font-size="27" fill="#0a0a0a" letter-spacing="3">
-    <textPath href="#bot" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath>
-  </text>
-
-  <!-- D²B INCLINADO -->
-  <g transform="translate(250,290) rotate(-8)">
-    <text text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan>
-    </text>
-  </g>
-
-</svg>
-            <div class="pg-sound"><span class="pg-sound-label">Foto Sound: </span><a href="https://www.youtube.com/watch?v=Bag1gUxuU0g" target="_blank">Lana Del Rey "Born To Die"</a></div>
+            <svg class="d2b-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+              <defs>
+                <path id="top-1" d="M 65,250 A 185,185 0 0,1 435,250"/>
+                <path id="bot-1" d="M 57,258 A 193,193 0 0,0 443,258"/>
+                <mask id="rmask-1"><rect width="500" height="500" fill="white"/><rect x="4" y="225" width="44" height="34" rx="4" fill="black"/><rect x="452" y="225" width="44" height="34" rx="4" fill="black"/></mask>
+              </defs>
+              <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#rmask-1)"/>
+              <circle cx="250" cy="250" r="228" fill="#fff"/>
+              <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+              <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
+              <rect x="4" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="22" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+              <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+              <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="4"><textPath href="#top-1" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan></textPath></text>
+              <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="3"><textPath href="#bot-1" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath></text>
+              <g transform="translate(250,290) rotate(-8)"><text font-family="'Special Elite',monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan></text></g>
+            </svg>
+            <div class="pg-sound"><span style="color:rgba(42,32,24,.9);">Foto Sound: </span><a href="https://www.youtube.com/watch?v=Bag1gUxuU0g" target="_blank">Lana Del Rey "Born To Die"</a></div>
             <div class="pg-lyric">"Sigue haciéndome reir, vamos a drogarnos, nacimos para morir. ¿Es por error o vanidad?"</div>
             <div class="pg-num">II</div>
           </div>
         </div>
       </div><!-- /sp-1 -->
 
-      <!-- SPREAD 2: REAL PUERTO HISPANO AMERICANO DE GIPUZKOA -->
+      <!-- ═══ SPREAD 2: REAL PUERTO HISPANO AMERICANO DE GIPUZKOA ═══ -->
       <div class="spread" id="sp-2">
-        <!-- Página izquierda: foto -->
-        <div class="page">
-          <div class="page-inner" style="align-items:center; justify-content:center;">
-            <div class="mount" style="transform:rotate(.6deg);">
+        <div class="page page-foto">
+          <div class="page-inner">
+            <div class="mount mount-landscape" style="transform:rotate(.6deg);">
               <div class="cello cello-top"></div>
               <div class="cello cello-bottom"></div>
               <div class="cello cello-left"></div>
               <div class="cello cello-right"></div>
               <img src="https://live.staticflickr.com/65535/55212325497_5dd8516848_b.jpg" alt="Real Puerto Hispano Americano de Gipuzkoa">
-              <div style="height:.5rem;"></div>
-              <div style="height:.5rem;"></div>
+              <div style="height:.4rem;"></div>
               <div class="mount-cap">
                 <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text">Donostia · REAL PUERTO HISPANO AMERICANO DE GIPUZKOA</a>
                 <a href="https://beltzarecords.com" target="_blank" class="mount-cap-sig">Luis Beltza</a>
               </div>
-              <div style="height:.5rem;"></div>
-              <div style="height:.5rem;"></div>
               <div class="mount-sound"><a href="https://www.youtube.com/watch?v=mYuwbeQWLnY" target="_blank">Foto Sound: Kenyon Hopkins "Hard Latin"</a></div>
             </div>
             <div class="pg-num">III</div>
           </div>
         </div>
         <div class="page-sep"></div>
-        <!-- Página derecha: texto -->
-        <div class="page">
+        <div class="page page-texto">
           <div class="page-inner">
             <div class="pg-title">REAL PUERTO HISPANO AMERICANO DE GIPUZKOA</div>
             <div class="pg-text">La fotografía te da la oportunidad de decir cosas sin abrir la boca. Me encanta, claro!!! Pero al final, la fotografía en sí misma, <span style="color:#8b1a1a;">NO ES NADA!!!</span></div>
-            <svg xmlns="http://www.w3.org/2000/svg" style="display:block;width:clamp(140px,28%,280px);height:auto;margin-left:auto;margin-right:clamp(2.5rem,11%,4.5rem);" font-family="'Special Elite', monospace" viewBox="0 0 500 500" width="500" height="500">
-  <defs>
-    <path id="top" d="M 65,250 A 185,185 0 0,1 435,250"/>
-    <path id="bot" d="M 57,258 A 193,193 0 0,0 443,258"/>
-
-    <!-- Máscara: círculo exterior con huecos para el 35mm -->
-    <mask id="ring-mask">
-      <!-- Todo blanco = visible -->
-      <rect width="500" height="500" fill="white"/>
-      <!-- Huecos 35mm en negro = recorte -->
-      <rect x="4"   y="225" width="44" height="34" rx="4" fill="black"/>
-      <rect x="452" y="225" width="44" height="34" rx="4" fill="black"/>
-    </mask>
-  </defs>
-
-  <!-- ANILLO NEGRO EXTERIOR — con máscara para el 35mm -->
-  <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#ring-mask)"/>
-
-  <!-- BANDA BLANCA -->
-  <circle cx="250" cy="250" r="228" fill="#fff"/>
-
-  <!-- LÍNEA FINA SEPARADORA BANDA -->
-  <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
-
-  <!-- CÍRCULO INTERIOR ROJO -->
-  <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
-
-  <!-- 35MM BICOLOR — encima de todo -->
-  <!-- Izquierdo -->
-  <rect x="4"   y="225" width="44" height="34" rx="4" fill="#fff"/>
-  <rect x="22"  y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
-  <!-- Derecho -->
-  <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/>
-  <rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
-
-  <!-- TEXTO SUPERIOR -->
-  <text font-size="27" fill="#0a0a0a" letter-spacing="4">
-    <textPath href="#top" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan>
-    </textPath>
-  </text>
-
-  <!-- TEXTO INFERIOR -->
-  <text font-size="27" fill="#0a0a0a" letter-spacing="3">
-    <textPath href="#bot" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath>
-  </text>
-
-  <!-- D²B INCLINADO -->
-  <g transform="translate(250,290) rotate(-8)">
-    <text text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan>
-    </text>
-  </g>
-
-</svg>
-            <div class="pg-sound" style="margin-top:.5rem;"><span class="pg-sound-label">Foto Sound: </span><a href="https://www.youtube.com/watch?v=mYuwbeQWLnY" target="_blank">Kenyon Hopkins "Hard Latin"</a></div>
+            <svg class="d2b-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+              <defs>
+                <path id="top-2" d="M 65,250 A 185,185 0 0,1 435,250"/>
+                <path id="bot-2" d="M 57,258 A 193,193 0 0,0 443,258"/>
+                <mask id="rmask-2"><rect width="500" height="500" fill="white"/><rect x="4" y="225" width="44" height="34" rx="4" fill="black"/><rect x="452" y="225" width="44" height="34" rx="4" fill="black"/></mask>
+              </defs>
+              <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#rmask-2)"/>
+              <circle cx="250" cy="250" r="228" fill="#fff"/>
+              <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+              <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
+              <rect x="4" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="22" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+              <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+              <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="4"><textPath href="#top-2" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan></textPath></text>
+              <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="3"><textPath href="#bot-2" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath></text>
+              <g transform="translate(250,290) rotate(-8)"><text font-family="'Special Elite',monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan></text></g>
+            </svg>
+            <div class="pg-sound" style="margin-top:.5rem;"><span style="color:rgba(42,32,24,.9);">Foto Sound: </span><a href="https://www.youtube.com/watch?v=mYuwbeQWLnY" target="_blank">Kenyon Hopkins "Hard Latin"</a></div>
             <div class="pg-num">IV</div>
           </div>
         </div>
       </div><!-- /sp-2 -->
 
-      <!-- SPREAD 3: placeholder -->
+      <!-- ═══ SPREAD 3: placeholder ═══ -->
       <div class="spread" id="sp-3">
         <div class="page">
           <div class="page-inner" style="align-items:center;justify-content:center;">
@@ -1168,15 +886,8 @@ function openAlbum() {
 function closeAlbum() {
   document.getElementById('albumOverlay').classList.remove('open');
 }
-
-function albumNext() {
-  if (busy || cur >= TOTAL) return;
-  go(cur + 1, 'forward');
-}
-function albumPrev() {
-  if (busy || cur <= 1) return;
-  go(cur - 1, 'back');
-}
+function albumNext() { if (busy || cur >= TOTAL) return; go(cur + 1, 'forward'); }
+function albumPrev() { if (busy || cur <= 1) return; go(cur - 1, 'back'); }
 
 function go(n, dir) {
   busy = true;
@@ -1198,8 +909,7 @@ function updateNav() {
   document.getElementById('albInfo').textContent = 'PÁG. ' + cur + ' / ' + TOTAL;
 }
 
-
-// ── SLIDESHOW 13 SEGUNDOS ──
+// SLIDESHOW
 const SLIDE_MS = 13000;
 let slideTimer = null;
 let paused = false;
@@ -1212,12 +922,8 @@ function startSlideshow() {
   animateProgress();
   slideTimer = setTimeout(() => {
     elapsed = 0;
-    if (cur < TOTAL) {
-      albumNext();
-      startSlideshow();
-    } else {
-      resetProgress();
-    }
+    if (cur < TOTAL) { albumNext(); startSlideshow(); }
+    else resetProgress();
   }, SLIDE_MS - elapsed);
 }
 
@@ -1240,21 +946,14 @@ function resetProgress() {
 
 function openAlbumSlide() {
   openAlbum();
-  setTimeout(() => {
-    paused = true;
-    toggleSlide();
-  }, 300);
+  setTimeout(() => { paused = true; toggleSlide(); }, 300);
 }
 
 function toggleSlide() {
   const btn = document.getElementById('btnPause');
   if (paused) {
-    paused = false;
-    elapsed = 0;
-    resetProgress();
-    startSlideshow();
-    btn.textContent = '⏸ PAUSA';
-    btn.classList.add('paused');
+    paused = false; elapsed = 0; resetProgress(); startSlideshow();
+    btn.textContent = '⏸ PAUSA'; btn.classList.add('paused');
   } else {
     paused = true;
     elapsed = Date.now() - startTime;
@@ -1266,35 +965,19 @@ function toggleSlide() {
       bar.style.transition = 'none';
       bar.style.width = (w / total * 100) + '%';
     }
-    btn.textContent = '▶ DIAPOSITIVAS';
-    btn.classList.remove('paused');
+    btn.textContent = '▶ DIAPOSITIVAS'; btn.classList.remove('paused');
   }
 }
 
-// Override openAlbum to start slideshow
 const _openAlbum = openAlbum;
-openAlbum = function() {
-  _openAlbum();
-  paused = true;
-  elapsed = 0;
-  resetProgress();
-}
+openAlbum = function() { _openAlbum(); paused = true; elapsed = 0; resetProgress(); }
 
-// Override closeAlbum to stop
 const _closeAlbum = closeAlbum;
-closeAlbum = function() {
-  _closeAlbum();
-  clearTimeout(slideTimer);
-  paused = false;
-  elapsed = 0;
-}
+closeAlbum = function() { _closeAlbum(); clearTimeout(slideTimer); paused = false; elapsed = 0; }
 
-// Override go() to reset timer on manual nav
 const _go = go;
 go = function(n, dir) {
-  clearTimeout(slideTimer);
-  resetProgress();
-  elapsed = 0;
+  clearTimeout(slideTimer); resetProgress(); elapsed = 0;
   _go(n, dir);
   setTimeout(startSlideshow, 400);
 }
@@ -1305,11 +988,33 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft')  albumPrev();
   if (e.key === 'Escape')     closeAlbum();
 });
-</script>
 
+// Portada dropdowns (legacy — replaced)
+function ptopToggle_old(which) {
+  const wrap = document.getElementById('ptop-' + which + '-wrap');
+  const wasOpen = wrap.classList.contains('open');
+  document.querySelectorAll('.ptop-drop-wrap.open').forEach(w => w.classList.remove('open'));
+  if (!wasOpen) wrap.classList.add('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.ptop-drop-wrap')) {
+    document.querySelectorAll('.ptop-drop-wrap.open').forEach(w => w.classList.remove('open'));
+  }
+});
 
-<script>
-// Album dropdowns
+// Portada dropdowns
+function pDropToggle(which) {
+  const wrap = document.getElementById('drop-' + which + '-wrap');
+  const wasOpen = wrap.classList.contains('open');
+  document.querySelectorAll('.p-drop-wrap.open').forEach(w => w.classList.remove('open'));
+  if (!wasOpen) wrap.classList.add('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.p-drop-wrap'))
+    document.querySelectorAll('.p-drop-wrap.open').forEach(w => w.classList.remove('open'));
+});
+
+// Dropdowns
 document.querySelectorAll('.alb-drop-trigger').forEach(trigger => {
   trigger.addEventListener('click', function(e) {
     e.stopPropagation();
