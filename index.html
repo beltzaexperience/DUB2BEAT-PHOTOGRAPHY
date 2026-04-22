@@ -42,8 +42,8 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
 /* SPINE */
 .spine { flex-shrink:0; width:8%; min-width:40px; max-width:70px; position:relative; background:linear-gradient(90deg,#1a120c 0%,#2e1f14 30%,#1e1409 70%,#120d08 100%); overflow:hidden; }
 .spine::before { content:''; position:absolute; inset:0; background-image:url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg'); background-size:cover; opacity:.12; mix-blend-mode:multiply; }
-.spine-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-90deg); white-space:nowrap; font-family:'Special Elite',monospace; font-size:clamp(.65rem,2vw,1rem); letter-spacing:.25em; color:rgba(220,205,185,.95); pointer-events:none; }
-.spine-text-r { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(90deg); white-space:nowrap; font-family:'Special Elite',monospace; font-size:clamp(.65rem,2vw,1rem); letter-spacing:.25em; color:rgba(220,205,185,.95); pointer-events:none; }
+.spine-text   { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-90deg); white-space:nowrap; font-family:'Special Elite',monospace; font-size:clamp(.65rem,2vw,1rem); letter-spacing:.25em; color:rgba(220,205,185,.95); pointer-events:none; }
+.spine-text-r { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(90deg);  white-space:nowrap; font-family:'Special Elite',monospace; font-size:clamp(.65rem,2vw,1rem); letter-spacing:.25em; color:rgba(220,205,185,.95); pointer-events:none; }
 
 /* DIARIO */
 .portada-diario {
@@ -68,7 +68,7 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
   pointer-events: none;
 }
 
-/* COLUMNA IZQUIERDA — misma estructura que portada con alas */
+/* COLUMNA IZQUIERDA */
 .pd-left {
   position: absolute;
   top: 0; bottom: 0; left: 0;
@@ -85,33 +85,15 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
   padding: clamp(.8rem,3%,1.8rem);
   padding-top: calc(clamp(.8rem,3%,1.4rem) + .9rem);
 }
-.cover-center {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(.3rem,1.5%,.7rem);
-  margin-top: -2rem;
-}
+
 .cover-title { font-family:'Special Elite',monospace; font-size:clamp(5rem,18vw,12rem); line-height:.9; letter-spacing:.04em; color:rgba(30,20,12,.82); text-shadow:1px 1px 0 rgba(255,255,255,.15); }
 .cover-title .sq { font-size:.75em; vertical-align:super; color:#8b1a1a; }
 .cover-rule { width:clamp(2rem,15%,4rem); height:1px; background:rgba(42,32,24,.3); }
 .cover-footer { display:flex; justify-content:space-between; align-items:flex-end; }
 .cover-sig { font-family:'Caveat',cursive; font-size:clamp(.8rem,3vw,1.5rem); color:#8b1a1a; line-height:1; text-decoration:none; transition:color .2s; }
-.cover-sig:hover { color:#8b1a1a; }
-.d2b-logo-portada { position:absolute; top:calc(clamp(.8rem,3%,1.4rem) + .9rem); right:clamp(.8rem,3%,1.8rem); width:clamp(160px,42%,300px); height:auto; z-index:5; }
-
-
-
-/* LÍNEA ROJA */ — encima del fondo, a la izquierda del polaroid */
-.linea-roja {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: #cc0000;
-  right: calc(min(100%, calc((100vh - 10rem) * 0.813)) + clamp(1.5rem,4%,3rem) * 2);
-  z-index: 10;
-}
+.cover-sig:hover { color:#1F4E9A; }
+.d2b-logo-portada { flex-shrink:0; width:clamp(160px,42%,300px); max-width:300px; height:auto; aspect-ratio:1; display:block; align-self:flex-start; }
+.fit-line { font-family:'Special Elite',monospace; letter-spacing:.04em; color:rgba(30,20,12,.82); text-shadow:1px 1px 0 rgba(255,255,255,.15); line-height:.88; white-space:nowrap; display:block; }
 
 /* POLAROID */
 .mount {
@@ -133,33 +115,91 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
 .mount-cap { display:flex; justify-content:space-between; align-items:baseline; padding:.3rem .45rem .05rem; gap:.5rem; }
 .mount-cap-text { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#1F4E9A; line-height:1.3; text-decoration:none; flex:1; }
 .mount-cap-text:hover { color:#8b1a1a; }
-.mount-cap-sig { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#1F4E9A; line-height:1.3; text-align:right; text-decoration:none; white-space:nowrap; }
+.mount-cap-sig  { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#1F4E9A; line-height:1.3; text-align:right; text-decoration:none; white-space:nowrap; }
 .mount-cap-sig:hover { color:#8b1a1a; }
 .mount-entrevista { padding:.1rem .45rem .4rem; }
 .mount-entrevista p { font-family:'Caveat',cursive; font-size:clamp(1rem,2.2vw,1.3rem); color:#1F4E9A; line-height:1.65; letter-spacing:.02em; margin-bottom:.5rem; }
 .mount-entrevista strong { color:#8b1a1a; }
-
-/* CELLO */
 .cello { position:absolute; background:rgba(255,240,170,.55); border:1px solid rgba(210,185,110,.35); box-shadow:0 1px 3px rgba(0,0,0,.1); z-index:10; }
 .cello-top    { width:clamp(28px,6%,46px); height:13px; top:-7px; left:50%; transform:translateX(-50%) rotate(-1deg); }
 .cello-bottom { width:clamp(28px,6%,46px); height:13px; bottom:-7px; left:50%; transform:translateX(-50%) rotate(1deg); }
 .cello-left   { width:13px; height:clamp(24px,5%,38px); left:-7px; top:50%; transform:translateY(-50%) rotate(-1deg); }
 .cello-right  { width:13px; height:clamp(24px,5%,38px); right:-7px; top:50%; transform:translateY(-50%) rotate(1deg); }
 
-/* FOOTER */
+/* FOOTER NAV */
 .p-nav { flex-shrink:0; display:flex; justify-content:center; align-items:center; gap:2rem; padding:.5rem 0; background:#0a0806; }
-.p-btn { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; }
+.p-btn       { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; }
 .p-btn:hover { color:#fff; }
-.p-btn-slide { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; min-width:5rem; }
+.p-btn-slide { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; }
 .p-btn-slide:hover { color:#8b1a1a; }
 
 @media (max-width:700px),(orientation:portrait) {
-  .portada-inner { flex-direction:column; }
-  .spine { width:100%; height:28px; min-width:unset; max-width:unset; }
-  .spine-text { transform:translate(-50%,-50%) rotate(0deg); font-size:.6rem; }
-  .spine-text-r { display:none; }
-  .mount { width:85vw; height:calc(100% - 1rem); transform:none; }
-  .linea-roja { display:none; }
+
+  /* Portada: columna vertical */
+  .portada { overflow-y:auto; overflow-x:hidden; }
+  .portada-inner { flex-direction:column; overflow:visible; }
+
+  /* Spines: 18px horizontal */
+  .spine { width:100%; height:18px; min-width:unset; max-width:unset; flex-shrink:0; }
+  .spine-text   { transform:translate(-50%,-50%) rotate(0deg); font-size:.55rem; }
+  .spine-text-r { transform:translate(-50%,-50%) rotate(0deg); font-size:.55rem; }
+
+  /* Diario: columna vertical, alto automático */
+  .portada-diario {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: auto;
+    min-height: unset;
+    padding: 1rem;
+    overflow: visible;
+  }
+
+  /* Columna izquierda: flujo normal en móvil */
+  .pd-left {
+    position: static;
+    width: 100%;
+  }
+  .cover-content {
+    position: static;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+  }
+  .cover-footer { flex-direction: column; align-items: stretch; }
+
+  /* Título: 100% ancho, fitLines lo ajusta */
+  #titleRow {
+    flex-direction: column;
+    align-items: center;
+  }
+  #titleCol {
+    flex: none;
+    width: 100%;
+  }
+
+  /* Logo: 100% ancho, centrado debajo del título */
+  .d2b-logo-portada {
+    width: 100%;
+    max-width: 100%;
+    align-self: center;
+    margin-top: .5rem;
+  }
+
+  /* Polaroid: ancho completo, alto automático, sin rotación */
+  .mount {
+    position: static;
+    width: 100%;
+    height: auto;
+    transform: none;
+    margin-top: 1rem;
+  }
+  .mount-scroll { overflow: visible; }
+  .mount-scroll img { width: 100%; height: auto; }
+
+  /* Nav abajo */
+  .p-nav { margin-top: .5rem; }
 }
 </style>
 </head>
@@ -200,15 +240,15 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
     </div>
 
     <div class="portada-diario">
-      <!-- COLUMNA IZQUIERDA -->
+
       <div class="pd-left">
         <div class="cover-content">
           <div class="cover-footer">
             <div style="display:flex; flex-direction:column; gap:.3rem; width:100%;">
-              <!-- TÍTULO + LOGO en la misma fila -->
-              <div style="display:flex; flex-direction:row; align-items:flex-start; justify-content:space-between; width:100%;">
-                <div>
-                  <div class="cover-title">DUB<span class="sq">²</span><br>BEAT</div>
+              <div id="titleRow" style="display:flex; flex-direction:row; align-items:flex-start; justify-content:space-between; width:100%;">
+                <div id="titleCol" style="flex:0 0 58%; min-width:0;">
+                  <span class="fit-line">DUB<span style="font-size:.7em;vertical-align:super;color:#8b1a1a;">²</span></span>
+                  <span class="fit-line">BEAT</span>
                   <div class="cover-rule"></div>
                 </div>
               <svg class="d2b-logo-portada" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
@@ -228,14 +268,12 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
                 <g transform="translate(250,290) rotate(-8)"><text font-family="'Special Elite',monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan></text></g>
               </svg>
               </div>
-              <!-- CITAS -->
               <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block;">
                 <text x="0" y="40" font-family="Special Elite, monospace" font-size="44" fill="rgba(42,32,24,.90)" textLength="1000" lengthAdjust="spacingAndGlyphs">"<tspan fill="rgba(42,32,24,.90)">La fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos.</tspan>"</text>
               </svg>
               <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block;">
                 <text x="0" y="40" font-family="Special Elite, monospace" font-size="44" fill="rgba(42,32,24,.90)" textLength="1000" lengthAdjust="spacingAndGlyphs">"<tspan fill="rgba(42,32,24,.90)">Es sólo fotografía, las posibles interpretaciones son productos de nuestra imaginación.</tspan>"</text>
               </svg>
-              <!-- FIRMA -->
               <a href="https://beltzarecords.com" target="_blank" class="cover-sig" style="margin-top:.3rem;" onmouseover="this.style.color='#1F4E9A'" onmouseout="this.style.color='#8b1a1a'">Luis Beltza</a>
               <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block; margin-top:2.4rem;">
                 <text x="0" y="40" font-family="Special Elite, monospace" font-size="44" fill="rgba(42,32,24,.90)" textLength="1000" lengthAdjust="spacingAndGlyphs"><tspan fill="#8b1a1a">Robert Capa:</tspan> "Si tus fotos no son suficientemente buenas, no estás suficientemente cerca."</text>
@@ -248,7 +286,7 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
         </div>
       </div>
 
-      <div class="linea-roja"></div>
+      <!-- POLAROID -->
       <div class="mount">
         <div class="cello cello-top"></div>
         <div class="cello cello-bottom"></div>
@@ -290,11 +328,34 @@ Uno solo me va a ser imposible, y eso que no conozco a casi nadie. La lista va a
 
   <div class="p-nav">
     <button class="p-btn-slide">▶ DIAPOSITIVAS</button>
-    <button class="p-btn">DUB²BEAT · PÁG. 1 <span style="font-size:1.3em;">▸</span></button>
+    <button class="p-btn" onclick="openAlbum()">DUB²BEAT · PÁG. 1 <span style="font-size:1.3em;">▸</span></button>
   </div>
 
 </div>
+
 <script>
+function fitLines() {
+  const col = document.getElementById('titleCol');
+  if (!col) return;
+  const w = col.clientWidth;
+  if (w === 0) return;
+  const lines = col.querySelectorAll('.fit-line');
+  let best = 200; /* cap a 200px ≈ 12.5rem, mantiene proporciones del Mac */
+  lines.forEach(line => {
+    let lo = 1, hi = 200, mid;
+    while (lo < hi - 1) {
+      mid = (lo + hi) >> 1;
+      line.style.fontSize = mid + 'px';
+      if (line.scrollWidth <= w) lo = mid; else hi = mid;
+    }
+    best = Math.min(best, lo);
+  });
+  lines.forEach(line => line.style.fontSize = best + 'px');
+}
+
+document.fonts.ready.then(() => setTimeout(fitLines, 100));
+window.addEventListener('resize', fitLines);
+
 function pDropToggle(which) {
   const wrap = document.getElementById('drop-' + which + '-wrap');
   const wasOpen = wrap.classList.contains('open');
@@ -312,422 +373,93 @@ document.addEventListener('click', e => {
      ÁLBUM
 ══════════════════════════════════════════ -->
 <style>
-.album-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 500;
-  background: #0a0806;
-}
-.album-overlay.open { display: flex; flex-direction: column; }
-
-.alb-scene {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.alb-wing {
-  flex: 1;
-  align-self: stretch;
-  background: url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg') center/cover;
-  box-shadow: 4px 6px 28px rgba(0,0,0,.65);
-  margin: .8rem 0;
-}
-.alb-gap { width: 10px; flex-shrink: 0; }
-
-.alb-book {
-  width: 100%; height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.spread {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .05s;
-}
-.spread.active { opacity: 1; pointer-events: all; }
-
-.page {
-  flex: 1;
-  position: relative;
-  background: url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg') center/cover;
-  overflow: hidden;
-}
-.page::before {
-  content:''; position:absolute; inset:0;
-  background: rgba(230,220,205,.42); z-index:0;
-}
-
-/* page-inner base */
-.page-inner {
-  position: relative; z-index: 1;
-  height: 100%;
-  padding: clamp(.8rem,3%,1.4rem);
-  display: flex;
-  flex-direction: column;
-  gap: .6rem;
-  overflow: hidden;
-}
-
-/* Página FOTO: sin scroll, la foto se adapta a la pantalla */
-.page-foto .page-inner {
-  justify-content: center;
-  align-items: center;
-}
-
-/* Página TEXTO: scroll si el contenido lo requiere */
-.page-texto .page-inner {
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.page-texto .page-inner::-webkit-scrollbar { display: none; }
-
-.page-sep {
-  width: 6px; flex-shrink: 0;
-  background: linear-gradient(90deg, #1a120c, #2e1f14 40%, #120d08);
-  box-shadow: 2px 0 8px rgba(0,0,0,.4);
-}
-
-/* ══ POLAROID — SE ADAPTA A LA PÁGINA DISPONIBLE ══
-   La imagen crece hasta llenar la altura útil de la página.
-   Altura útil = 100vh - barras - padding - pie de foto ≈ 100vh - 11rem.
-   El marco abraza el resultado. El texto no desborda.
-*/
-.mount {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  padding: .9rem .9rem 1.6rem;
-  box-shadow: 2px 3px 10px rgba(42,32,24,.28);
-  flex-shrink: 1;
-  overflow: hidden;
-}
-
-/* 1:1 cuadrada
-   Lado = altura útil disponible, limitado por el ancho de la página */
-.mount.mount-square {
-  width: min(100%, calc(100vh - 14rem));
-}
-.mount.mount-square img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* 3:2 horizontal
-   Ocupa todo el ancho; altura se calcula sola por proporción */
-.mount.mount-landscape {
-  width: 100%;
-}
-.mount.mount-landscape img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: calc(100vh - 14rem);
-}
-
-/* 2:3 vertical
-   Ancho = altura útil × 2/3, limitado por la página */
-.mount.mount-portrait {
-  width: min(100%, calc((100vh - 14rem) * 0.667));
-}
-.mount.mount-portrait img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.mount-cap {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: .3rem .45rem .05rem;
-  gap: .5rem;
-}
-.mount-cap-text {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(.85rem,1.8vw,1.1rem);
-  color: #1F4E9A;
-  line-height: 1.3;
-  text-decoration: none;
-  flex: 1;
-}
-.mount-cap-text:hover { color: #8b1a1a; }
-.mount-cap-sig {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(.85rem,1.8vw,1.1rem);
-  color: #1F4E9A;
-  line-height: 1.3;
-  text-align: right;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.mount-cap-sig:hover { color: #8b1a1a; }
-
-/* CELLO */
-.cello {
-  position: absolute;
-  background: rgba(255,240,170,.55);
-  border: 1px solid rgba(210,185,110,.35);
-  box-shadow: 0 1px 3px rgba(0,0,0,.1);
-  z-index: 10;
-}
-.cello-top    { width: clamp(28px,6%,46px); height: 13px; top: -7px; left: 50%; transform: translateX(-50%) rotate(-1deg); }
-.cello-bottom { width: clamp(28px,6%,46px); height: 13px; bottom: -7px; left: 50%; transform: translateX(-50%) rotate(1deg); }
-.cello-left   { width: 13px; height: clamp(24px,5%,38px); left: -7px; top: 50%; transform: translateY(-50%) rotate(-1deg); }
-.cello-right  { width: 13px; height: clamp(24px,5%,38px); right: -7px; top: 50%; transform: translateY(-50%) rotate(1deg); }
-.mount:nth-child(odd)  { transform: rotate(-1.2deg); }
-.mount:nth-child(even) { transform: rotate(.7deg); }
-
-.mount-lyric {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(.85rem,1.8vw,1.1rem);
-  letter-spacing: .05em;
-  color: #8b1a1a;
-  padding: .05rem .45rem .2rem;
-}
-.mount-sound {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(.85rem,1.8vw,1.1rem);
-  letter-spacing: .05em;
-  padding: .15rem .45rem .1rem;
-}
-.mount-sound a { color: #1F4E9A; text-decoration: none; }
-.mount-sound a:hover { color: #c8922a; }
-
-.pg-title {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(1rem,2.8vw,1.5rem);
-  letter-spacing: .06em;
-  color: #8b1a1a;
-  line-height: 1.2;
-}
-.pg-text {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.72rem,1.8vw,1rem);
-  color: rgba(42,32,24,.75);
-  line-height: 1.65;
-  letter-spacing: .02em;
-}
-.pg-lyric {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.72rem,1.8vw,1rem);
-  letter-spacing: .05em;
-  color: #8b1a1a;
-  margin-bottom: .4rem;
-}
-.pg-sound {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.72rem,1.8vw,1rem);
-  letter-spacing: .05em;
-  margin-bottom: .2rem;
-  color: rgba(42,32,24,.9);
-}
-.pg-sound a { color: #1F4E9A; text-decoration: none; }
-.pg-sound a:hover { color: #8b1a1a; }
-.pg-num {
-  margin-top: auto;
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.4rem,1vw,.55rem);
-  letter-spacing: .2em;
-  color: rgba(42,32,24,.3);
-  text-align: center;
-}
-
-/* ANIMACIONES */
-@keyframes slideIn  { from { transform: translateX( 60px); opacity:0; } to { transform: translateX(0); opacity:1; } }
-@keyframes slideOut { from { transform: translateX(0); opacity:1; } to { transform: translateX(-60px); opacity:0; } }
-@keyframes slideInR { from { transform: translateX(-60px); opacity:0; } to { transform: translateX(0); opacity:1; } }
-.spread.entering      { animation: slideIn  .35s cubic-bezier(.4,0,.2,1) forwards; }
-.spread.leaving       { animation: slideOut .35s cubic-bezier(.4,0,.2,1) forwards; }
-.spread.entering-back { animation: slideInR .35s cubic-bezier(.4,0,.2,1) forwards; }
-
-/* SLIDESHOW */
-.alb-progress {
-  position: absolute;
-  bottom: 0; left: 0;
-  height: 2px;
-  background: #8b1a1a;
-  width: 0%;
-  transition: width linear;
-  z-index: 10;
-}
-
-/* TOP BAR */
-.alb-top {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  padding: .8rem 1.5rem;
-}
-.alb-top a {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.7rem,1.8vw,1rem);
-  letter-spacing: .2em;
-  color: rgba(255,255,255,.7);
-  text-decoration: none;
-  transition: color .2s;
-}
-.alb-top a:hover { color: #fff; }
-.alb-top-sep { color: rgba(255,255,255,.2); font-size: .5rem; }
-.alb-top-tema { color: rgba(255,255,255,.7); font-family: 'Special Elite', monospace; font-size: clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; cursor:pointer; }
-
-/* DROPDOWNS */
-.alb-drop-wrap { position: relative; display: inline-block; }
-.alb-drop-trigger { cursor: pointer; }
-.alb-drop {
-  display: none;
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(14,10,8,.97);
-  border: 1px solid rgba(200,146,42,.4);
-  min-width: 200px;
-  z-index: 1001;
-  padding: .3rem 0;
-}
-.alb-drop-wrap.open .alb-drop { display: block; }
-.alb-drop-item {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.55rem,1.4vw,.78rem);
-  letter-spacing: .15em;
-  color: rgba(232,220,200,.75);
-  padding: .45rem 1rem;
-  cursor: pointer;
-  transition: color .15s;
-}
-.alb-drop-item:hover { color: #8b1a1a; }
-.alb-drop-item.muted { color: rgba(232,220,200,.35); cursor: default; }
-.alb-drop-item.muted:hover { color: rgba(232,220,200,.35); }
-
-/* NAV */
-.alb-nav {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  padding: .8rem 0;
-}
-.alb-btn {
-  background: none; border: none; cursor: pointer;
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.7rem,1.8vw,1rem);
-  letter-spacing: .2em;
-  color: rgba(255,255,255,.7);
-  transition: color .2s;
-}
-.alb-btn:hover:not(:disabled) { color: #fff; }
-.alb-btn:disabled { opacity: .15; cursor: default; }
-.alb-btn-pause {
-  background: none; border: none; cursor: pointer;
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.7rem,1.8vw,1rem);
-  letter-spacing: .2em;
-  color: rgba(255,255,255,.7);
-  transition: color .2s;
-  min-width: 5rem;
-}
-.alb-btn-pause:hover { color: #8b1a1a; }
-.alb-btn-pause.paused { color: #8b1a1a; }
-.alb-info {
-  font-family: 'Special Elite', monospace;
-  font-size: clamp(.45rem,1.2vw,.65rem);
-  letter-spacing: .2em;
-  color: rgba(255,255,255,.5);
-}
-
-/* SVG logo helper */
-.d2b-logo {
-  display: block;
-  width: clamp(140px,28%,280px);
-  height: auto;
-  margin-left: auto;
-  margin-right: clamp(2.5rem,11%,4.5rem);
-  margin-top: .5rem;
-}
-
-/* ══ MÓVIL — foto arriba, texto abajo ══ */
-@media (max-width: 700px), (orientation: portrait) {
-
-  .alb-scene {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .spread {
-    flex-direction: column;
-  }
-
-  /* Página foto: ocupa la mitad superior */
-  .page-foto {
-    flex: 0 0 auto;
-  }
-  .page-foto .page-inner {
-    padding: .6rem;
-  }
-
-  /* Separador central desaparece en móvil */
-  .page-sep {
-    width: 100%;
-    height: 4px;
-    flex-shrink: 0;
-  }
-
-  /* Página texto: ocupa la mitad inferior con scroll */
-  .page-texto {
-    flex: 1;
-    min-height: 0;
-  }
-
-  /* Foto cuadrada en móvil: ancho completo */
-  .mount.mount-square {
-    width: min(100%, calc(100vw - 14rem));
-  }
-  .mount.mount-square img {
-    width: 100%;
-    height: auto;
-  }
-
-  /* Foto horizontal en móvil: ancho completo */
-  .mount.mount-landscape {
-    width: 100%;
-  }
-
-  /* Foto vertical en móvil */
-  .mount.mount-portrait {
-    width: min(100%, calc(50vh * 0.667));
-  }
-
-  /* Texto del pie más pequeño en móvil */
-  .mount-cap-text,
-  .mount-cap-sig,
-  .mount-lyric,
-  .mount-sound { font-size: clamp(.75rem, 3vw, .95rem); }
+.album-overlay { display:none; position:fixed; inset:0; z-index:500; background:#0a0806; }
+.album-overlay.open { display:flex; flex-direction:column; }
+.alb-scene { flex:1; min-height:0; display:flex; flex-direction:row; align-items:center; }
+.alb-book  { width:100%; height:100%; position:relative; overflow:hidden; }
+.spread { position:absolute; inset:0; display:flex; opacity:0; pointer-events:none; transition:opacity .05s; }
+.spread.active { opacity:1; pointer-events:all; }
+.page { flex:1; position:relative; background:url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg') center/cover; overflow:hidden; }
+.page::before { content:''; position:absolute; inset:0; background:rgba(230,220,205,.42); z-index:0; }
+.page-inner { position:relative; z-index:1; height:100%; padding:clamp(.8rem,3%,1.4rem); display:flex; flex-direction:column; gap:.6rem; overflow:hidden; }
+.page-foto  .page-inner { justify-content:center; align-items:center; }
+.page-texto .page-inner { overflow-y:auto; overflow-x:hidden; scrollbar-width:none; -ms-overflow-style:none; }
+.page-texto .page-inner::-webkit-scrollbar { display:none; }
+.page-sep { width:6px; flex-shrink:0; background:linear-gradient(90deg,#1a120c,#2e1f14 40%,#120d08); box-shadow:2px 0 8px rgba(0,0,0,.4); }
+.mount-alb { position:relative; display:flex; flex-direction:column; background:#fff; padding:.9rem .9rem 1.6rem; box-shadow:2px 3px 10px rgba(42,32,24,.28); flex-shrink:1; overflow:hidden; }
+.mount-alb.mount-square    { width:min(100%, calc(100vh - 14rem)); }
+.mount-alb.mount-square    img { display:block; width:100%; height:auto; }
+.mount-alb.mount-landscape { width:100%; }
+.mount-alb.mount-landscape img { display:block; width:100%; height:auto; max-height:calc(100vh - 14rem); }
+.mount-alb.mount-portrait  { width:min(100%, calc((100vh - 14rem) * 0.667)); }
+.mount-alb.mount-portrait  img { display:block; width:100%; height:auto; }
+.mount-cap-a { display:flex; justify-content:space-between; align-items:baseline; padding:.3rem .45rem .05rem; gap:.5rem; }
+.mount-cap-text-a { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#1F4E9A; line-height:1.3; text-decoration:none; flex:1; }
+.mount-cap-text-a:hover { color:#8b1a1a; }
+.mount-cap-sig-a  { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#1F4E9A; line-height:1.3; text-align:right; text-decoration:none; white-space:nowrap; }
+.mount-cap-sig-a:hover { color:#8b1a1a; }
+.cello-a { position:absolute; background:rgba(255,240,170,.55); border:1px solid rgba(210,185,110,.35); box-shadow:0 1px 3px rgba(0,0,0,.1); z-index:10; }
+.ct { width:clamp(28px,6%,46px); height:13px; top:-7px; left:50%; transform:translateX(-50%) rotate(-1deg); }
+.cb { width:clamp(28px,6%,46px); height:13px; bottom:-7px; left:50%; transform:translateX(-50%) rotate(1deg); }
+.cl { width:13px; height:clamp(24px,5%,38px); left:-7px; top:50%; transform:translateY(-50%) rotate(-1deg); }
+.cr { width:13px; height:clamp(24px,5%,38px); right:-7px; top:50%; transform:translateY(-50%) rotate(1deg); }
+.mount-alb:nth-child(odd)  { transform:rotate(-1.2deg); }
+.mount-alb:nth-child(even) { transform:rotate(.7deg); }
+.mount-lyric-a { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); letter-spacing:.05em; color:#8b1a1a; padding:.05rem .45rem .2rem; }
+.mount-sound-a  { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); letter-spacing:.05em; padding:.15rem .45rem .1rem; }
+.mount-sound-a a { color:#1F4E9A; text-decoration:none; }
+.mount-sound-a a:hover { color:#c8922a; }
+.pg-title { font-family:'Special Elite',monospace; font-size:clamp(1rem,2.8vw,1.5rem); letter-spacing:.06em; color:#8b1a1a; line-height:1.2; }
+.pg-text  { font-family:'Special Elite',monospace; font-size:clamp(.72rem,1.8vw,1rem); color:rgba(42,32,24,.75); line-height:1.65; letter-spacing:.02em; }
+.pg-lyric { font-family:'Special Elite',monospace; font-size:clamp(.72rem,1.8vw,1rem); letter-spacing:.05em; color:#8b1a1a; margin-bottom:.4rem; }
+.pg-sound { font-family:'Special Elite',monospace; font-size:clamp(.72rem,1.8vw,1rem); letter-spacing:.05em; margin-bottom:.2rem; color:rgba(42,32,24,.9); }
+.pg-sound a { color:#1F4E9A; text-decoration:none; }
+.pg-sound a:hover { color:#8b1a1a; }
+.pg-num   { margin-top:auto; font-family:'Special Elite',monospace; font-size:clamp(.4rem,1vw,.55rem); letter-spacing:.2em; color:rgba(42,32,24,.3); text-align:center; }
+.d2b-logo { display:block; width:clamp(140px,28%,280px); height:auto; margin-left:auto; margin-right:clamp(2.5rem,11%,4.5rem); margin-top:.5rem; }
+@keyframes slideIn  { from{transform:translateX( 60px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes slideOut { from{transform:translateX(0);opacity:1} to{transform:translateX(-60px);opacity:0} }
+@keyframes slideInR { from{transform:translateX(-60px);opacity:0} to{transform:translateX(0);opacity:1} }
+.spread.entering      { animation:slideIn  .35s cubic-bezier(.4,0,.2,1) forwards; }
+.spread.leaving       { animation:slideOut .35s cubic-bezier(.4,0,.2,1) forwards; }
+.spread.entering-back { animation:slideInR .35s cubic-bezier(.4,0,.2,1) forwards; }
+.alb-progress { position:absolute; bottom:0; left:0; height:2px; background:#8b1a1a; width:0%; transition:width linear; z-index:10; }
+.alb-top { flex-shrink:0; display:flex; justify-content:center; align-items:center; gap:1.5rem; padding:.8rem 1.5rem; }
+.alb-top a { font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); text-decoration:none; transition:color .2s; }
+.alb-top a:hover { color:#fff; }
+.alb-top-sep  { color:rgba(255,255,255,.2); }
+.alb-top-tema { color:rgba(255,255,255,.7); font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; cursor:pointer; }
+.alb-drop-wrap { position:relative; display:inline-block; }
+.alb-drop-trigger { cursor:pointer; }
+.alb-drop { display:none; position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%); background:rgba(14,10,8,.97); border:1px solid rgba(200,146,42,.4); min-width:200px; z-index:1001; padding:.3rem 0; }
+.alb-drop-wrap.open .alb-drop { display:block; }
+.alb-drop-item { font-family:'Special Elite',monospace; font-size:clamp(.55rem,1.4vw,.78rem); letter-spacing:.15em; color:rgba(232,220,200,.75); padding:.45rem 1rem; cursor:pointer; transition:color .15s; }
+.alb-drop-item:hover { color:#8b1a1a; }
+.alb-drop-item.muted { color:rgba(232,220,200,.35); cursor:default; }
+.alb-nav { flex-shrink:0; display:flex; justify-content:center; align-items:center; gap:2rem; padding:.8rem 0; }
+.alb-btn { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; }
+.alb-btn:hover:not(:disabled) { color:#fff; }
+.alb-btn:disabled { opacity:.15; cursor:default; }
+.alb-btn-pause { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; min-width:5rem; }
+.alb-btn-pause:hover { color:#8b1a1a; }
+.alb-btn-pause.paused { color:#8b1a1a; }
+.alb-info { font-family:'Special Elite',monospace; font-size:clamp(.45rem,1.2vw,.65rem); letter-spacing:.2em; color:rgba(255,255,255,.5); }
+@media (max-width:700px),(orientation:portrait) {
+  .alb-scene { flex-direction:column; align-items:stretch; }
+  .spread { flex-direction:column; }
+  .page-foto  { flex:0 0 auto; }
+  .page-foto  .page-inner { padding:.6rem; }
+  .page-sep   { width:100%; height:4px; flex-shrink:0; }
+  .page-texto { flex:1; min-height:0; }
+  .mount-alb.mount-square   { width:min(100%, calc(100vw - 14rem)); }
+  .mount-alb.mount-portrait { width:min(100%, calc(50vh * 0.667)); }
+  .mount-cap-text-a,.mount-cap-sig-a,.mount-lyric-a,.mount-sound-a { font-size:clamp(.75rem,3vw,.95rem); }
 }
 </style>
 
 <div class="album-overlay" id="albumOverlay">
   <div class="alb-top">
-    <span class="alb-drop-wrap">
-      <span class="alb-top-tema alb-drop-trigger">TEMAS ▾</span>
-      <div class="alb-drop">
-        <div class="alb-drop-item">FOTOGRAFÍA CALLEJERA</div>
-        <div class="alb-drop-item muted">AUTORRETRATOS</div>
-      </div>
-    </span>
+    <span class="alb-drop-wrap"><span class="alb-top-tema alb-drop-trigger">TEMAS ▾</span><div class="alb-drop"><div class="alb-drop-item">FOTOGRAFÍA CALLEJERA</div><div class="alb-drop-item muted">AUTORRETRATOS</div></div></span>
     <a href="https://beltzarecords.com" target="_blank">BELTZARECORDS.COM</a>
     <span class="alb-top-sep">·</span>
     <a href="https://beltzaexperience.github.io/Manifiesto-Beltza/" target="_blank">MANIFIESTO BELTZA</a>
@@ -736,137 +468,60 @@ document.addEventListener('click', e => {
     <span class="alb-top-sep">·</span>
     <a href="https://beltzaexperience.github.io/UR-SAPIENS/" target="_blank">UR_BOOK</a>
     <span class="alb-top-sep">·</span>
-    <span class="alb-drop-wrap">
-      <span class="alb-top-tema alb-drop-trigger">ÍNDICE ▾</span>
-      <div class="alb-drop">
-        <div class="alb-drop-item">ZOO HUMANO</div>
-        <div class="alb-drop-item">ANTROPOLOGÍA SOCIAL</div>
-      </div>
-    </span>
+    <span class="alb-drop-wrap"><span class="alb-top-tema alb-drop-trigger">ÍNDICE ▾</span><div class="alb-drop"><div class="alb-drop-item">ZOO HUMANO</div><div class="alb-drop-item">ANTROPOLOGÍA SOCIAL</div></div></span>
   </div>
-
   <div class="alb-scene">
     <div class="alb-book" id="albBook">
       <div class="alb-progress" id="albProgress"></div>
-
-      <!-- ═══ SPREAD 1: FUEGO, ADICCIÓN Y MUERTE ═══ -->
       <div class="spread active" id="sp-1">
-        <div class="page page-foto">
-          <div class="page-inner">
-            <div class="mount mount-square">
-              <div class="cello cello-top"></div>
-              <div class="cello cello-bottom"></div>
-              <div class="cello cello-left"></div>
-              <div class="cello cello-right"></div>
-              <img src="https://live.staticflickr.com/65535/55214983719_7ee855d36d_b.jpg" alt="Fuego Adicción y Muerte">
-              <div style="height:.4rem;"></div>
-              <div class="mount-cap">
-                <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text">Donostia · FUEGO, ADICCIÓN Y MUERTE!!!</a>
-                <a href="https://beltzarecords.com" target="_blank" class="mount-cap-sig">Luis Beltza</a>
-              </div>
-              <div class="mount-sound"><a href="https://www.youtube.com/watch?v=Bag1gUxuU0g" target="_blank">Foto Sound: Lana Del Rey "Born To Die"</a></div>
-              <div class="mount-lyric">"Sigue haciéndome reir, vamos a drogarnos, nacimos para morir. ¿Es por error o vanidad?"</div>
-            </div>
-            <div class="pg-num">I</div>
+        <div class="page page-foto"><div class="page-inner">
+          <div class="mount-alb mount-square"><div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <img src="https://live.staticflickr.com/65535/55214983719_7ee855d36d_b.jpg" alt="Fuego Adicción y Muerte">
+            <div style="height:.4rem;"></div>
+            <div class="mount-cap-a"><a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text-a">Donostia · FUEGO, ADICCIÓN Y MUERTE!!!</a><a href="https://beltzarecords.com" target="_blank" class="mount-cap-sig-a">Luis Beltza</a></div>
+            <div class="mount-sound-a"><a href="https://www.youtube.com/watch?v=Bag1gUxuU0g" target="_blank">Foto Sound: Lana Del Rey "Born To Die"</a></div>
+            <div class="mount-lyric-a">"Sigue haciéndome reir, vamos a drogarnos, nacimos para morir. ¿Es por error o vanidad?"</div>
           </div>
-        </div>
+          <div class="pg-num">I</div>
+        </div></div>
         <div class="page-sep"></div>
-        <div class="page page-texto">
-          <div class="page-inner">
-            <div class="pg-title">FUEGO, ADICCIÓN Y MUERTE!!!</div>
-            <div class="pg-text">Ya lo he comentado en más de una ocasión, el poder de la fotografía me sienta fatal, me coloca en un plano superior, en un plano de control con el que no me siento identificado. Siempre con la mayor naturalidad y respeto hacia todos los personajes de este <span style="color:#8b1a1a;">Zoo Humano</span>, pero el remordimiento por obturar la vida humana en milésimas de segundo — en este caso 1/120 — me produce una sensación de <strong style="color:#c8922a;">Killer Fascista.</strong><br><br>La cara B está llena de <span style="color:#8b1a1a;">antropología social</span> o de sociología de lo común, de "sensibilidad artística", de necesidad vital por narrar los acontecimientos que nos rodean, de incidir en nuestras debilidades personales, de escanear mi propia existencia, <span style="color:#8b1a1a;">la fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos.</span> Al final nunca encontramos el meollo del contenido y nos perdemos en la suciedad del protagonismo, el maloliente exhibicionismo personal y en infinitas capas estéticas.</div>
-            <svg class="d2b-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
-              <defs>
-                <path id="top-1" d="M 65,250 A 185,185 0 0,1 435,250"/>
-                <path id="bot-1" d="M 57,258 A 193,193 0 0,0 443,258"/>
-                <mask id="rmask-1"><rect width="500" height="500" fill="white"/><rect x="4" y="225" width="44" height="34" rx="4" fill="black"/><rect x="452" y="225" width="44" height="34" rx="4" fill="black"/></mask>
-              </defs>
-              <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#rmask-1)"/>
-              <circle cx="250" cy="250" r="228" fill="#fff"/>
-              <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
-              <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
-              <rect x="4" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="22" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
-              <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
-              <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="4"><textPath href="#top-1" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan></textPath></text>
-              <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="3"><textPath href="#bot-1" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath></text>
-              <g transform="translate(250,290) rotate(-8)"><text font-family="'Special Elite',monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan></text></g>
-            </svg>
-            <div class="pg-sound"><span style="color:rgba(42,32,24,.9);">Foto Sound: </span><a href="https://www.youtube.com/watch?v=Bag1gUxuU0g" target="_blank">Lana Del Rey "Born To Die"</a></div>
-            <div class="pg-lyric">"Sigue haciéndome reir, vamos a drogarnos, nacimos para morir. ¿Es por error o vanidad?"</div>
-            <div class="pg-num">II</div>
-          </div>
-        </div>
-      </div><!-- /sp-1 -->
-
-      <!-- ═══ SPREAD 2: REAL PUERTO HISPANO AMERICANO DE GIPUZKOA ═══ -->
+        <div class="page page-texto"><div class="page-inner">
+          <div class="pg-title">FUEGO, ADICCIÓN Y MUERTE!!!</div>
+          <div class="pg-text">Ya lo he comentado en más de una ocasión, el poder de la fotografía me sienta fatal, me coloca en un plano superior, en un plano de control con el que no me siento identificado. Siempre con la mayor naturalidad y respeto hacia todos los personajes de este <span style="color:#8b1a1a;">Zoo Humano</span>, pero el remordimiento por obturar la vida humana en milésimas de segundo — en este caso 1/120 — me produce una sensación de <strong style="color:#c8922a;">Killer Fascista.</strong><br><br>La cara B está llena de <span style="color:#8b1a1a;">antropología social</span> o de sociología de lo común, de "sensibilidad artística", de necesidad vital por narrar los acontecimientos que nos rodean, de incidir en nuestras debilidades personales, de escanear mi propia existencia, <span style="color:#8b1a1a;">la fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos.</span> Al final nunca encontramos el meollo del contenido y nos perdemos en la suciedad del protagonismo, el maloliente exhibicionismo personal y en infinitas capas estéticas.</div>
+          <svg class="d2b-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><path id="top-1" d="M 65,250 A 185,185 0 0,1 435,250"/><path id="bot-1" d="M 57,258 A 193,193 0 0,0 443,258"/><mask id="rmask-1"><rect width="500" height="500" fill="white"/><rect x="4" y="225" width="44" height="34" rx="4" fill="black"/><rect x="452" y="225" width="44" height="34" rx="4" fill="black"/></mask></defs><circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#rmask-1)"/><circle cx="250" cy="250" r="228" fill="#fff"/><circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/><circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/><rect x="4" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="22" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/><rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/><text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="4"><textPath href="#top-1" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan></textPath></text><text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="3"><textPath href="#bot-1" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath></text><g transform="translate(250,290) rotate(-8)"><text font-family="'Special Elite',monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan></text></g></svg>
+          <div class="pg-sound"><span style="color:rgba(42,32,24,.9);">Foto Sound: </span><a href="https://www.youtube.com/watch?v=Bag1gUxuU0g" target="_blank">Lana Del Rey "Born To Die"</a></div>
+          <div class="pg-lyric">"Sigue haciéndome reir, vamos a drogarnos, nacimos para morir. ¿Es por error o vanidad?"</div>
+          <div class="pg-num">II</div>
+        </div></div>
+      </div>
       <div class="spread" id="sp-2">
-        <div class="page page-foto">
-          <div class="page-inner">
-            <div class="mount mount-landscape" style="transform:rotate(.6deg);">
-              <div class="cello cello-top"></div>
-              <div class="cello cello-bottom"></div>
-              <div class="cello cello-left"></div>
-              <div class="cello cello-right"></div>
-              <img src="https://live.staticflickr.com/65535/55212325497_5dd8516848_b.jpg" alt="Real Puerto Hispano Americano de Gipuzkoa">
-              <div style="height:.4rem;"></div>
-              <div class="mount-cap">
-                <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text">Donostia · REAL PUERTO HISPANO AMERICANO DE GIPUZKOA</a>
-                <a href="https://beltzarecords.com" target="_blank" class="mount-cap-sig">Luis Beltza</a>
-              </div>
-              <div class="mount-sound"><a href="https://www.youtube.com/watch?v=mYuwbeQWLnY" target="_blank">Foto Sound: Kenyon Hopkins "Hard Latin"</a></div>
-            </div>
-            <div class="pg-num">III</div>
+        <div class="page page-foto"><div class="page-inner">
+          <div class="mount-alb mount-landscape" style="transform:rotate(.6deg);"><div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <img src="https://live.staticflickr.com/65535/55212325497_5dd8516848_b.jpg" alt="Real Puerto Hispano Americano de Gipuzkoa">
+            <div style="height:.4rem;"></div>
+            <div class="mount-cap-a"><a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text-a">Donostia · REAL PUERTO HISPANO AMERICANO DE GIPUZKOA</a><a href="https://beltzarecords.com" target="_blank" class="mount-cap-sig-a">Luis Beltza</a></div>
+            <div class="mount-sound-a"><a href="https://www.youtube.com/watch?v=mYuwbeQWLnY" target="_blank">Foto Sound: Kenyon Hopkins "Hard Latin"</a></div>
           </div>
-        </div>
+          <div class="pg-num">III</div>
+        </div></div>
         <div class="page-sep"></div>
-        <div class="page page-texto">
-          <div class="page-inner">
-            <div class="pg-title">REAL PUERTO HISPANO AMERICANO DE GIPUZKOA</div>
-            <div class="pg-text">La fotografía te da la oportunidad de decir cosas sin abrir la boca. Me encanta, claro!!! Pero al final, la fotografía en sí misma, <span style="color:#8b1a1a;">NO ES NADA!!!</span></div>
-            <svg class="d2b-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
-              <defs>
-                <path id="top-2" d="M 65,250 A 185,185 0 0,1 435,250"/>
-                <path id="bot-2" d="M 57,258 A 193,193 0 0,0 443,258"/>
-                <mask id="rmask-2"><rect width="500" height="500" fill="white"/><rect x="4" y="225" width="44" height="34" rx="4" fill="black"/><rect x="452" y="225" width="44" height="34" rx="4" fill="black"/></mask>
-              </defs>
-              <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#rmask-2)"/>
-              <circle cx="250" cy="250" r="228" fill="#fff"/>
-              <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
-              <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
-              <rect x="4" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="22" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
-              <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
-              <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="4"><textPath href="#top-2" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan></textPath></text>
-              <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="3"><textPath href="#bot-2" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath></text>
-              <g transform="translate(250,290) rotate(-8)"><text font-family="'Special Elite',monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan></text></g>
-            </svg>
-            <div class="pg-sound" style="margin-top:.5rem;"><span style="color:rgba(42,32,24,.9);">Foto Sound: </span><a href="https://www.youtube.com/watch?v=mYuwbeQWLnY" target="_blank">Kenyon Hopkins "Hard Latin"</a></div>
-            <div class="pg-num">IV</div>
-          </div>
-        </div>
-      </div><!-- /sp-2 -->
-
-      <!-- ═══ SPREAD 3: placeholder ═══ -->
+        <div class="page page-texto"><div class="page-inner">
+          <div class="pg-title">REAL PUERTO HISPANO AMERICANO DE GIPUZKOA</div>
+          <div class="pg-text">La fotografía te da la oportunidad de decir cosas sin abrir la boca. Me encanta, claro!!! Pero al final, la fotografía en sí misma, <span style="color:#8b1a1a;">NO ES NADA!!!</span></div>
+          <svg class="d2b-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><defs><path id="top-2" d="M 65,250 A 185,185 0 0,1 435,250"/><path id="bot-2" d="M 57,258 A 193,193 0 0,0 443,258"/><mask id="rmask-2"><rect width="500" height="500" fill="white"/><rect x="4" y="225" width="44" height="34" rx="4" fill="black"/><rect x="452" y="225" width="44" height="34" rx="4" fill="black"/></mask></defs><circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#rmask-2)"/><circle cx="250" cy="250" r="228" fill="#fff"/><circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/><circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/><rect x="4" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="22" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/><rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/><text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="4"><textPath href="#top-2" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan></textPath></text><text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="3"><textPath href="#bot-2" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath></text><g transform="translate(250,290) rotate(-8)"><text font-family="'Special Elite',monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan></text></g></svg>
+          <div class="pg-sound" style="margin-top:.5rem;"><span style="color:rgba(42,32,24,.9);">Foto Sound: </span><a href="https://www.youtube.com/watch?v=mYuwbeQWLnY" target="_blank">Kenyon Hopkins "Hard Latin"</a></div>
+          <div class="pg-num">IV</div>
+        </div></div>
+      </div>
       <div class="spread" id="sp-3">
-        <div class="page">
-          <div class="page-inner" style="align-items:center;justify-content:center;">
-            <div style="font-family:'Special Elite',monospace;font-size:.6rem;color:rgba(42,32,24,.25);letter-spacing:.2em;">— próxima foto —</div>
-            <div class="pg-num">V</div>
-          </div>
-        </div>
+        <div class="page"><div class="page-inner" style="align-items:center;justify-content:center;"><div style="font-family:'Special Elite',monospace;font-size:.6rem;color:rgba(42,32,24,.25);letter-spacing:.2em;">— próxima foto —</div><div class="pg-num">V</div></div></div>
         <div class="page-sep"></div>
-        <div class="page">
-          <div class="page-inner" style="align-items:center;justify-content:center;">
-            <div style="font-family:'Special Elite',monospace;font-size:.6rem;color:rgba(42,32,24,.25);letter-spacing:.2em;">— próxima foto —</div>
-            <div class="pg-num">VI</div>
-          </div>
-        </div>
-      </div><!-- /sp-3 -->
-
-    </div><!-- /alb-book -->
-  </div><!-- /alb-scene -->
-
+        <div class="page"><div class="page-inner" style="align-items:center;justify-content:center;"><div style="font-family:'Special Elite',monospace;font-size:.6rem;color:rgba(42,32,24,.25);letter-spacing:.2em;">— próxima foto —</div><div class="pg-num">VI</div></div></div>
+      </div>
+    </div>
+  </div>
   <div class="alb-nav">
-    <button class="alb-btn" id="btnClose" onclick="closeAlbum()">✕ PORTADA</button>
+    <button class="alb-btn" onclick="closeAlbum()">✕ PORTADA</button>
     <button class="alb-btn-pause" id="btnPause" onclick="toggleSlide()">▶ DIAPOSITIVAS</button>
     <button class="alb-btn" id="btnPrev" onclick="albumPrev()" disabled>◂ ANTERIOR</button>
     <span class="alb-info" id="albInfo">PÁG. 1</span>
@@ -875,158 +530,48 @@ document.addEventListener('click', e => {
 </div>
 
 <script>
-const TOTAL = 3;
-let cur = 1;
-let busy = false;
-
-function openAlbum() {
-  document.getElementById('albumOverlay').classList.add('open');
-  cur = 1; updateNav();
+const TOTAL=3; let cur=1,busy=false;
+function openAlbum()  { document.getElementById('albumOverlay').classList.add('open');    cur=1; updateNav(); paused=true; elapsed=0; resetProgress(); }
+function closeAlbum() { document.getElementById('albumOverlay').classList.remove('open'); clearTimeout(slideTimer); paused=false; elapsed=0; }
+function albumNext()  { if(busy||cur>=TOTAL)return; go(cur+1,'forward'); }
+function albumPrev()  { if(busy||cur<=1)return;     go(cur-1,'back'); }
+function go(n,dir) {
+  busy=true; clearTimeout(slideTimer); resetProgress(); elapsed=0;
+  const lv=document.getElementById('sp-'+cur),en=document.getElementById('sp-'+n);
+  lv.classList.add('leaving'); en.classList.add(dir==='forward'?'entering':'entering-back'); en.classList.add('active');
+  setTimeout(()=>{ lv.classList.remove('active','leaving'); en.classList.remove('entering','entering-back'); cur=n; updateNav(); busy=false; if(!paused)startSlideshow(); },360);
 }
-function closeAlbum() {
-  document.getElementById('albumOverlay').classList.remove('open');
-}
-function albumNext() { if (busy || cur >= TOTAL) return; go(cur + 1, 'forward'); }
-function albumPrev() { if (busy || cur <= 1) return; go(cur - 1, 'back'); }
-
-function go(n, dir) {
-  busy = true;
-  const leaving  = document.getElementById('sp-' + cur);
-  const entering = document.getElementById('sp-' + n);
-  leaving.classList.add('leaving');
-  entering.classList.add(dir === 'forward' ? 'entering' : 'entering-back');
-  entering.classList.add('active');
-  setTimeout(() => {
-    leaving.classList.remove('active','leaving');
-    entering.classList.remove('entering','entering-back');
-    cur = n; updateNav(); busy = false;
-  }, 360);
-}
-
 function updateNav() {
-  document.getElementById('btnPrev').disabled = cur <= 1;
-  document.getElementById('btnNext').disabled = cur >= TOTAL;
-  document.getElementById('albInfo').textContent = 'PÁG. ' + cur + ' / ' + TOTAL;
+  document.getElementById('btnPrev').disabled=cur<=1;
+  document.getElementById('btnNext').disabled=cur>=TOTAL;
+  document.getElementById('albInfo').textContent='PÁG. '+cur+' / '+TOTAL;
 }
-
-// SLIDESHOW
-const SLIDE_MS = 13000;
-let slideTimer = null;
-let paused = false;
-let elapsed = 0;
-let startTime = null;
-
+const SLIDE_MS=13000; let slideTimer=null,paused=false,elapsed=0,startTime=null;
 function startSlideshow() {
-  if (paused) return;
-  startTime = Date.now() - elapsed;
-  animateProgress();
-  slideTimer = setTimeout(() => {
-    elapsed = 0;
-    if (cur < TOTAL) { albumNext(); startSlideshow(); }
-    else resetProgress();
-  }, SLIDE_MS - elapsed);
+  if(paused)return; startTime=Date.now()-elapsed; animateProgress();
+  slideTimer=setTimeout(()=>{ elapsed=0; if(cur<TOTAL){albumNext();}else{resetProgress();} },SLIDE_MS-elapsed);
 }
-
 function animateProgress() {
-  const bar = document.getElementById('albProgress');
-  if (!bar) return;
-  bar.style.transition = 'none';
-  bar.style.width = (elapsed / SLIDE_MS * 100) + '%';
-  requestAnimationFrame(() => {
-    bar.style.transition = 'width ' + ((SLIDE_MS - elapsed) / 1000) + 's linear';
-    bar.style.width = '100%';
-  });
+  const bar=document.getElementById('albProgress'); if(!bar)return;
+  bar.style.transition='none'; bar.style.width=(elapsed/SLIDE_MS*100)+'%';
+  requestAnimationFrame(()=>{ bar.style.transition='width '+((SLIDE_MS-elapsed)/1000)+'s linear'; bar.style.width='100%'; });
 }
-
-function resetProgress() {
-  const bar = document.getElementById('albProgress');
-  if (bar) { bar.style.transition = 'none'; bar.style.width = '0%'; }
-  elapsed = 0;
-}
-
-function openAlbumSlide() {
-  openAlbum();
-  setTimeout(() => { paused = true; toggleSlide(); }, 300);
-}
-
+function resetProgress() { const bar=document.getElementById('albProgress'); if(bar){bar.style.transition='none';bar.style.width='0%';} elapsed=0; }
 function toggleSlide() {
-  const btn = document.getElementById('btnPause');
-  if (paused) {
-    paused = false; elapsed = 0; resetProgress(); startSlideshow();
-    btn.textContent = '⏸ PAUSA'; btn.classList.add('paused');
-  } else {
-    paused = true;
-    elapsed = Date.now() - startTime;
-    clearTimeout(slideTimer);
-    const bar = document.getElementById('albProgress');
-    if (bar) {
-      const w = parseFloat(getComputedStyle(bar).width);
-      const total = parseFloat(getComputedStyle(bar.parentElement).width);
-      bar.style.transition = 'none';
-      bar.style.width = (w / total * 100) + '%';
-    }
-    btn.textContent = '▶ DIAPOSITIVAS'; btn.classList.remove('paused');
-  }
+  const btn=document.getElementById('btnPause');
+  if(paused){ paused=false; elapsed=0; resetProgress(); startSlideshow(); btn.textContent='⏸ PAUSA'; btn.classList.add('paused'); }
+  else { paused=true; elapsed=Date.now()-startTime; clearTimeout(slideTimer); const bar=document.getElementById('albProgress'); if(bar){const w=parseFloat(getComputedStyle(bar).width),t=parseFloat(getComputedStyle(bar.parentElement).width);bar.style.transition='none';bar.style.width=(w/t*100)+'%';} btn.textContent='▶ DIAPOSITIVAS'; btn.classList.remove('paused'); }
 }
-
-const _openAlbum = openAlbum;
-openAlbum = function() { _openAlbum(); paused = true; elapsed = 0; resetProgress(); }
-
-const _closeAlbum = closeAlbum;
-closeAlbum = function() { _closeAlbum(); clearTimeout(slideTimer); paused = false; elapsed = 0; }
-
-const _go = go;
-go = function(n, dir) {
-  clearTimeout(slideTimer); resetProgress(); elapsed = 0;
-  _go(n, dir);
-  setTimeout(startSlideshow, 400);
-}
-
-document.addEventListener('keydown', e => {
-  if (!document.getElementById('albumOverlay').classList.contains('open')) return;
-  if (e.key === 'ArrowRight') albumNext();
-  if (e.key === 'ArrowLeft')  albumPrev();
-  if (e.key === 'Escape')     closeAlbum();
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('albumOverlay').classList.contains('open'))return;
+  if(e.key==='ArrowRight')albumNext();
+  if(e.key==='ArrowLeft') albumPrev();
+  if(e.key==='Escape')    closeAlbum();
 });
-
-// Portada dropdowns (legacy — replaced)
-function ptopToggle_old(which) {
-  const wrap = document.getElementById('ptop-' + which + '-wrap');
-  const wasOpen = wrap.classList.contains('open');
-  document.querySelectorAll('.ptop-drop-wrap.open').forEach(w => w.classList.remove('open'));
-  if (!wasOpen) wrap.classList.add('open');
-}
-document.addEventListener('click', e => {
-  if (!e.target.closest('.ptop-drop-wrap')) {
-    document.querySelectorAll('.ptop-drop-wrap.open').forEach(w => w.classList.remove('open'));
-  }
+document.querySelectorAll('.alb-drop-trigger').forEach(t=>{
+  t.addEventListener('click',function(e){ e.stopPropagation(); const w=this.closest('.alb-drop-wrap'),was=w.classList.contains('open'); document.querySelectorAll('.alb-drop-wrap.open').forEach(x=>x.classList.remove('open')); if(!was)w.classList.add('open'); });
 });
-
-// Portada dropdowns
-function pDropToggle(which) {
-  const wrap = document.getElementById('drop-' + which + '-wrap');
-  const wasOpen = wrap.classList.contains('open');
-  document.querySelectorAll('.p-drop-wrap.open').forEach(w => w.classList.remove('open'));
-  if (!wasOpen) wrap.classList.add('open');
-}
-document.addEventListener('click', e => {
-  if (!e.target.closest('.p-drop-wrap'))
-    document.querySelectorAll('.p-drop-wrap.open').forEach(w => w.classList.remove('open'));
-});
-
-// Dropdowns
-document.querySelectorAll('.alb-drop-trigger').forEach(trigger => {
-  trigger.addEventListener('click', function(e) {
-    e.stopPropagation();
-    const wrap = this.closest('.alb-drop-wrap');
-    const wasOpen = wrap.classList.contains('open');
-    document.querySelectorAll('.alb-drop-wrap.open').forEach(w => w.classList.remove('open'));
-    if (!wasOpen) wrap.classList.add('open');
-  });
-});
-document.addEventListener('click', () => {
-  document.querySelectorAll('.alb-drop-wrap.open').forEach(w => w.classList.remove('open'));
-});
+document.addEventListener('click',()=>document.querySelectorAll('.alb-drop-wrap.open').forEach(w=>w.classList.remove('open')));
 </script>
 
 </body>
