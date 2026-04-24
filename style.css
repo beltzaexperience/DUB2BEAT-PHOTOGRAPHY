@@ -246,7 +246,7 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
 .mount-r-l-1600x957{ width: min(48%, calc((100vh - 10rem) * 1.672)); } /* Tolosa   */
 .mount-r-p-3-4     { width: min(48%, calc((100vh - 10rem) * 0.750)); } /* 3:4      */
 .mount-r-p-2-3     { width: min(48%, calc((100vh - 10rem) * 0.667)); } /* 2:3      */
-.mount-r-p-1067x1800{ width: min(30%, calc((100vh - 10rem) * 0.593)); } /* Chica Oriental */
+.mount-r-p-1067x1800{ width: min(40%, calc((100vh - 10rem) * 0.593)); } /* Chica Oriental */
 .mount-static {
   height: auto !important;
   overflow: visible !important;
