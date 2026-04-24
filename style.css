@@ -229,13 +229,28 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
   background: #fff;
   padding: .9rem .9rem .9rem;
   box-shadow: 2px 3px 10px rgba(42,32,24,.28);
-  width: min(48%, calc((100vh - 10rem) * 0.813));
+  width: min(48%, calc((100vh - 10rem) * 0.813)); /* ratio por defecto ~cuadrada */
   height: calc(100% - 1rem);
   overflow: hidden;
   flex-shrink: 0;
 }
 .mount-alb2:nth-child(1) { transform: rotate(-1.2deg); }
 .mount-alb2:nth-child(2) { transform: rotate(.7deg); }
+
+/* CLASES DE RATIO — width = altura_disponible × (ancho/alto)
+   Usar la clase que corresponda a las dimensiones de cada foto */
+.mount-r-square    { width: min(48%, calc((100vh - 10rem) * 1.000)); } /* 1:1      */
+.mount-r-l-4-3     { width: min(48%, calc((100vh - 10rem) * 1.333)); } /* 4:3      */
+.mount-r-l-3-2     { width: min(48%, calc((100vh - 10rem) * 1.500)); } /* 3:2      */
+.mount-r-l-16-9    { width: min(48%, calc((100vh - 10rem) * 1.778)); } /* 16:9     */
+.mount-r-l-1600x957{ width: min(48%, calc((100vh - 10rem) * 1.672)); } /* Tolosa   */
+.mount-r-p-3-4     { width: min(48%, calc((100vh - 10rem) * 0.750)); } /* 3:4      */
+.mount-r-p-2-3     { width: min(48%, calc((100vh - 10rem) * 0.667)); } /* 2:3      */
+.mount-r-p-1067x1800{ width: min(30%, calc((100vh - 10rem) * 0.593)); } /* Chica Oriental */
+.mount-static {
+  height: auto !important;
+  overflow: visible !important;
+}
 .mount-scroll2 { flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; scrollbar-width:none; -ms-overflow-style:none; }
 .mount-scroll2::-webkit-scrollbar { display:none; }
 .mount-scroll2 img { display:block; width:100%; height:auto; }
