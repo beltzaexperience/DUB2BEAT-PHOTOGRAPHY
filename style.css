@@ -81,7 +81,7 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
 .cover-footer { display:flex; justify-content:space-between; align-items:flex-end; }
 .cover-sig { font-family:'Caveat',cursive; font-size:clamp(.8rem,3vw,1.5rem); color:#8b1a1a; line-height:1; text-decoration:none; transition:color .2s; }
 .cover-sig:hover { color:#1F4E9A; }
-.d2b-logo-portada { flex-shrink:0; width:clamp(160px,42%,300px); max-width:300px; height:auto; aspect-ratio:1; display:block; align-self:flex-start; }
+.d2b-logo-portada { position:absolute; top:clamp(.8rem,3%,1.8rem); right:clamp(.8rem,3%,1.8rem); width:clamp(160px,42%,300px); height:auto; aspect-ratio:1; display:block; }
 .fit-line { font-family:'Special Elite',monospace; letter-spacing:.04em; color:rgba(30,20,12,.82); text-shadow:1px 1px 0 rgba(255,255,255,.15); line-height:.88; white-space:nowrap; display:block; }
 
 /* POLAROID */
@@ -123,17 +123,12 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
 .p-btn-slide:hover { color:#8b1a1a; }
 
 @media (max-width:700px),(orientation:portrait) {
-
-  /* Portada: columna vertical */
   .portada { overflow-y:auto; overflow-x:hidden; }
-  .portada-inner { flex-direction:column; overflow:visible; }
-
-  /* Spines: 18px horizontal */
+  .portada-inner { flex-direction:column; overflow:visible; flex:none; }
   .spine { width:100%; height:18px; min-width:unset; max-width:unset; flex-shrink:0; }
   .spine-text   { transform:translate(-50%,-50%) rotate(0deg); font-size:.55rem; }
   .spine-text-r { transform:translate(-50%,-50%) rotate(0deg); font-size:.55rem; }
-
-  /* Diario: columna vertical, alto automático */
+  .p-top { flex-wrap:wrap; gap:.4rem .8rem; padding:.6rem 1rem; justify-content:center; }
   .portada-diario {
     flex-direction: column;
     align-items: stretch;
@@ -143,52 +138,37 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
     padding: 1rem;
     overflow: visible;
   }
-
-  /* Columna izquierda: flujo normal en móvil */
-  .pd-left {
-    position: static;
-    width: 100%;
-  }
-  .cover-content {
-    position: static;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: .8rem;
-  }
+  .pd-left { position: static; width: 100%; }
+  .cover-content { position: static; padding: 0; display: flex; flex-direction: column; gap: .6rem; }
   .cover-footer { flex-direction: column; align-items: stretch; }
-
-  /* Título: 100% ancho, fitLines lo ajusta */
-  #titleRow {
-    flex-direction: column;
-    align-items: center;
-  }
-  #titleCol {
-    flex: none;
-    width: 100%;
-  }
-
-  /* Logo: 100% ancho, centrado debajo del título */
-  .d2b-logo-portada {
-    width: 100%;
-    max-width: 100%;
-    align-self: center;
-    margin-top: .5rem;
-  }
-
-  /* Polaroid: ancho completo, alto automático, sin rotación */
-  .mount {
-    position: static;
-    width: 100%;
-    height: auto;
-    transform: none;
-    margin-top: 1rem;
-  }
+  #titleRow { flex-direction: column; align-items: flex-start; }
+  #titleCol { flex: none; width: 100%; }
+  .d2b-logo-portada { position:static; width:52%; max-width:200px; margin:.6rem auto; display:block; }
+  .mount { position: static; width: 100%; height: auto; transform: none; margin-top: 1rem; }
   .mount-scroll { overflow: visible; }
   .mount-scroll img { width: 100%; height: auto; }
-
-  /* Nav abajo */
   .p-nav { margin-top: .5rem; }
+
+  /* ── ÁLBUM ── */
+  .alb-top { flex-wrap:wrap; gap:.3rem .6rem; padding:.5rem .8rem; }
+  .alb-scene .spine { width:6px; min-width:6px; max-width:6px; }
+  .spread-diario {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: .8rem;
+    gap: 1.4rem;
+    height: 100%;
+  }
+  .mount-alb2 { width:92% !important; height:auto !important; transform:none !important; }
+  .mount-static { height:auto !important; overflow:visible !important; }
+  .mount-scroll2 { overflow:visible; }
+  .alb-nav { gap:.8rem; padding:.4rem .5rem; flex-wrap:wrap; justify-content:center; }
+  .alb-btn { font-size:clamp(.5rem,3.2vw,.72rem); letter-spacing:.12em; }
+  .alb-btn-pause { font-size:clamp(.5rem,3.2vw,.72rem); letter-spacing:.12em; }
+  .alb-info { font-size:clamp(.5rem,3vw,.65rem); letter-spacing:.15em; }
 }
 
 .album-overlay { display:none; position:fixed; inset:0; z-index:500; background:#0a0806; }
@@ -198,7 +178,6 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
 .spread { position:absolute; inset:0; display:flex; opacity:0; pointer-events:none; transition:opacity .05s; }
 .spread.active { opacity:1; pointer-events:all; }
 
-/* Fondo diario — igual que portada */
 .spread-diario {
   flex: 1;
   position: relative;
@@ -220,7 +199,6 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
   pointer-events: none;
 }
 
-/* Polaroids dentro del álbum */
 .mount-alb2 {
   position: relative;
   z-index: 1;
@@ -229,7 +207,7 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
   background: #fff;
   padding: .9rem .9rem .9rem;
   box-shadow: 2px 3px 10px rgba(42,32,24,.28);
-  width: min(48%, calc((100vh - 10rem) * 0.813)); /* ratio por defecto ~cuadrada */
+  width: min(48%, calc((100vh - 10rem) * 0.813));
   height: calc(100% - 1rem);
   overflow: hidden;
   flex-shrink: 0;
@@ -237,20 +215,15 @@ html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
 .mount-alb2:nth-child(1) { transform: rotate(-1.2deg); }
 .mount-alb2:nth-child(2) { transform: rotate(.7deg); }
 
-/* CLASES DE RATIO — width = altura_disponible × (ancho/alto)
-   Usar la clase que corresponda a las dimensiones de cada foto */
-.mount-r-square    { width: min(48%, calc((100vh - 10rem) * 1.000)); } /* 1:1      */
-.mount-r-l-4-3     { width: min(48%, calc((100vh - 10rem) * 1.333)); } /* 4:3      */
-.mount-r-l-3-2     { width: min(48%, calc((100vh - 10rem) * 1.500)); } /* 3:2      */
-.mount-r-l-16-9    { width: min(48%, calc((100vh - 10rem) * 1.778)); } /* 16:9     */
-.mount-r-l-1600x957{ width: min(48%, calc((100vh - 10rem) * 1.672)); } /* Tolosa   */
-.mount-r-p-3-4     { width: min(48%, calc((100vh - 10rem) * 0.750)); } /* 3:4      */
-.mount-r-p-2-3     { width: min(48%, calc((100vh - 10rem) * 0.667)); } /* 2:3      */
-.mount-r-p-1067x1800{ width: min(40%, calc((100vh - 10rem) * 0.593)); } /* Chica Oriental */
-.mount-static {
-  height: auto !important;
-  overflow: visible !important;
-}
+.mount-r-square    { width: min(48%, calc((100vh - 10rem) * 1.000)); }
+.mount-r-l-4-3     { width: min(48%, calc((100vh - 10rem) * 1.333)); }
+.mount-r-l-3-2     { width: min(48%, calc((100vh - 10rem) * 1.500)); }
+.mount-r-l-16-9    { width: min(48%, calc((100vh - 10rem) * 1.778)); }
+.mount-r-l-1600x957{ width: min(48%, calc((100vh - 10rem) * 1.672)); }
+.mount-r-p-3-4     { width: min(48%, calc((100vh - 10rem) * 0.750)); }
+.mount-r-p-2-3     { width: min(48%, calc((100vh - 10rem) * 0.667)); }
+.mount-r-p-1067x1800{ width: min(40%, calc((100vh - 10rem) * 0.593)); }
+.mount-static { height: auto !important; overflow: visible !important; }
 .mount-scroll2 { flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; scrollbar-width:none; -ms-overflow-style:none; }
 .mount-scroll2::-webkit-scrollbar { display:none; }
 .mount-scroll2 img { display:block; width:100%; height:auto; }
