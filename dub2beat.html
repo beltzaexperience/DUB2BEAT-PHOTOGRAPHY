@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DUB² BEAT · Luis Beltza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html, body { width:100%; height:100%; background:#0a0806; overflow:hidden; }
+
+.portada { width:100%; height:100%; display:flex; flex-direction:column; }
+
+/* TOPBAND */
+.p-top {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: .8rem 1.5rem;
+  background: #0a0806;
+}
+.p-top a { font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); text-decoration:none; transition:color .2s; }
+.p-top a:hover { color:#fff; }
+.p-top-sep { color:rgba(255,255,255,.2); }
+.p-top-tema { font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); cursor:pointer; user-select:none; }
+.p-drop-wrap { position:relative; display:inline-block; }
+.p-drop { display:none; position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%); background:rgba(14,10,8,.97); border:1px solid rgba(200,146,42,.4); min-width:200px; z-index:1001; padding:.3rem 0; }
+.p-drop-wrap.open .p-drop { display:block; }
+.p-drop-item { font-family:'Special Elite',monospace; font-size:clamp(.55rem,1.4vw,.78rem); letter-spacing:.15em; color:rgba(232,220,200,.75); padding:.45rem 1rem; cursor:pointer; }
+.p-drop-item:hover { color:#8b1a1a; }
+.p-drop-item.muted { color:rgba(232,220,200,.35); cursor:default; }
+
+/* ZONA CENTRAL */
+.portada-inner { flex:1; min-height:0; display:flex; flex-direction:row; }
+
+/* SPINE */
+.spine { flex-shrink:0; width:8%; min-width:40px; max-width:70px; position:relative; background:linear-gradient(90deg,#1a120c 0%,#2e1f14 30%,#1e1409 70%,#120d08 100%); overflow:hidden; }
+.spine::before { content:''; position:absolute; inset:0; background-image:url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg'); background-size:cover; opacity:.12; mix-blend-mode:multiply; }
+.spine-text   { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-90deg); white-space:nowrap; font-family:'Special Elite',monospace; font-size:clamp(.65rem,2vw,1rem); letter-spacing:.25em; color:rgba(220,205,185,.95); pointer-events:none; }
+.spine-text-r { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(90deg);  white-space:nowrap; font-family:'Special Elite',monospace; font-size:clamp(.65rem,2vw,1rem); letter-spacing:.25em; color:rgba(220,205,185,.95); pointer-events:none; }
+
+/* DIARIO */
+.portada-diario {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  background-image: url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: clamp(.8rem,3%,1.4rem);
+  padding-right: clamp(1.5rem,4%,3rem);
+  overflow: hidden;
+}
+.portada-diario::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(230,220,205,.42);
+  pointer-events: none;
+}
+
+/* COLUMNA IZQUIERDA */
+.pd-left {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  right: calc(min(100%, calc((100vh - 10rem) * 0.813)) + clamp(1.5rem,4%,3rem) * 2);
+  z-index: 1;
+}
+.cover-content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(.8rem,3%,1.8rem);
+  padding-top: calc(clamp(.8rem,3%,1.4rem) + .9rem);
+}
+
+.cover-title { font-family:'Special Elite',monospace; font-size:clamp(5rem,18vw,12rem); line-height:.9; letter-spacing:.04em; color:rgba(30,20,12,.82); text-shadow:1px 1px 0 rgba(255,255,255,.15); }
+.cover-title .sq { font-size:.75em; vertical-align:super; color:#8b1a1a; }
+.cover-rule { width:clamp(2rem,15%,4rem); height:1px; background:rgba(42,32,24,.3); }
+.cover-footer { display:flex; justify-content:space-between; align-items:flex-end; }
+.cover-sig { font-family:'Caveat',cursive; font-size:clamp(.8rem,3vw,1.5rem); color:#8b1a1a; line-height:1; text-decoration:none; transition:color .2s; }
+.cover-sig:hover { color:#1F4E9A; }
+.d2b-logo-portada { position:absolute; top:clamp(.8rem,3%,1.8rem); right:clamp(.8rem,3%,1.8rem); width:clamp(160px,42%,300px); height:auto; aspect-ratio:1; display:block; }
+.fit-line { font-family:'Special Elite',monospace; letter-spacing:.04em; color:rgba(30,20,12,.82); text-shadow:1px 1px 0 rgba(255,255,255,.15); line-height:.88; white-space:nowrap; display:block; }
+
+/* POLAROID */
+.mount {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: .9rem .9rem .9rem;
+  box-shadow: 2px 3px 10px rgba(42,32,24,.28);
+  transform: rotate(-1.2deg);
+  width: min(100%, calc((100vh - 10rem) * 0.813));
+  height: calc(100% - 0.5rem);
+  overflow: hidden;
+}
+.mount-scroll { flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; scrollbar-width:none; -ms-overflow-style:none; }
+.mount-scroll::-webkit-scrollbar { display:none; }
+.mount-scroll img { display:block; width:100%; height:auto; }
+.mount-cap { display:flex; justify-content:space-between; align-items:baseline; padding:.3rem .45rem .05rem; gap:.5rem; }
+.mount-cap-text { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#1F4E9A; line-height:1.3; text-decoration:none; flex:1; }
+.mount-cap-text:hover { color:#8b1a1a; }
+.mount-cap-sig  { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#1F4E9A; line-height:1.3; text-align:right; text-decoration:none; white-space:nowrap; }
+.mount-cap-sig:hover { color:#8b1a1a; }
+.mount-entrevista { padding:.1rem .45rem .4rem; }
+.mount-entrevista p { font-family:'Caveat',cursive; font-size:clamp(1rem,2.2vw,1.3rem); color:#1F4E9A; line-height:1.65; letter-spacing:.02em; margin-bottom:.5rem; }
+.mount-entrevista strong { color:#8b1a1a; }
+.cello { position:absolute; background:rgba(255,240,170,.55); border:1px solid rgba(210,185,110,.35); box-shadow:0 1px 3px rgba(0,0,0,.1); z-index:10; }
+.cello-top    { width:clamp(28px,6%,46px); height:13px; top:-7px; left:50%; transform:translateX(-50%) rotate(-1deg); }
+.cello-bottom { width:clamp(28px,6%,46px); height:13px; bottom:-7px; left:50%; transform:translateX(-50%) rotate(1deg); }
+.cello-left   { width:13px; height:clamp(24px,5%,38px); left:-7px; top:50%; transform:translateY(-50%) rotate(-1deg); }
+.cello-right  { width:13px; height:clamp(24px,5%,38px); right:-7px; top:50%; transform:translateY(-50%) rotate(1deg); }
+
+/* FOOTER NAV */
+.p-nav { flex-shrink:0; display:flex; justify-content:center; align-items:center; gap:2rem; padding:.5rem 0; background:#0a0806; }
+.p-btn       { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; }
+.p-btn:hover { color:#fff; }
+.p-btn-slide { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; }
+.p-btn-slide:hover { color:#8b1a1a; }
+
+@media (max-width:700px),(orientation:portrait) {
+  .portada { overflow-y:auto; overflow-x:hidden; }
+  .portada-inner { flex-direction:column; overflow:visible; flex:none; }
+  .spine { width:100%; height:18px; min-width:unset; max-width:unset; flex-shrink:0; }
+  .spine-text   { transform:translate(-50%,-50%) rotate(0deg); font-size:.55rem; }
+  .spine-text-r { transform:translate(-50%,-50%) rotate(0deg); font-size:.55rem; }
+  .p-top { flex-wrap:wrap; gap:.4rem .8rem; padding:.6rem 1rem; justify-content:center; }
+  .portada-diario {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: auto;
+    min-height: unset;
+    padding: 1rem;
+    overflow: visible;
+  }
+  .pd-left { position: static; width: 100%; }
+  .cover-content { position: static; padding: 0; display: flex; flex-direction: column; gap: .6rem; }
+  .cover-footer { flex-direction: column; align-items: stretch; }
+  #titleRow { flex-direction: column; align-items: flex-start; }
+  #titleCol { flex: none; width: 100%; }
+  .d2b-logo-portada { position:static; width:52%; max-width:200px; margin:.6rem auto; display:block; }
+  .mount { position: static; width: 100%; height: auto; transform: none; margin-top: 1rem; }
+  .mount-scroll { overflow: visible; }
+  .mount-scroll img { width: 100%; height: auto; }
+  .p-nav { margin-top: .5rem; }
+
+  /* ── ÁLBUM ── */
+  .alb-top { flex-wrap:wrap; gap:.3rem .6rem; padding:.5rem .8rem; }
+  .alb-scene .spine { width:6px; min-width:6px; max-width:6px; }
+  .spread-diario {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: .8rem;
+    gap: 1.4rem;
+    height: 100%;
+  }
+  .mount-alb2 { width:92% !important; height:auto !important; transform:none !important; }
+  .mount-static { height:auto !important; overflow:visible !important; }
+  .mount-scroll2 { overflow:visible; }
+  .alb-nav { gap:.8rem; padding:.4rem .5rem; flex-wrap:wrap; justify-content:center; }
+  .alb-btn { font-size:clamp(.5rem,3.2vw,.72rem); letter-spacing:.12em; }
+  .alb-btn-pause { font-size:clamp(.5rem,3.2vw,.72rem); letter-spacing:.12em; }
+  .alb-info { font-size:clamp(.5rem,3vw,.65rem); letter-spacing:.15em; }
+}
+
+.album-overlay { display:none; position:fixed; inset:0; z-index:500; background:#0a0806; }
+.album-overlay.open { display:flex; flex-direction:column; }
+.alb-scene { flex:1; min-height:0; display:flex; flex-direction:row; overflow:hidden; }
+.alb-book  { flex:1; min-width:0; height:100%; position:relative; }
+.spread { position:absolute; inset:0; display:flex; opacity:0; pointer-events:none; transition:opacity .05s; }
+.spread.active { opacity:1; pointer-events:all; }
+
+.spread-diario {
+  flex: 1;
+  position: relative;
+  background-image: url('https://live.staticflickr.com/65535/55211066947_ae0b388681_h.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: clamp(.8rem,3%,1.4rem) clamp(1.5rem,4%,3rem);
+  gap: clamp(1rem,3%,2.5rem);
+  overflow: hidden;
+}
+.spread-diario::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(230,220,205,.42);
+  pointer-events: none;
+}
+
+.mount-alb2 {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: .9rem .9rem .9rem;
+  box-shadow: 2px 3px 10px rgba(42,32,24,.28);
+  width: min(48%, calc((100vh - 10rem) * 0.813));
+  height: calc(100% - 1rem);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.mount-alb2:nth-child(1) { transform: rotate(-1.2deg); }
+.mount-alb2:nth-child(2) { transform: rotate(.7deg); }
+
+.mount-r-square    { width: min(48%, calc((100vh - 10rem) * 1.000)); }
+.mount-r-l-4-3     { width: min(48%, calc((100vh - 10rem) * 1.333)); }
+.mount-r-l-3-2     { width: min(48%, calc((100vh - 10rem) * 1.500)); }
+.mount-r-l-16-9    { width: min(48%, calc((100vh - 10rem) * 1.778)); }
+.mount-r-l-1600x957{ width: min(48%, calc((100vh - 10rem) * 1.672)); }
+.mount-r-p-3-4     { width: min(48%, calc((100vh - 10rem) * 0.750)); }
+.mount-r-p-2-3     { width: min(48%, calc((100vh - 10rem) * 0.667)); }
+.mount-r-p-1067x1800{ width: min(40%, calc((100vh - 10rem) * 0.593)); }
+.mount-static { height: auto !important; overflow: visible !important; }
+.mount-scroll2 { flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; scrollbar-width:none; -ms-overflow-style:none; }
+.mount-scroll2::-webkit-scrollbar { display:none; }
+.mount-scroll2 img { display:block; width:100%; height:auto; }
+.mount-cap2 { display:flex; justify-content:space-between; align-items:baseline; padding:.3rem .45rem .05rem; gap:.5rem; }
+.mount-cap-text2 { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#1F4E9A; line-height:1.3; text-decoration:none; flex:1; }
+.mount-cap-text2:hover { color:#8b1a1a; }
+.mount-cap-sig2 { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#1F4E9A; line-height:1.3; text-align:right; text-decoration:none; white-space:nowrap; }
+.mount-cap-sig2:hover { color:#8b1a1a; }
+.mount-body2 { padding:.1rem .45rem .4rem; }
+.mount-body2 p { font-family:'Caveat',cursive; font-size:clamp(1rem,2.2vw,1.3rem); color:rgba(30,20,12,.82); line-height:1.65; letter-spacing:.02em; margin-bottom:.5rem; }
+.mount-body2 strong { color:#8b1a1a; }
+.mount-body2 .amber { color:#c8922a; font-weight:bold; }
+.mount-body2 .lyric { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:#8b1a1a; margin-top:.2rem; }
+.mount-body2 .sound { font-family:'Caveat',cursive; font-size:clamp(.85rem,1.8vw,1.1rem); color:rgba(42,32,24,.9); margin-top:.3rem; }
+.mount-body2 .sound a { color:#1F4E9A; text-decoration:none; }
+.mount-body2 .sound a:hover { color:#c8922a; }
+.cello-a { position:absolute; background:rgba(255,240,170,.55); border:1px solid rgba(210,185,110,.35); box-shadow:0 1px 3px rgba(0,0,0,.1); z-index:10; }
+.ct { width:clamp(28px,6%,46px); height:13px; top:-7px; left:50%; transform:translateX(-50%) rotate(-1deg); }
+.cb { width:clamp(28px,6%,46px); height:13px; bottom:-7px; left:50%; transform:translateX(-50%) rotate(1deg); }
+.cl { width:13px; height:clamp(24px,5%,38px); left:-7px; top:50%; transform:translateY(-50%) rotate(-1deg); }
+.cr { width:13px; height:clamp(24px,5%,38px); right:-7px; top:50%; transform:translateY(-50%) rotate(1deg); }
+
+@keyframes slideIn  { from{transform:translateX( 60px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes slideOut { from{transform:translateX(0);opacity:1} to{transform:translateX(-60px);opacity:0} }
+@keyframes slideInR { from{transform:translateX(-60px);opacity:0} to{transform:translateX(0);opacity:1} }
+.spread.entering      { animation:slideIn  .35s cubic-bezier(.4,0,.2,1) forwards; }
+.spread.leaving       { animation:slideOut .35s cubic-bezier(.4,0,.2,1) forwards; }
+.spread.entering-back { animation:slideInR .35s cubic-bezier(.4,0,.2,1) forwards; }
+.alb-progress { position:absolute; bottom:0; left:0; height:2px; background:#8b1a1a; width:0%; transition:width linear; z-index:10; }
+.alb-top { flex-shrink:0; display:flex; justify-content:center; align-items:center; gap:1.5rem; padding:.8rem 1.5rem; }
+.alb-top a { font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); text-decoration:none; transition:color .2s; }
+.alb-top a:hover { color:#fff; }
+.alb-top-sep  { color:rgba(255,255,255,.2); }
+.alb-top-tema { color:rgba(255,255,255,.7); font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; cursor:pointer; }
+.alb-drop-wrap { position:relative; display:inline-block; }
+.alb-drop-trigger { cursor:pointer; }
+.alb-drop { display:none; position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%); background:rgba(14,10,8,.97); border:1px solid rgba(200,146,42,.4); min-width:200px; z-index:1001; padding:.3rem 0; }
+.alb-drop-wrap.open .alb-drop { display:block; }
+.alb-drop-item { font-family:'Special Elite',monospace; font-size:clamp(.55rem,1.4vw,.78rem); letter-spacing:.15em; color:rgba(232,220,200,.75); padding:.45rem 1rem; cursor:pointer; transition:color .15s; }
+.alb-drop-item:hover { color:#8b1a1a; }
+.alb-drop-item.muted { color:rgba(232,220,200,.35); cursor:default; }
+.alb-nav { flex-shrink:0; display:flex; justify-content:center; align-items:center; gap:2rem; padding:.8rem 0; }
+.alb-btn { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; }
+.alb-btn:hover:not(:disabled) { color:#fff; }
+.alb-btn:disabled { opacity:.15; cursor:default; }
+.alb-btn-pause { background:none; border:none; cursor:pointer; font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.7); transition:color .2s; min-width:5rem; }
+.alb-btn-pause:hover { color:#8b1a1a; }
+.alb-btn-pause.paused { color:#8b1a1a; }
+.alb-info { font-family:'Special Elite',monospace; font-size:clamp(.7rem,1.8vw,1rem); letter-spacing:.2em; color:rgba(255,255,255,.5); }
+@media (max-width:700px),(orientation:portrait) {
+  .spread-diario { flex-direction:column; justify-content:flex-start; overflow-y:auto; padding:1rem; gap:1.5rem; }
+  .mount-alb2 { width:100%; height:auto; transform:none !important; }
+  .mount-scroll2 { overflow:visible; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="portada">
+
+  <div class="p-top">
+    <div class="p-drop-wrap" id="drop-temas-wrap">
+      <span class="p-top-tema" onclick="pDropToggle('temas')">TEMAS ▾</span>
+      <div class="p-drop" id="drop-temas">
+        <div class="p-drop-item muted">AUTORRETRATOS</div>
+        <div class="p-drop-item">FOTOGRAFÍA CALLEJERA</div>
+      </div>
+    </div>
+    <span class="p-top-sep">·</span>
+    <a href="https://www.beltzarecords.com/" target="_blank">BELTZARECORDS.COM</a>
+    <span class="p-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/Manifiesto-Beltza/" target="_blank">MANIFIESTO BELTZA</a>
+    <span class="p-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/magic-bus/" target="_blank">MAGIC BUS</a>
+    <span class="p-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/UR-SAPIENS/" target="_blank">UR_BOOK</a>
+    <span class="p-top-sep">·</span>
+    <div class="p-drop-wrap" id="drop-indice-wrap">
+      <span class="p-top-tema" onclick="pDropToggle('indice')">ÍNDICE ▾</span>
+      <div class="p-drop" id="drop-indice">
+        <div class="p-drop-item">ANTROPOLOGÍA SOCIAL</div>
+        <div class="p-drop-item">DONOSTIA</div>
+        <div class="p-drop-item">ZOO HUMANO</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="portada-inner">
+    <div class="spine">
+      <span class="spine-text">DUB<span style="font-size:1.4em;vertical-align:super;color:#c44;">²</span> BEAT · LUIS BELTZA</span>
+    </div>
+
+    <div class="portada-diario">
+
+      <div class="pd-left">
+        <div class="cover-content">
+          <div class="cover-footer">
+            <div style="display:flex; flex-direction:column; gap:.3rem; width:100%;">
+              <div id="titleRow" style="display:flex; flex-direction:row; align-items:flex-start; width:100%;">
+                <div id="titleCol" style="flex:0 0 58%; min-width:0;">
+                  <span class="fit-line">DUB<span style="font-size:.7em;vertical-align:super;color:#8b1a1a;">²</span></span>
+                  <span class="fit-line">BEAT</span>
+                  <div class="cover-rule"></div>
+                </div>
+              </div>
+              <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block;">
+                <text x="0" y="40" font-family="Special Elite, monospace" font-size="44" fill="rgba(42,32,24,.90)" textLength="1000" lengthAdjust="spacingAndGlyphs">"<tspan fill="rgba(42,32,24,.90)">La fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos.</tspan>"</text>
+              </svg>
+              <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block;">
+                <text x="0" y="40" font-family="Special Elite, monospace" font-size="44" fill="rgba(42,32,24,.90)" textLength="1000" lengthAdjust="spacingAndGlyphs">"<tspan fill="rgba(42,32,24,.90)">Es sólo fotografía, las posibles interpretaciones son productos de nuestra imaginación.</tspan>"</text>
+              </svg>
+              <a href="https://www.beltzarecords.com/" target="_blank" class="cover-sig" style="margin-top:.3rem;" onmouseover="this.style.color='#1F4E9A'" onmouseout="this.style.color='#8b1a1a'">Luis Beltza</a>
+              <svg class="d2b-logo-portada" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                <defs>
+                  <path id="top-p" d="M 65,250 A 185,185 0 0,1 435,250"/>
+                  <path id="bot-p" d="M 57,258 A 193,193 0 0,0 443,258"/>
+                  <mask id="rmask-p"><rect width="500" height="500" fill="white"/><rect x="4" y="225" width="44" height="34" rx="4" fill="black"/><rect x="452" y="225" width="44" height="34" rx="4" fill="black"/></mask>
+                </defs>
+                <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#rmask-p)"/>
+                <circle cx="250" cy="250" r="228" fill="#fff"/>
+                <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+                <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
+                <rect x="4" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="22" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+                <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+                <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="4"><textPath href="#top-p" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan></textPath></text>
+                <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="3"><textPath href="#bot-p" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath></text>
+                <g transform="translate(250,290) rotate(-8)"><text font-family="'Special Elite',monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan></text></g>
+              </svg>
+              <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block; margin-top:2.4rem;">
+                <text x="0" y="40" font-family="Special Elite, monospace" font-size="44" fill="rgba(42,32,24,.90)" textLength="1000" lengthAdjust="spacingAndGlyphs"><tspan fill="#8b1a1a">Robert Capa:</tspan> "Si tus fotos no son suficientemente buenas, no estás suficientemente cerca."</text>
+              </svg>
+              <svg width="100%" height="auto" viewBox="0 0 1000 55" preserveAspectRatio="none" style="display:block; margin-top:.25rem;">
+                <text x="0" y="40" font-family="Special Elite, monospace" font-size="44" fill="rgba(42,32,24,.90)" textLength="1000" lengthAdjust="spacingAndGlyphs"><tspan fill="#8b1a1a">Cartier-Bresson:</tspan> "Tus primeras 10.000 fotografías son las peores."</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POLAROID -->
+      <div class="mount">
+        <div class="cello cello-top"></div>
+        <div class="cello cello-bottom"></div>
+        <div class="cello cello-left"></div>
+        <div class="cello cello-right"></div>
+        <div class="mount-scroll">
+          <img src="https://live.staticflickr.com/65535/55216519012_87a5cd60b6_b.jpg" alt="marvin el marciano [autorretrato]">
+          <div style="height:.4rem;"></div>
+          <div class="mount-cap">
+            <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text">Iparralde · MARVIN EL MARCIANO [AUTORRETRATO]</a>
+            <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig">Luis Beltza</a>
+          </div>
+          <div class="mount-entrevista">
+            <p><strong>1. ¿Cómo llegaste al mundo de la fotografía?</strong><br>
+Llegué a tomarme la fotografía muy en serio en una evolución natural del fotoperiodismo súper underground que ejercía en la blogosfera. Un día me dije que estaba harto de hacer foto-basura para informar de eventos, fiestas, conciertos, etc. y que quería intentar hacer algo en este mundo tan interesante. Ahora intento decir todo lo que tengo que decir con imágenes.<br><br>
+Había comenzado a retratar las escenas musicales en 2001 que pasaban por Beltza Records con cámaras de usar y tirar, para luego hacer lo que yo denomino "Cuadro discos sorpresas". Para entender esto tendrías que verlos, ¡son una auténtica basura muy interesante!<br><br>
+De todas maneras, a mediados de los años 80 con una Olympus Trip hice tres interrailes por Europa. Las fotos de estos viajes se podrían considerar mi primera relación con la fotografía. Las fotos están en un set de Flickr titulado "Long Time Ago".</p>
+            <p><strong>2. ¿Cuál es tu especialidad?</strong><br>
+Más que especialidad, dejémoslo en lo que me gusta o me interesa. Me interesa el retrato social de las escenas juveniles, la música (conciertos), el paisajismo modificado por el uso de técnicas fotográficas, la street photography, el fotoperiodismo, el interiorismo, la moda (busco modelos cool), la cultura popular contemporánea y el erotismo cañí.</p>
+            <p><strong>3. ¿Color o blanco y negro?</strong><br>
+Uso indistintamente las dos técnicas y me gustan las dos. El blanco y negro tiene una atracción mítica e histórica y el color nos acerca a lo contemporáneo. No me parecen incompatibles como pueden pensar muchos puristas de cualquiera de las dos tendencias.</p>
+            <p><strong>4. ¿Qué es lo que más te gusta de la fotografía?</strong><br>
+Su carácter artístico y de comunicación. Me parece un arte integral y muy popular. A mí personalmente me está dando la posibilidad de expresarme artísticamente mientras informo. He encontrado la herramienta perfecta para mis limitadas posibilidades artísticas. Y su popularidad me parece impresionante: cualquiera, y lo digo totalmente convencido, puede ser fotógrafo. Esto es algo impensable en otras disciplinas.</p>
+            <p><strong>5. ¿Qué equipo tienes?</strong><br>
+Principalmente uso cámaras tradicionales de película de 35mm, desde cámaras de juguete a la Leica M6, pasando por la serie F de Nikon o la Canon A1. Me gustan las cámaras de los años 70 y 80.<br><br>
+Pero también uso formato medio con plastic lens como Holgas o Dianas, y me encantan los resultados con la Kodak Instamatic 224. Uso muchas cámaras compactas: la Olympus XA2, Lomo LCA, Rollei 35 SE, Argus C3, Minox 35 PL (la que estoy usando esta semana) y muchas más. Ante todo siempre he sido un fan y un coleccionista muy loco.<br><br>
+¿Digital? El móvil y una Lumix Panasonic DMC L1 (muy guapa pero con un ISO ridículo). Quiero la Nikon D3.</p>
+            <p><strong>6. Elige a tu fotógrafo favorito</strong><br>
+Uno solo me va a ser imposible, y eso que no conozco a casi nadie. La lista va a ser grande... Stephen Shore, Robert Capa, Yosigo, Lee Friedlander, Diane Arbus, Miguel Trillo, Louis Daguerre, Tempestonatecup, Robert Frank, Garry Winogrand, Guy Bourdin, Oriol Maspons, El Oriol de Lleida, Ouke Lele, Virginia Lekuona, Selector Marx, Javi_co, Aterpeirun, Cartier-Bresson, Araceli G, Chillhiro, Compulsive_Behaviour, Fuxxión, Moebius_Nutty, Ondacaracola, PëKë, Perrete, Cazenave, Oier Kaskezur, Ilan Wolf, Lamia... ¡y muchos más que no conozco y voy a conocer!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spine">
+      <span class="spine-text-r">DUB<span style="font-size:1.4em;vertical-align:super;color:#c44;">²</span> BEAT · LUIS BELTZA</span>
+    </div>
+  </div>
+
+  <div class="p-nav">
+    <button class="p-btn-slide" onclick="openAlbum(); setTimeout(toggleSlide,100);">▶ DIAPOSITIVAS</button>
+    <button class="p-btn" onclick="openAlbum()">DUB²BEAT · PÁG. 1 <span style="font-size:1.3em;">▸</span></button>
+    <button class="p-btn" id="btnOrdenPortada" onclick="toggleOrden()">⇄ CRONOLÓGICO</button>
+  </div>
+
+</div>
+
+<script>
+function fitLines() {
+  const col = document.getElementById('titleCol');
+  if (!col) return;
+  const w = col.clientWidth;
+  if (w === 0) return;
+  const lines = col.querySelectorAll('.fit-line');
+  let best = 200; /* cap a 200px ≈ 12.5rem, mantiene proporciones del Mac */
+  lines.forEach(line => {
+    let lo = 1, hi = 200, mid;
+    while (lo < hi - 1) {
+      mid = (lo + hi) >> 1;
+      line.style.fontSize = mid + 'px';
+      if (line.scrollWidth <= w) lo = mid; else hi = mid;
+    }
+    best = Math.min(best, lo);
+  });
+  lines.forEach(line => line.style.fontSize = best + 'px');
+}
+
+document.fonts.ready.then(() => setTimeout(fitLines, 100));
+window.addEventListener('resize', fitLines);
+
+function pDropToggle(which) {
+  const wrap = document.getElementById('drop-' + which + '-wrap');
+  const wasOpen = wrap.classList.contains('open');
+  document.querySelectorAll('.p-drop-wrap.open').forEach(w => w.classList.remove('open'));
+  if (!wasOpen) wrap.classList.add('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.p-drop-wrap'))
+    document.querySelectorAll('.p-drop-wrap.open').forEach(w => w.classList.remove('open'));
+});
+</script>
+
+
+<!-- ══════════════════════════════════════════
+     ÁLBUM
+══════════════════════════════════════════ -->
+
+<div class="album-overlay" id="albumOverlay">
+  <div class="alb-top">
+    <span class="alb-drop-wrap"><span class="alb-top-tema alb-drop-trigger">TEMAS ▾</span><div class="alb-drop"><div class="alb-drop-item">FOTOGRAFÍA CALLEJERA</div><div class="alb-drop-item muted">AUTORRETRATOS</div></div></span>
+    <a href="https://www.beltzarecords.com/" target="_blank">BELTZARECORDS.COM</a>
+    <span class="alb-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/Manifiesto-Beltza/" target="_blank">MANIFIESTO BELTZA</a>
+    <span class="alb-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/magic-bus/" target="_blank">MAGIC BUS</a>
+    <span class="alb-top-sep">·</span>
+    <a href="https://beltzaexperience.github.io/UR-SAPIENS/" target="_blank">UR_BOOK</a>
+    <span class="alb-top-sep">·</span>
+    <span class="alb-drop-wrap"><span class="alb-top-tema alb-drop-trigger">ÍNDICE ▾</span><div class="alb-drop"><div class="alb-drop-item">ZOO HUMANO</div><div class="alb-drop-item">ANTROPOLOGÍA SOCIAL</div></div></span>
+  </div>
+  <div class="alb-scene">
+    <div class="spine"><span class="spine-text">DUB<span style="font-size:1.4em;vertical-align:super;color:#c44;">²</span> BEAT · LUIS BELTZA</span></div>
+    <div class="alb-book" id="albBook">
+      <div class="alb-progress" id="albProgress"></div>
+
+      <!-- PÁG. 1 -->
+      <div class="spread active" id="sp-1">
+        <div class="spread-diario">
+          <!-- Polaroid izquierda -->
+          <div class="mount-alb2">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/65535/55214983719_7ee855d36d_b.jpg" alt="Fuego, Adicción y Muerte">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text2">Donostia · FUEGO, ADICCIÓN Y MUERTE!!!</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+              <div class="mount-body2">
+                <p>Ya lo he comentado en más de una ocasión, el poder de la fotografía me sienta fatal, me coloca en un plano superior, en un plano de control con el que no me siento identificado. Siempre con la mayor naturalidad y respeto hacia todos los personajes de este <strong>Zoo Humano</strong>, pero el remordimiento por obturar la vida humana en milésimas de segundo — en este caso 1/120 — me produce una sensación de <span class="amber">Killer Fascista.</span></p>
+                <p>La cara B está llena de <strong>antropología social</strong> o de sociología de lo común, de "sensibilidad artística", de necesidad vital por narrar los acontecimientos que nos rodean, de incidir en nuestras debilidades personales, de escanear mi propia existencia, <strong>la fotografía callejera no deja de ser el más crítico y desgarrado de los autorretratos.</strong> Al final nunca encontramos el meollo del contenido y nos perdemos en la suciedad del protagonismo, el maloliente exhibicionismo personal y en infinitas capas estéticas.</p>
+                <div class="lyric">"Sigue haciéndome reir, vamos a drogarnos, nacimos para morir. ¿Es por error o vanidad?"</div>
+                <div class="sound"><a href="https://www.youtube.com/watch?v=Bag1gUxuU0g" target="_blank">Foto Sound: Lana Del Rey "Born To Die"</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="mount-alb2" style="width:60%">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/65535/55212325497_5dd8516848_b.jpg" alt="Real Puerto Hispano Americano de Gipuzkoa">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text2">Donostia · REAL PUERTO HISPANO AMERICANO DE GIPUZKOA</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+              <div class="mount-body2">
+                <p>La fotografía te da la oportunidad de decir cosas sin abrir la boca. Me encanta, claro!!! Pero al final, la fotografía en sí misma, <strong>NO ES NADA!!!</strong></p>
+                <div class="sound"><a href="https://www.youtube.com/watch?v=mYuwbeQWLnY" target="_blank">Foto Sound: Kenyon Hopkins "Hard Latin"</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁG. 2 — Sombras de Amor (díptico) -->
+      <div class="spread" id="sp-2">
+        <div class="spread-diario">
+          <!-- Polaroid izquierda: Sombras de Amor -->
+          <div class="mount-alb2">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/65535/55213633691_18c3442e05_b.jpg" alt="Sombras de Amor">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text2">Donostia · SOMBRAS DE AMOR</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+              <div class="mount-body2">
+                <p>Si llevas a Satán en los ojos y una cámara en las manos este puede ser uno de los resultados. Nada aconsejable, las dudas que se plantean son enormes. ¿Soy imparcial en el relato antropológico o es una cruda diatriba social? En cualquiera de los casos la fotografía callejera es una galerna personal narrada en tercera persona muy difícil de controlar.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Polaroid derecha: Y la Sombra Pasó a la Acción -->
+          <div class="mount-alb2">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/65535/55212736797_88ea8348bb_b.jpg" alt="Y la Sombra Pasó a la Acción">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text2">Donostia · Y LA SOMBRA PASÓ A LA ACCIÓN</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁG. 3 — Aizkolaris (izq) + Herminio (drch) -->
+      <div class="spread" id="sp-3">
+        <div class="spread-diario">
+          <!-- Polaroid izquierda: Aizkolaris -->
+          <div class="mount-alb2 mount-r-l-1600x957 mount-static" style="width:min(62%, calc((100vh - 10rem) * 1.672));">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/65535/55227540928_460eda87c4_h.jpg" alt="Doneztebe Aizkolaris" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.flickr.com/gp/beltzascene2/98o26K6v5c" target="_blank" class="mount-cap-text2">Doneztebe · AIZKOLARIS (ABRIL 2026) — F/1.6 # 1/3040 # 4.2mm</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+          <!-- Polaroid derecha: Herminio -->
+          <div class="mount-alb2 mount-r-p-2-3">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/65535/55232713010_c29a2f6d4c_h.jpg" alt="Bilbao - Herminio Afonso [In Dog We Trust] - DJ" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://flic.kr/p/2s9J6im" target="_blank" class="mount-cap-text2">Bilbao · HERMINIO AFONSO [IN DOG WE TRUST] — DJ — F1/6 # 1/3205</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁG. 4 — Chica Oriental (izq) + Tolosa Los Perretes (drch) -->
+      <div class="spread" id="sp-4">
+        <div class="spread-diario" style="justify-content:space-around; align-items:center;">
+          <div class="mount-alb2 mount-r-p-1067x1800" style="transform:rotate(-1.2deg);">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/65535/55212443642_a341d767ae_h.jpg" alt="Chica Oriental" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.beltzarecords.com/beltzascene" target="_blank" class="mount-cap-text2">Donostia · CHICA ORIENTAL</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+              <div class="mount-body2">
+                <p>Me tiro encima de la turista oriental, sin piedad ni perdón, ocupan "mis streets", sus acompañantes flipan y no suscitan mi interés. No me gusta la primera toma, vuelvo a insistir sin compasión y a pesar de todo me sonríe, no todo es una puta mierda. Así es la fotografía macarra por si alguien está interesado en "la técnica".</p>
+                <p>— ¿A quién le ha dado más corte a ti o a ella?<br>
+                — A ninguno de los dos. Yo soy un macarra y ella es preciosa por fuera y por dentro. Me lleva en sus ojos...<br>
+                — jojojo, acuño el término!<br>
+                — ¿Qué término? ¿Macarra??? Está un poco desfasado, ¿no? Yo vivo de rentas.<br>
+                — jojojo, fotografía macarra, me ha gustado MAZO jajaja<br>
+                — ¿Macarra naces o te haces? No sé...<br>
+                — Eres como Vivian Maier (si se me permite la comparación)<br>
+                — No te pases. Eso son palabras mayores!!! No le llego, ni le llegaré nunca a la suela del zapato. Tampoco lo pretendo. En lo único que nos parecemos es que ella era niñera y yo tendero. Pero muchas gracias por el piropazo!!!</p>
+                <div class="sound"><a href="https://www.youtube.com/watch?v=V4d_dnlB3Dk" target="_blank">Foto Sound: Akiko Yano "Japanese Girl" (Full Album, 1976)</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="mount-alb2 mount-r-l-1600x957 mount-static" style="width:min(62%, calc((100vh - 10rem) * 1.672)); transform:rotate(.7deg);">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/65535/55224182383_ed2053f8fa_h.jpg" alt="Tolosa Los Perretes" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://flic.kr/p/2s8Ynrz" target="_blank" class="mount-cap-text2">Tolosa · LOS PERRETES — F/1.6 # 1/1043</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PÁG. 5 — El Negro (izq) + La Maruxa (drch) -->
+      <div class="spread" id="sp-5">
+        <div class="spread-diario">
+          <div class="mount-alb2 mount-r-l-3-2">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/65535/55233763529_408a487d84_h.jpg" alt="Donostia - El Negro" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.flickr.com/gp/beltzascene2/gH8713K89M" target="_blank" class="mount-cap-text2">Donostia · EL NEGRO</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+              <div class="mount-body2">
+                <p>El Negro, más de 35 años bailando con <strong>AZUCAR MORENO!!!</strong> Cuando estás dentro del objetivo, los personajes son un tránsito nunca una parada, algo muy bastardo. Cada uno de los personajes que retrato vive con naturalidad en sus mundos, menos yo, al control de las luces y las sombras. Algo muy pretencioso.</p>
+                <p>Cada día que pasa la angustia existencial me devora y no me deja ver la realidad. La fotografía me sienta fatal. Cada día estoy más cerca de la auto-marginación. De la negación urbana. La verdad, da bastante miedo. No sé hacer otra cosa. No sé hacer casi nada y mucho menos algo responsable. Supuestamente tengo todo "a favor" pero el nudo en el estómago no deja de crecer. Me veo desenredando un nudo marinero el resto de mis días sin conocimientos de náutica.</p>
+                <p>Leo las angustias, los desasosiegos existenciales de mis visionarios favoritos y me siento identificado. Pero no puede ser cierto, yo carezco de su desmesurada sensibilidad. Alguna vez he pensado que era cuestión de algún extraño "talento", pero la realidad de mis "virtudes" es que son fruto de la rutina.</p>
+              </div>
+            </div>
+          </div>
+          <div class="mount-alb2 mount-r-l-3-2 mount-static">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/65535/55233955885_fd41deefc1_h.jpg" alt="La Maruxa - Contax G2" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.flickr.com/gp/beltzascene2/CEY6Ya32X2" target="_blank" class="mount-cap-text2">Donostia · LA MARUXA — Contax G2 [Enero 2010]</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /sp-5 -->
+
+      <!-- PÁG. 6 — Saharauis (izq) + Saharauis_26 (drch) -->
+      <div class="spread" id="sp-6">
+        <div class="spread-diario">
+          <div class="mount-alb2 mount-r-l-3-2 mount-static">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/65535/55232652877_31419ffe77_h.jpg" alt="Donostia - Saharauis" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.flickr.com/gp/beltzascene2/B65468BZ9v" target="_blank" class="mount-cap-text2">Donostia · CALLEJEROS [SAHARAUIS] — Contax G2 [Abril 2010]</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+          <div class="mount-alb2 mount-r-l-3-2 mount-static">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/3106/4557706733_8b346138d7_h.jpg" alt="Contax G2 - Callejeros Saharauis_26" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.flickr.com/gp/beltzascene2/nUsia0wWL4" target="_blank" class="mount-cap-text2">Donostia · CALLEJEROS [SAHARAUIS] — Contax G2 [Abril 2010]</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /sp-6 -->
+
+      <!-- PÁG. 7 — Saharauis_30 (centro, sin inclinación) -->
+      <div class="spread" id="sp-7">
+        <div class="spread-diario" style="justify-content:center; align-items:center;">
+          <div class="mount-alb2 mount-r-l-3-2 mount-static" style="width:min(70%, calc((100vh - 10rem) * 1.500)); transform:none;">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/3141/4557710215_cd2465c90e_h.jpg" alt="Contax G2 - Callejeros Saharauis_30" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.flickr.com/gp/beltzascene2/03wt9cJ856" target="_blank" class="mount-cap-text2">Donostia · CALLEJEROS [SAHARAUIS] — Contax G2 [Abril 2010]</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /sp-7 -->
+
+      <!-- PÁG. 8 — Saharauis_13 (izq) + Saharauis_21 (drch) -->
+      <div class="spread" id="sp-8">
+        <div class="spread-diario">
+          <div class="mount-alb2 mount-r-l-3-2 mount-static">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/3354/4558326892_e896c0b9ae_h.jpg" alt="Contax G2 - Callejeros Saharauis_13" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.flickr.com/gp/beltzascene2/2UZ7hH0241" target="_blank" class="mount-cap-text2">Donostia · CALLEJEROS [SAHARAUIS] — Contax G2 [Abril 2010]</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+          <div class="mount-alb2 mount-r-l-3-2 mount-static">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/3329/4558333448_c332810929_h.jpg" alt="Contax G2 - Callejeros Saharauis_21" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.flickr.com/gp/beltzascene2/7kDziWWYN5" target="_blank" class="mount-cap-text2">Donostia · CALLEJEROS [SAHARAUIS] — Contax G2 [Abril 2010]</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /sp-8 -->
+
+      <!-- PÁG. 9 — Semana Santa Araba (izq + drch, con inclinación) -->
+      <div class="spread" id="sp-9">
+        <div class="spread-diario">
+          <div class="mount-alb2 mount-r-l-3-2 mount-static">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/2785/4503297760_58189117ec_h.jpg" alt="Semana Santa Araba_25" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.flickr.com/gp/beltzascene2/v33mS01r5z" target="_blank" class="mount-cap-text2">Araba · SEMANA SANTA — Contax G2 [Abril 2010]</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+          <div class="mount-alb2 mount-r-l-3-2 mount-static">
+            <div class="cello-a ct"></div><div class="cello-a cb"></div><div class="cello-a cl"></div><div class="cello-a cr"></div>
+            <div class="mount-scroll2">
+              <img src="https://live.staticflickr.com/2713/4503303528_1b6628106b_h.jpg" alt="Semana Santa Araba_33" style="display:block; width:100%; height:auto;">
+              <div style="height:.4rem;"></div>
+              <div class="mount-cap2">
+                <a href="https://www.flickr.com/gp/beltzascene2/3BhrQ37qa9" target="_blank" class="mount-cap-text2">Araba · SEMANA SANTA — Contax G2 [Abril 2010]</a>
+                <a href="https://www.beltzarecords.com/" target="_blank" class="mount-cap-sig2">Luis Beltza</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /sp-9 -->
+
+    </div>
+    <div class="spine"><span class="spine-text-r">DUB<span style="font-size:1.4em;vertical-align:super;color:#c44;">²</span> BEAT · LUIS BELTZA</span></div>
+  </div>
+  <div class="alb-nav">
+    <button class="alb-btn" onclick="closeAlbum()">✕ PORTADA</button>
+    <button class="alb-btn-pause" id="btnPause" onclick="toggleSlide()">▶ DIAPOSITIVAS</button>
+    <button class="alb-btn" id="btnPrev" onclick="albumPrev()" disabled>◂ ANTERIOR</button>
+    <span class="alb-info" id="albInfo">PÁG. 1 / 1</span>
+    <button class="alb-btn" id="btnNext" onclick="albumNext()" disabled>SIGUIENTE ▸</button>
+    <button class="alb-btn" id="btnOrden" onclick="toggleOrden()">⇄ CRONOLÓGICO</button>
+  </div>
+</div>
+
+<script>
+const TOTAL=9;
+let cur=TOTAL, busy=false, cronologico=false;
+
+function openAlbum() {
+  document.getElementById('albumOverlay').classList.add('open');
+  // Activar última página
+  document.querySelectorAll('.spread').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sp-'+TOTAL).classList.add('active');
+  cur=TOTAL; paused=true; elapsed=0; resetProgress(); updateNav();
+}
+function closeAlbum() { document.getElementById('albumOverlay').classList.remove('open'); clearTimeout(slideTimer); paused=false; elapsed=0; }
+
+function albumNext() {
+  if(busy) return;
+  if(cronologico) { if(cur>=TOTAL)return; go(cur+1,'forward'); }
+  else            { if(cur<=1)return;     go(cur-1,'back'); }
+}
+function albumPrev() {
+  if(busy) return;
+  if(cronologico) { if(cur<=1)return;     go(cur-1,'back'); }
+  else            { if(cur>=TOTAL)return; go(cur+1,'forward'); }
+}
+
+function go(n,dir) {
+  busy=true; clearTimeout(slideTimer); resetProgress(); elapsed=0;
+  const lv=document.getElementById('sp-'+cur),en=document.getElementById('sp-'+n);
+  lv.classList.add('leaving'); en.classList.add(dir==='forward'?'entering':'entering-back'); en.classList.add('active');
+  setTimeout(()=>{ lv.classList.remove('active','leaving'); en.classList.remove('entering','entering-back'); cur=n; updateNav(); busy=false; if(!paused)startSlideshow(); },360);
+}
+
+function updateNav() {
+  const atStart = cronologico ? cur<=1    : cur>=TOTAL;
+  const atEnd   = cronologico ? cur>=TOTAL: cur<=1;
+  document.getElementById('btnPrev').disabled = atStart;
+  document.getElementById('btnNext').disabled = atEnd;
+  // Numeración siempre cronológica: sp-1=PÁG.1, sp-2=PÁG.2, etc.
+  document.getElementById('albInfo').textContent = 'PÁG. '+cur+' / '+TOTAL;
+}
+
+function toggleOrden() {
+  cronologico = !cronologico;
+  const label = cronologico ? '⇄ DIARIO' : '⇄ CRONOLÓGICO';
+  const color  = cronologico ? '#8b1a1a' : '';
+  ['btnOrden','btnOrdenPortada'].forEach(id => {
+    const b = document.getElementById(id);
+    if(b){ b.textContent = label; b.style.color = color; }
+  });
+  updateNav();
+}
+
+const SLIDE_MS=13000; let slideTimer=null,paused=false,elapsed=0,startTime=null;
+function startSlideshow() {
+  if(paused)return; startTime=Date.now()-elapsed; animateProgress();
+  slideTimer=setTimeout(()=>{ elapsed=0; albumNext(); if((cronologico&&cur>=TOTAL)||(!cronologico&&cur<=1)){resetProgress();}},SLIDE_MS-elapsed);
+}
+function animateProgress() {
+  const bar=document.getElementById('albProgress'); if(!bar)return;
+  bar.style.transition='none'; bar.style.width=(elapsed/SLIDE_MS*100)+'%';
+  requestAnimationFrame(()=>{ bar.style.transition='width '+((SLIDE_MS-elapsed)/1000)+'s linear'; bar.style.width='100%'; });
+}
+function resetProgress() { const bar=document.getElementById('albProgress'); if(bar){bar.style.transition='none';bar.style.width='0%';} elapsed=0; }
+function toggleSlide() {
+  const btn=document.getElementById('btnPause');
+  if(paused){
+    paused=false;
+    // Primera activación: elapsed=0 → arrancar desde última página en modo diario
+    if(elapsed===0){
+      resetProgress();
+      if(!cronologico && cur!==TOTAL){
+        document.querySelectorAll('.spread').forEach(s=>s.classList.remove('active'));
+        document.getElementById('sp-'+TOTAL).classList.add('active');
+        cur=TOTAL; updateNav();
+      }
+    }
+    // Reanudar desde pausa: elapsed>0 → continuar donde estaba
+    startSlideshow(); btn.textContent='⏸ PAUSA'; btn.classList.add('paused');
+  } else {
+    paused=true; elapsed=Date.now()-startTime; clearTimeout(slideTimer);
+    const bar=document.getElementById('albProgress');
+    if(bar){const w=parseFloat(getComputedStyle(bar).width),t=parseFloat(getComputedStyle(bar.parentElement).width);bar.style.transition='none';bar.style.width=(w/t*100)+'%';}
+    btn.textContent='▶ DIAPOSITIVAS'; btn.classList.remove('paused');
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('albumOverlay').classList.contains('open'))return;
+  if(e.key==='ArrowRight')albumNext();
+  if(e.key==='ArrowLeft') albumPrev();
+  if(e.key==='Escape')    closeAlbum();
+});
+document.querySelectorAll('.alb-drop-trigger').forEach(t=>{
+  t.addEventListener('click',function(e){ e.stopPropagation(); const w=this.closest('.alb-drop-wrap'),was=w.classList.contains('open'); document.querySelectorAll('.alb-drop-wrap.open').forEach(x=>x.classList.remove('open')); if(!was)w.classList.add('open'); });
+});
+document.addEventListener('click',()=>document.querySelectorAll('.alb-drop-wrap.open').forEach(w=>w.classList.remove('open')));
+</script>
+
+</body>
+</html>
