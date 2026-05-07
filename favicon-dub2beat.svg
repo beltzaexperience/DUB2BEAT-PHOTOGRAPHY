@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <path id="top-p" d="M 65,250 A 185,185 0 0,1 435,250"/>
+    <path id="bot-p" d="M 57,258 A 193,193 0 0,0 443,258"/>
+    <mask id="rmask-p"><rect width="500" height="500" fill="white"/><rect x="4" y="225" width="44" height="34" rx="4" fill="black"/><rect x="452" y="225" width="44" height="34" rx="4" fill="black"/></mask>
+  </defs>
+  <circle cx="250" cy="250" r="245" fill="#0a0a0a" mask="url(#rmask-p)"/>
+  <circle cx="250" cy="250" r="228" fill="#fff"/>
+  <circle cx="250" cy="250" r="228" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="250" cy="250" r="155" fill="#fff" stroke="#cc0000" stroke-width="17"/>
+  <rect x="4" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="22" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+  <rect x="452" y="225" width="44" height="34" rx="4" fill="#fff"/><rect x="452" y="225" width="26" height="34" rx="4" fill="#0a0a0a"/>
+  <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="4"><textPath href="#top-p" startOffset="14%">DUB<tspan fill="#cc0000" font-size="18" dy="-7">2</tspan><tspan dy="7">BEAT PHOTOGRAPHY</tspan></textPath></text>
+  <text font-family="'Special Elite',monospace" font-size="27" fill="#0a0a0a" letter-spacing="3"><textPath href="#bot-p" startOffset="9%">ZOO HUMANO · NAT-<tspan fill="#cc0000">UR</tspan>-A <tspan fill="#cc0000">UR</tspan>-BANA</textPath></text>
+  <g transform="translate(250,290) rotate(-8)"><text font-family="'Special Elite',monospace" text-anchor="middle" font-size="130" fill="#0a0a0a" x="0" y="0">D<tspan fill="#cc0000" font-size="75" dy="-42">2</tspan><tspan dy="42" fill="#0a0a0a">B</tspan></text></g>
+</svg>
