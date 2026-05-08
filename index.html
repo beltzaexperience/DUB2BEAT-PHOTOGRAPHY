@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="favicon-dub2beat.svg" type="image/svg+xml"> 
+<link rel="icon" href="favicon-dub2beat.svg" type="image/svg+xml">
 </head>
 <body>
 
@@ -30,6 +30,8 @@
     <a href="https://beltzaexperience.github.io/magic-bus/" target="_blank">MAGIC BUS</a>
     <span class="p-top-sep">·</span>
     <a href="https://beltzaexperience.github.io/UR-SAPIENS/" target="_blank">UR_BOOK</a>
+    <span class="p-top-sep">·</span>
+    <a href="https://13rituales.beltzarecords.com/" target="_blank">13 RITUALES</a>
     <span class="p-top-sep">·</span>
     <div class="p-drop-wrap" id="drop-indice-wrap">
       <span class="p-top-tema" onclick="pDropToggle('indice')">ÍNDICE ▾</span>
@@ -142,6 +144,7 @@ Uno solo me va a ser imposible, y eso que no conozco a casi nadie. La lista va a
 </div>
 
 <script>
+
 function fitLines() {
   const col = document.getElementById('titleCol');
   if (!col) return;
@@ -174,6 +177,102 @@ document.addEventListener('click', e => {
   if (!e.target.closest('.p-drop-wrap'))
     document.querySelectorAll('.p-drop-wrap.open').forEach(w => w.classList.remove('open'));
 });
+
+
+const SLIDE_MS=13000; let slideTimer=null,paused=false,elapsed=0,startTime=null;
+const TOTAL=9;
+let cur=TOTAL, busy=false, cronologico=false;
+
+function openAlbum() {
+  document.getElementById('albumOverlay').classList.add('open');
+  // Activar última página
+  document.querySelectorAll('.spread').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sp-'+TOTAL).classList.add('active');
+  cur=TOTAL; paused=true; elapsed=0; resetProgress(); updateNav();
+}
+function closeAlbum() { document.getElementById('albumOverlay').classList.remove('open'); clearTimeout(slideTimer); paused=false; elapsed=0; }
+
+function albumNext() {
+  if(busy) return;
+  if(cronologico) { if(cur>=TOTAL)return; go(cur+1,'forward'); }
+  else            { if(cur<=1)return;     go(cur-1,'back'); }
+}
+function albumPrev() {
+  if(busy) return;
+  if(cronologico) { if(cur<=1)return;     go(cur-1,'back'); }
+  else            { if(cur>=TOTAL)return; go(cur+1,'forward'); }
+}
+
+function go(n,dir) {
+  busy=true; clearTimeout(slideTimer); resetProgress(); elapsed=0;
+  const lv=document.getElementById('sp-'+cur),en=document.getElementById('sp-'+n);
+  lv.classList.add('leaving'); en.classList.add(dir==='forward'?'entering':'entering-back'); en.classList.add('active');
+  setTimeout(()=>{ lv.classList.remove('active','leaving'); en.classList.remove('entering','entering-back'); cur=n; updateNav(); busy=false; if(!paused)startSlideshow(); },360);
+}
+
+function updateNav() {
+  const atStart = cronologico ? cur<=1    : cur>=TOTAL;
+  const atEnd   = cronologico ? cur>=TOTAL: cur<=1;
+  document.getElementById('btnPrev').disabled = atStart;
+  document.getElementById('btnNext').disabled = atEnd;
+  // Numeración siempre cronológica: sp-1=PÁG.1, sp-2=PÁG.2, etc.
+  document.getElementById('albInfo').textContent = 'PÁG. '+cur+' / '+TOTAL;
+}
+
+function toggleOrden() {
+  cronologico = !cronologico;
+  const label = cronologico ? '⇄ DIARIO' : '⇄ CRONOLÓGICO';
+  const color  = cronologico ? '#8b1a1a' : '';
+  ['btnOrden','btnOrdenPortada'].forEach(id => {
+    const b = document.getElementById(id);
+    if(b){ b.textContent = label; b.style.color = color; }
+  });
+  updateNav();
+}
+
+function startSlideshow() {
+  if(paused)return; startTime=Date.now()-elapsed; animateProgress();
+  slideTimer=setTimeout(()=>{ elapsed=0; albumNext(); if((cronologico&&cur>=TOTAL)||(!cronologico&&cur<=1)){resetProgress();}},SLIDE_MS-elapsed);
+}
+function animateProgress() {
+  const bar=document.getElementById('albProgress'); if(!bar)return;
+  bar.style.transition='none'; bar.style.width=(elapsed/SLIDE_MS*100)+'%';
+  requestAnimationFrame(()=>{ bar.style.transition='width '+((SLIDE_MS-elapsed)/1000)+'s linear'; bar.style.width='100%'; });
+}
+function resetProgress() { const bar=document.getElementById('albProgress'); if(bar){bar.style.transition='none';bar.style.width='0%';} elapsed=0; }
+function toggleSlide() {
+  const btn=document.getElementById('btnPause');
+  if(paused){
+    paused=false;
+    // Primera activación: elapsed=0 → arrancar desde última página en modo diario
+    if(elapsed===0){
+      resetProgress();
+      if(!cronologico && cur!==TOTAL){
+        document.querySelectorAll('.spread').forEach(s=>s.classList.remove('active'));
+        document.getElementById('sp-'+TOTAL).classList.add('active');
+        cur=TOTAL; updateNav();
+      }
+    }
+    // Reanudar desde pausa: elapsed>0 → continuar donde estaba
+    startSlideshow(); btn.textContent='⏸ PAUSA'; btn.classList.add('paused');
+  } else {
+    paused=true; elapsed=Date.now()-startTime; clearTimeout(slideTimer);
+    const bar=document.getElementById('albProgress');
+    if(bar){const w=parseFloat(getComputedStyle(bar).width),t=parseFloat(getComputedStyle(bar.parentElement).width);bar.style.transition='none';bar.style.width=(w/t*100)+'%';}
+    btn.textContent='▶ DIAPOSITIVAS'; btn.classList.remove('paused');
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('albumOverlay').classList.contains('open'))return;
+  if(e.key==='ArrowRight')albumNext();
+  if(e.key==='ArrowLeft') albumPrev();
+  if(e.key==='Escape')    closeAlbum();
+});
+document.querySelectorAll('.alb-drop-trigger').forEach(t=>{
+  t.addEventListener('click',function(e){ e.stopPropagation(); const w=this.closest('.alb-drop-wrap'),was=w.classList.contains('open'); document.querySelectorAll('.alb-drop-wrap.open').forEach(x=>x.classList.remove('open')); if(!was)w.classList.add('open'); });
+});
+document.addEventListener('click',()=>document.querySelectorAll('.alb-drop-wrap.open').forEach(w=>w.classList.remove('open')));
+
 </script>
 
 
@@ -191,6 +290,8 @@ document.addEventListener('click', e => {
     <a href="https://beltzaexperience.github.io/magic-bus/" target="_blank">MAGIC BUS</a>
     <span class="alb-top-sep">·</span>
     <a href="https://beltzaexperience.github.io/UR-SAPIENS/" target="_blank">UR_BOOK</a>
+    <span class="p-top-sep">·</span>
+    <a href="https://13rituales.beltzarecords.com/" target="_blank">13 RITUALES</a>
     <span class="alb-top-sep">·</span>
     <span class="alb-drop-wrap"><span class="alb-top-tema alb-drop-trigger">ÍNDICE ▾</span><div class="alb-drop"><div class="alb-drop-item">ZOO HUMANO</div><div class="alb-drop-item">ANTROPOLOGÍA SOCIAL</div></div></span>
   </div>
@@ -488,101 +589,7 @@ document.addEventListener('click', e => {
   </div>
 </div>
 
-<script>
-const TOTAL=9;
-let cur=TOTAL, busy=false, cronologico=false;
 
-function openAlbum() {
-  document.getElementById('albumOverlay').classList.add('open');
-  // Activar última página
-  document.querySelectorAll('.spread').forEach(s=>s.classList.remove('active'));
-  document.getElementById('sp-'+TOTAL).classList.add('active');
-  cur=TOTAL; paused=true; elapsed=0; resetProgress(); updateNav();
-}
-function closeAlbum() { document.getElementById('albumOverlay').classList.remove('open'); clearTimeout(slideTimer); paused=false; elapsed=0; }
-
-function albumNext() {
-  if(busy) return;
-  if(cronologico) { if(cur>=TOTAL)return; go(cur+1,'forward'); }
-  else            { if(cur<=1)return;     go(cur-1,'back'); }
-}
-function albumPrev() {
-  if(busy) return;
-  if(cronologico) { if(cur<=1)return;     go(cur-1,'back'); }
-  else            { if(cur>=TOTAL)return; go(cur+1,'forward'); }
-}
-
-function go(n,dir) {
-  busy=true; clearTimeout(slideTimer); resetProgress(); elapsed=0;
-  const lv=document.getElementById('sp-'+cur),en=document.getElementById('sp-'+n);
-  lv.classList.add('leaving'); en.classList.add(dir==='forward'?'entering':'entering-back'); en.classList.add('active');
-  setTimeout(()=>{ lv.classList.remove('active','leaving'); en.classList.remove('entering','entering-back'); cur=n; updateNav(); busy=false; if(!paused)startSlideshow(); },360);
-}
-
-function updateNav() {
-  const atStart = cronologico ? cur<=1    : cur>=TOTAL;
-  const atEnd   = cronologico ? cur>=TOTAL: cur<=1;
-  document.getElementById('btnPrev').disabled = atStart;
-  document.getElementById('btnNext').disabled = atEnd;
-  // Numeración siempre cronológica: sp-1=PÁG.1, sp-2=PÁG.2, etc.
-  document.getElementById('albInfo').textContent = 'PÁG. '+cur+' / '+TOTAL;
-}
-
-function toggleOrden() {
-  cronologico = !cronologico;
-  const label = cronologico ? '⇄ DIARIO' : '⇄ CRONOLÓGICO';
-  const color  = cronologico ? '#8b1a1a' : '';
-  ['btnOrden','btnOrdenPortada'].forEach(id => {
-    const b = document.getElementById(id);
-    if(b){ b.textContent = label; b.style.color = color; }
-  });
-  updateNav();
-}
-
-const SLIDE_MS=13000; let slideTimer=null,paused=false,elapsed=0,startTime=null;
-function startSlideshow() {
-  if(paused)return; startTime=Date.now()-elapsed; animateProgress();
-  slideTimer=setTimeout(()=>{ elapsed=0; albumNext(); if((cronologico&&cur>=TOTAL)||(!cronologico&&cur<=1)){resetProgress();}},SLIDE_MS-elapsed);
-}
-function animateProgress() {
-  const bar=document.getElementById('albProgress'); if(!bar)return;
-  bar.style.transition='none'; bar.style.width=(elapsed/SLIDE_MS*100)+'%';
-  requestAnimationFrame(()=>{ bar.style.transition='width '+((SLIDE_MS-elapsed)/1000)+'s linear'; bar.style.width='100%'; });
-}
-function resetProgress() { const bar=document.getElementById('albProgress'); if(bar){bar.style.transition='none';bar.style.width='0%';} elapsed=0; }
-function toggleSlide() {
-  const btn=document.getElementById('btnPause');
-  if(paused){
-    paused=false;
-    // Primera activación: elapsed=0 → arrancar desde última página en modo diario
-    if(elapsed===0){
-      resetProgress();
-      if(!cronologico && cur!==TOTAL){
-        document.querySelectorAll('.spread').forEach(s=>s.classList.remove('active'));
-        document.getElementById('sp-'+TOTAL).classList.add('active');
-        cur=TOTAL; updateNav();
-      }
-    }
-    // Reanudar desde pausa: elapsed>0 → continuar donde estaba
-    startSlideshow(); btn.textContent='⏸ PAUSA'; btn.classList.add('paused');
-  } else {
-    paused=true; elapsed=Date.now()-startTime; clearTimeout(slideTimer);
-    const bar=document.getElementById('albProgress');
-    if(bar){const w=parseFloat(getComputedStyle(bar).width),t=parseFloat(getComputedStyle(bar.parentElement).width);bar.style.transition='none';bar.style.width=(w/t*100)+'%';}
-    btn.textContent='▶ DIAPOSITIVAS'; btn.classList.remove('paused');
-  }
-}
-document.addEventListener('keydown',e=>{
-  if(!document.getElementById('albumOverlay').classList.contains('open'))return;
-  if(e.key==='ArrowRight')albumNext();
-  if(e.key==='ArrowLeft') albumPrev();
-  if(e.key==='Escape')    closeAlbum();
-});
-document.querySelectorAll('.alb-drop-trigger').forEach(t=>{
-  t.addEventListener('click',function(e){ e.stopPropagation(); const w=this.closest('.alb-drop-wrap'),was=w.classList.contains('open'); document.querySelectorAll('.alb-drop-wrap.open').forEach(x=>x.classList.remove('open')); if(!was)w.classList.add('open'); });
-});
-document.addEventListener('click',()=>document.querySelectorAll('.alb-drop-wrap.open').forEach(w=>w.classList.remove('open')));
-</script>
 
 </body>
 </html>
